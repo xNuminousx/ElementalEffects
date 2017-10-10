@@ -1,4 +1,4 @@
-package com.xnuminousx.elementaleffects;
+package com.xnuminousx.elementaleffects.Commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -1,4 +1,4 @@
-package com.xnuminousx.elementaleffects;
+package com.xnuminousx.elementaleffects.Events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import com.projectkorra.projectkorra.util.ParticleEffect;
+import com.xnuminousx.elementaleffects.Main;
 
 public class MoveEvent implements Listener {
 

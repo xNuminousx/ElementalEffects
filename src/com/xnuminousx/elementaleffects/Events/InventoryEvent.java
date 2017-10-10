@@ -1,4 +1,4 @@
-package com.xnuminousx.elementaleffects;
+package com.xnuminousx.elementaleffects.Events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import com.projectkorra.projectkorra.configuration.ConfigManager;
+import com.xnuminousx.elementaleffects.Main;
 
 public class InventoryEvent implements Listener {
 	

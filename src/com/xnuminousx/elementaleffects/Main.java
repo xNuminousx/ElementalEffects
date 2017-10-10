@@ -7,14 +7,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.xnuminousx.elementaleffects.Commands.GUI;
 import com.xnuminousx.elementaleffects.Config.Manager;
+import com.xnuminousx.elementaleffects.Events.InventoryEvent;
+import com.xnuminousx.elementaleffects.Events.MoveEvent;
 
 public class Main extends JavaPlugin {
 	
-	ArrayList<Player> earth = new ArrayList<Player>();
-	ArrayList<Player> fire = new ArrayList<Player>();
-	ArrayList<Player> water = new ArrayList<Player>();
-	ArrayList<Player> air = new ArrayList<Player>();
+	public ArrayList<Player> earth = new ArrayList<Player>();
+	public ArrayList<Player> fire = new ArrayList<Player>();
+	public ArrayList<Player> water = new ArrayList<Player>();
+	public ArrayList<Player> air = new ArrayList<Player>();
 	
 	public static Main plugin;
 	
