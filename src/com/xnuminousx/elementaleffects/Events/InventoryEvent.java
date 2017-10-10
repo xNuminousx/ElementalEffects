@@ -37,6 +37,8 @@ public class InventoryEvent implements Listener {
 				plugin.fire.remove(p);
 				plugin.water.remove(p);
 				plugin.air.remove(p);
+				plugin.avatar.remove(p);
+				plugin.chi.remove(p);
 				
 				p.sendMessage(prefix + ChatColor.GREEN + "EarthTrail enabled!");
 			}
@@ -53,6 +55,8 @@ public class InventoryEvent implements Listener {
 				plugin.earth.remove(p);
 				plugin.water.remove(p);
 				plugin.air.remove(p);
+				plugin.avatar.remove(p);
+				plugin.chi.remove(p);
 				p.sendMessage(prefix + ChatColor.RED + "FireTrail enabled!");
 				return;
 			}
@@ -68,6 +72,8 @@ public class InventoryEvent implements Listener {
 				plugin.fire.remove(p);
 				plugin.earth.remove(p);
 				plugin.air.remove(p);
+				plugin.avatar.remove(p);
+				plugin.chi.remove(p);
 				p.sendMessage(prefix + ChatColor.AQUA + "WaterTrail enabled!");
 				return;
 			}
@@ -83,12 +89,45 @@ public class InventoryEvent implements Listener {
 				plugin.fire.remove(p);
 				plugin.water.remove(p);
 				plugin.earth.remove(p);
+				plugin.avatar.remove(p);
+				plugin.chi.remove(p);
 				p.sendMessage(prefix + ChatColor.GRAY + "AirTrail enabled!");
 				return;
 			}
-		} else if (event.equals(null)) {
-			event.setCancelled(true);
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("ChiTrail")) {
+			if (plugin.chi.contains(p)) {
+				event.setCancelled(true);
+				plugin.chi.remove(p);
+				p.sendMessage(prefix + ChatColor.GOLD + "ChiTrail disabled!");
+				return;
+			} else {
+				event.setCancelled(true);
+				plugin.chi.add(p);
+				plugin.air.remove(p);
+				plugin.fire.remove(p);
+				plugin.water.remove(p);
+				plugin.earth.remove(p);
+				plugin.avatar.remove(p);
+				p.sendMessage(prefix + ChatColor.GOLD + "ChiTrail enabled!");
+				return;
+			}
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("AvatarTrail")) {
+			if (plugin.avatar.contains(p)) {
+				event.setCancelled(true);
+				plugin.avatar.remove(p);
+				p.sendMessage(prefix + ChatColor.DARK_PURPLE + "AvatarTrail disabled!");
+				return;
+			} else {
+				event.setCancelled(true);
+				plugin.avatar.add(p);
+				plugin.chi.remove(p);
+				plugin.air.remove(p);
+				plugin.fire.remove(p);
+				plugin.water.remove(p);
+				plugin.earth.remove(p);
+				p.sendMessage(prefix + ChatColor.DARK_PURPLE + "AvatarTrail enabled!");
+				return;
+			}
 		}
 	}
 }

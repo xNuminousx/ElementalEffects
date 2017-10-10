@@ -18,6 +18,8 @@ public class Main extends JavaPlugin {
 	public ArrayList<Player> fire = new ArrayList<Player>();
 	public ArrayList<Player> water = new ArrayList<Player>();
 	public ArrayList<Player> air = new ArrayList<Player>();
+	public ArrayList<Player> chi = new ArrayList<Player>();
+	public ArrayList<Player> avatar = new ArrayList<Player>();
 	
 	public static Main plugin;
 	
