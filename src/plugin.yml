@@ -1,0 +1,13 @@
+name: ElementalEffects
+author: xNuminousx
+version: 1.0
+main: com.xnuminousx.elementaleffects.Main
+description: A plug-in full of different cosmetic effects for the different elements.
+
+commands:
+  elementaleffects:
+    usage: /<command>
+    description: Opens a GUI with particle trails for the elements.
+  ee:
+    usage: /<command>
+    description: Opens a GUI with particle trails for the elements.

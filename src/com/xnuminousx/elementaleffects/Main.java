@@ -7,10 +7,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.xnuminousx.elementaleffects.Commands.GUI;
+import com.xnuminousx.elementaleffects.Commands.GUICommand;
 import com.xnuminousx.elementaleffects.Config.Manager;
 import com.xnuminousx.elementaleffects.Events.InventoryEvent;
-import com.xnuminousx.elementaleffects.Events.MoveEvent;
+import com.xnuminousx.elementaleffects.Trails.MoveEvent;
 
 public class Main extends JavaPlugin {
 	
@@ -40,7 +40,8 @@ public class Main extends JavaPlugin {
 	}
 	
 	public void registerCommands() {
-		getCommand("etrails").setExecutor(new GUI());
+		getCommand("elementaleffects").setExecutor(new GUICommand());
+		getCommand("ee").setExecutor(new GUICommand());
 	}
 	
 	public void registerListeners() {

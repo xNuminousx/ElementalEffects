@@ -11,15 +11,29 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class GUI implements CommandExecutor {
+public class GUICommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String lable, String[] args) {
-		Player p = (Player)sender;
-		
-		if (cmd.getName().equalsIgnoreCase("etrails")) {
-			gui(p);
-			return true;
+		if (lable.equalsIgnoreCase("elementaleffects") || lable.equalsIgnoreCase("ee") || lable.equalsIgnoreCase("e")) {
+			if (args.length == 0) {
+				sender.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "ElementalEffects");
+				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee trails");
+				sender.sendMessage(" " + ChatColor.YELLOW + "- Opens the trail GUI.");
+				return true;
+			} else if (args.length == 1) {
+				if (sender instanceof Player) {
+					Player p = (Player)sender;
+					if (args[0].equalsIgnoreCase("trails")) {
+						gui(p);
+						return true;
+					}
+				} else {
+					sender.sendMessage("You're not a player!");
+					return false;
+				}
+			}
+			return false;
 		}
 		return false;
 	}

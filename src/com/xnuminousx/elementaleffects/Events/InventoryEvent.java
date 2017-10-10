@@ -6,25 +6,26 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.xnuminousx.elementaleffects.Main;
 
 public class InventoryEvent implements Listener {
 	
-	private boolean canDo2;
 	Main plugin = Main.getInstance();
 	String prefix = ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "ElementalEffects: ";
 
 	@EventHandler
 	public void onInvClick(InventoryClickEvent event) {
 		Player p = (Player)event.getWhoClicked();
-		canDo2 = ConfigManager.getConfig().getBoolean("Properties.CanHaveMultipleTrails");
 		
 		if (event.getInventory().getName() != "ElementalEffects") {
 			return;
 		}
 		
-		if (event.getCurrentItem().getItemMeta().getDisplayName().contains("EarthTrail")) {
+		if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().equals(null)) {
+			event.setCancelled(true);
+			return;
+			
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("EarthTrail")) {
 			if (plugin.earth.contains(p)) {
 				event.setCancelled(true);
 				plugin.earth.remove(p);
@@ -33,11 +34,10 @@ public class InventoryEvent implements Listener {
 			} else {
 				event.setCancelled(true);
 				plugin.earth.add(p);
-				if (!canDo2) {
-					plugin.fire.remove(p);
-					plugin.water.remove(p);
-					plugin.air.remove(p);
-				}
+				plugin.fire.remove(p);
+				plugin.water.remove(p);
+				plugin.air.remove(p);
+				
 				p.sendMessage(prefix + ChatColor.GREEN + "EarthTrail enabled!");
 			}
 			return;
@@ -50,11 +50,9 @@ public class InventoryEvent implements Listener {
 			} else {
 				event.setCancelled(true);
 				plugin.fire.add(p);
-				if (!canDo2) {
-					plugin.earth.remove(p);
-					plugin.water.remove(p);
-					plugin.air.remove(p);
-				}
+				plugin.earth.remove(p);
+				plugin.water.remove(p);
+				plugin.air.remove(p);
 				p.sendMessage(prefix + ChatColor.RED + "FireTrail enabled!");
 				return;
 			}
@@ -67,11 +65,9 @@ public class InventoryEvent implements Listener {
 			} else {
 				event.setCancelled(true);
 				plugin.water.add(p);
-				if (!canDo2) {
-					plugin.fire.remove(p);
-					plugin.earth.remove(p);
-					plugin.air.remove(p);
-				}
+				plugin.fire.remove(p);
+				plugin.earth.remove(p);
+				plugin.air.remove(p);
 				p.sendMessage(prefix + ChatColor.AQUA + "WaterTrail enabled!");
 				return;
 			}
@@ -84,11 +80,9 @@ public class InventoryEvent implements Listener {
 			} else {
 				event.setCancelled(true);
 				plugin.air.add(p);
-				if (!canDo2) {
-					plugin.fire.remove(p);
-					plugin.water.remove(p);
-					plugin.earth.remove(p);
-				}
+				plugin.fire.remove(p);
+				plugin.water.remove(p);
+				plugin.earth.remove(p);
 				p.sendMessage(prefix + ChatColor.GRAY + "AirTrail enabled!");
 				return;
 			}
