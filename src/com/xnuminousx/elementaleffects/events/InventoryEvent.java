@@ -1,4 +1,4 @@
-package com.xnuminousx.elementaleffects.Events;
+package com.xnuminousx.elementaleffects.events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -128,6 +128,9 @@ public class InventoryEvent implements Listener {
 				p.sendMessage(prefix + ChatColor.DARK_PURPLE + "AvatarTrail enabled!");
 				return;
 			}
+		} else if (event.equals(null)) {
+			event.setCancelled(true);
+			return;
 		}
 	}
 }

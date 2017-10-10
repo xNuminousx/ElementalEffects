@@ -1,4 +1,4 @@
-package com.xnuminousx.elementaleffects.Commands;
+package com.xnuminousx.elementaleffects.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -48,7 +48,7 @@ public class GUICommand implements CommandExecutor {
 	}
 	
 	public void gui(Player p) {
-		Inventory inv = Bukkit.createInventory(p, 45, ChatColor.DARK_PURPLE + "ElementalEffects");
+		Inventory inv = Bukkit.createInventory(p, 45, "ElementalEffects");
 		
 		ItemStack earthItem = new ItemStack(Material.GRASS);
 		ItemStack waterItem = new ItemStack(Material.WATER_BUCKET);

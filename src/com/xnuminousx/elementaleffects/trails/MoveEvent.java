@@ -1,4 +1,4 @@
-package com.xnuminousx.elementaleffects.Trails;
+package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
