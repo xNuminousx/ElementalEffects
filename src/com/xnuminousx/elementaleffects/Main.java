@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.xnuminousx.elementaleffects.commands.GUICommand;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.events.InventoryEvent;
-import com.xnuminousx.elementaleffects.trails.MoveEvent;
+import com.xnuminousx.elementaleffects.events.MoveEvent;
 
 public class Main extends JavaPlugin {
 	
