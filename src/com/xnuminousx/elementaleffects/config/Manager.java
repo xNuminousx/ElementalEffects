@@ -26,6 +26,18 @@ public class Manager {
 		
 		config.addDefault("Language.Prefix.Enabled", true);
 		
+		config.addDefault("Trails.Earth.RequireEarthBlock", true);
+		
+		config.addDefault("Trails.Fire.DisappearInWater", true);
+		config.addDefault("Trails.Fire.BoilEffect", true);
+		
+		config.addDefault("Trails.Air.DisappearInWater", true);
+		
+		config.addDefault("Trails.Avatar.Earth.RequireEarthBlock", false);
+		config.addDefault("Trails.Avatar.Fire.DisappearInWater", false);
+		config.addDefault("Trails.Avatar.Fire.BoilEffect", false);
+		config.addDefault("Trails.Avatar.Air.DisappearInWater", false);
+		
 		config.options().copyDefaults(true);
 		plugin.saveConfig();
 	}
