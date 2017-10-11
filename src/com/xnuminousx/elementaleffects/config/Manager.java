@@ -24,6 +24,8 @@ public class Manager {
 		
 		config.addDefault("Properties.RequireElement", false);
 		
+		config.addDefault("Language.Prefix.Enabled", true);
+		
 		config.options().copyDefaults(true);
 		plugin.saveConfig();
 	}

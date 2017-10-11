@@ -13,14 +13,22 @@ import com.xnuminousx.elementaleffects.Main;
 public class InventoryEvent implements Listener {
 	
 	Main plugin = Main.getInstance();
-	String prefix = ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "ElementalEffects: ";
-
+	boolean doPrefix = Main.getInstance().getConfig().getBoolean("Language.Prefix.Enabled");
+	String prefix;
+	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
+	
 	@EventHandler
 	public void onInvClick(InventoryClickEvent event) {
 		Player p = (Player)event.getWhoClicked();
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(p);
 		
 		boolean reqEle = Main.getInstance().getConfig().getBoolean("Properties.RequireElement");
+		
+		if (doPrefix) {
+			prefix = prefixColor + "ElementalEffects: ";
+		} else {
+			prefix = "";
+		}
 		
 		if (event.getInventory().getName() != "ElementalEffects") {
 			return;

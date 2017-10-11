@@ -15,7 +15,9 @@ public class MoveEvent implements Listener {
 
 	Main plugin = Main.getInstance();
 	
-	String prefix = ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "ElementalEffects: ";
+	boolean doPrefix = Main.getInstance().getConfig().getBoolean("Language.Prefix.Enabled");
+	String prefix;
+	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
 	String elementChMess = "Oh no, looks like you've lost your element, therefor your trail is gone!";
 	String lackEle = "You don't have the required element!";
 	
@@ -25,6 +27,11 @@ public class MoveEvent implements Listener {
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(p);
 		
 		boolean reqEle = Main.getInstance().getConfig().getBoolean("Properties.RequireElement");
+		if (doPrefix) {
+			prefix = prefixColor + "ElementalEffects: ";
+		} else {
+			prefix = "";
+		}
 		
 		if (plugin.earth.contains(p)) {
 			if (reqEle) {
