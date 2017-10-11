@@ -22,7 +22,7 @@ public class Manager {
 	private void loadConfig() {
 		FileConfiguration config = Main.plugin.getConfig();
 		
-		config.addDefault("Properties.CanHaveMultipleTrails", false);
+		config.addDefault("Properties.RequireElement", false);
 		
 		config.options().copyDefaults(true);
 		plugin.saveConfig();

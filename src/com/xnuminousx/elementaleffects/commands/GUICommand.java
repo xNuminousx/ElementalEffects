@@ -64,12 +64,12 @@ public class GUICommand implements CommandExecutor {
 		ItemMeta chiMeta = chiItem.getItemMeta();
 		ItemMeta avatarMeta = avatarItem.getItemMeta();
 		
-		earthMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "EarthTrail");
-		waterMeta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "WaterTrail");
-		fireMeta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "FireTrail");
-		airMeta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "AirTrail");
-		chiMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "ChiTrail");
-		avatarMeta.setDisplayName(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "AvatarTrail");
+		earthMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Earth Trail");
+		waterMeta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "Water Trail");
+		fireMeta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "Fire Trail");
+		airMeta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "Air Trail");
+		chiMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Chi Trail");
+		avatarMeta.setDisplayName(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Avatar Trail");
 		
 		earthItem.setItemMeta(earthMeta);
 		waterItem.setItemMeta(waterMeta);
