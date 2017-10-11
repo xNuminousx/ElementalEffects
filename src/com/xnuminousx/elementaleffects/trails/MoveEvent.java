@@ -165,33 +165,7 @@ public class MoveEvent implements Listener {
 		}
 		
 		//Avatar
-		if (reqEle) {
-			if (bPlayer.hasElement(Element.AVATAR)) {
-				if (plugin.avatar.contains(p)) {
-					ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 1);
-					
-					ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 1);
-					
-					AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 1);
-					
-					byte blockByte = 0;
-					Block getBlock;
-					Material getMat;
-					getBlock = p.getLocation().add(0, -1, 0).getBlock();
-					getMat = getBlock.getType();
-					
-					if (!EarthAbility.isEarthbendable(p, getBlock)) {
-						getMat = null;
-					} else {
-						ParticleEffect.BLOCK_CRACK.display((ParticleEffect.ParticleData) 
-								new ParticleEffect.BlockData(getMat, blockByte), 1, 1, 1, 0, 3, p.getLocation(), 500);
-						return;
-					}
-				}
-			} else {
-				
-			}
-		} else {
+		if (plugin.avatar.contains(p)) {
 			ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 1);
 			
 			ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 1);
