@@ -49,7 +49,8 @@ public class InventoryEvent implements Listener {
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Earth Trail")) {
 			elementColor = ChatColor.GREEN;
 			trailType = "Earth Trail";
-			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String enableMessage = prefix + elementColor + trailType + " enabled!";
+			String disableMessage = prefix + elementColor + trailType + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			
@@ -60,7 +61,7 @@ public class InventoryEvent implements Listener {
 				if (closeInv) {
 					p.closeInventory();
 				}
-				p.sendMessage(prefix + ChatColor.GREEN + "Earth Trail disabled!");
+				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.earth") || p.hasPermission("elementaleffects.*")) {
 				if (reqEle) {
@@ -113,7 +114,8 @@ public class InventoryEvent implements Listener {
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Fire Trail")) {
 			elementColor = ChatColor.RED;
 			trailType = "Fire Trail";
-			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String enableMessage = prefix + elementColor + trailType + " enabled!";
+			String disableMessage = prefix + elementColor + trailType + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.fire.contains(p)) {
@@ -123,7 +125,7 @@ public class InventoryEvent implements Listener {
 				if (closeInv) {
 					p.closeInventory();
 				}
-				p.sendMessage(prefix + ChatColor.RED + "Fire Trail disabled!");
+				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.fire") || p.hasPermission("elementaleffects.*")) {
 				if (reqEle) {
@@ -179,7 +181,8 @@ public class InventoryEvent implements Listener {
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Water Trail")) {
 			elementColor = ChatColor.AQUA;
 			trailType = "Water Trail";
-			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String enableMessage = prefix + elementColor + trailType + " enabled!";
+			String disableMessage = prefix + elementColor + trailType + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.water.contains(p)) {
@@ -189,7 +192,7 @@ public class InventoryEvent implements Listener {
 				if (closeInv) {
 					p.closeInventory();
 				}
-				p.sendMessage(prefix + ChatColor.AQUA + "Water Trail disabled!");
+				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.water") || p.hasPermission("elementaleffects.*")) {
 				if (reqEle) {
@@ -246,7 +249,8 @@ public class InventoryEvent implements Listener {
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Chi Trail")) {
 			elementColor = ChatColor.GOLD;
 			trailType = "Chi Trail";
-			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String enableMessage = prefix + elementColor + trailType + " enabled!";
+			String disableMessage = prefix + elementColor + trailType + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.chi.contains(p)) {
@@ -256,7 +260,7 @@ public class InventoryEvent implements Listener {
 				if (closeInv) {
 					p.closeInventory();
 				}
-				p.sendMessage(prefix + ChatColor.GOLD + "Chi Trail disabled!");
+				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.chi") || p.hasPermission("elementaleffects.*")) {
 				if (reqEle) {
@@ -312,7 +316,8 @@ public class InventoryEvent implements Listener {
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Avatar Trail")) {
 			elementColor = ChatColor.DARK_PURPLE;
 			trailType = "Avatar Trail";
-			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String enableMessage = prefix + elementColor + trailType + " enabled!";
+			String disableMessage = prefix + elementColor + trailType + " disabled!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.avatar.contains(p)) {
 				// Disable trail
@@ -321,7 +326,7 @@ public class InventoryEvent implements Listener {
 				if (closeInv) {
 					p.closeInventory();
 				}
-				p.sendMessage(prefix + ChatColor.DARK_PURPLE + "Avatar Trail disabled!");
+				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.avatar") || p.hasPermission("elementaleffects.*")) {
 				event.setCancelled(true);
@@ -349,7 +354,8 @@ public class InventoryEvent implements Listener {
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Air Trail")) {
 			elementColor = ChatColor.GRAY;
 			trailType = "Air Trail";
-			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String enableMessage = prefix + elementColor + trailType + " enabled!";
+			String disableMessage = prefix + elementColor + trailType + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.air.contains(p)) {
@@ -359,7 +365,7 @@ public class InventoryEvent implements Listener {
 				if (closeInv) {
 					p.closeInventory();
 				}
-				p.sendMessage(prefix + ChatColor.GRAY + "Air Trail disabled!");
+				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.air") || p.hasPermission("elementaleffects.*")) {
 				if (reqEle) {
