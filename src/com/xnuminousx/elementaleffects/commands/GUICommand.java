@@ -11,6 +11,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.xnuminousx.elementaleffects.Main;
+
 public class GUICommand implements CommandExecutor {
 
 	@Override
@@ -33,8 +35,11 @@ public class GUICommand implements CommandExecutor {
 			} else if (args.length == 1) {
 				if (sender instanceof Player) {
 					Player p = (Player)sender;
-					if (args[0].equalsIgnoreCase("trails") || args[0].equalsIgnoreCase("effects")) {
+					if (args[0].equalsIgnoreCase("trails") || args[0].equalsIgnoreCase("trail") || args[0].equalsIgnoreCase("effects")) {
 						gui(p);
+						return true;
+					} else {
+						sender.sendMessage(ChatColor.RED + "Command not known! Try: " + ChatColor.YELLOW + "/ee trails");
 						return true;
 					}
 				} else {
@@ -48,7 +53,9 @@ public class GUICommand implements CommandExecutor {
 	}
 	
 	public void gui(Player p) {
-		Inventory inv = Bukkit.createInventory(p, 45, "ElementalEffects");
+		String guiName = Main.getInstance().getConfig().getString("Language.GUIName");
+		
+		Inventory inv = Bukkit.createInventory(p, 45, guiName);
 		
 		ItemStack earthItem = new ItemStack(Material.GRASS);
 		ItemStack waterItem = new ItemStack(Material.WATER_BUCKET);

@@ -26,7 +26,7 @@ public class MoveEvent implements Listener {
 		Player p = (Player)e.getPlayer();
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(p);
 		
-		boolean reqEle = Main.getInstance().getConfig().getBoolean("Properties.RequireElement");
+		boolean reqEle = Main.getInstance().getConfig().getBoolean("Trails.RequireElement");
 		if (doPrefix) {
 			prefix = prefixColor + "ElementalEffects: ";
 		} else {

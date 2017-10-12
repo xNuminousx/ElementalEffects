@@ -13,6 +13,9 @@ import com.xnuminousx.elementaleffects.Main;
 public class Trails implements Listener {
 	
 	public static void earthTrail(Player p) {
+		float speed = Main.getInstance().getConfig().getInt("Trails.Earth.Particles.Speed");
+		int amount = Main.getInstance().getConfig().getInt("Trails.Earth.Particles.Amount");
+		
 		byte blockByte = 0;
 		Block getBlock;
 		Material getMat;
@@ -25,16 +28,19 @@ public class Trails implements Listener {
 				getMat = null;
 			} else {
 				ParticleEffect.BLOCK_CRACK.display((ParticleEffect.ParticleData) 
-						new ParticleEffect.BlockData(getMat, blockByte), 0.5F, 1, 0.5F, 0, 5, p.getLocation(), 500);
+						new ParticleEffect.BlockData(getMat, blockByte), (float) 0.5, (float) 1, (float) 0.5, (float) speed, amount, p.getLocation(), 500);
 				return;
 			}
 		} else {
 			getMat = Material.GRASS;
 			ParticleEffect.BLOCK_CRACK.display((ParticleEffect.ParticleData) 
-					new ParticleEffect.BlockData(getMat, blockByte), 0.5F, 1, 0.5F, 0, 5, p.getLocation(), 500);
+					new ParticleEffect.BlockData(getMat, blockByte), (float) 0.5, (float) 1, (float) 0.5, (float) speed, amount, p.getLocation(), 500);
 		}
 	}
 	public static void fireTrail(Player p) {
+		float speed = Main.getInstance().getConfig().getInt("Trails.Fire.Particles.Speed");
+		int amount = Main.getInstance().getConfig().getInt("Trails.Fire.Particles.Amount");
+		
 		boolean vanishInWater = Main.getInstance().getConfig().getBoolean("Trails.Fire.DisappearInWater");
 		boolean boilEffect = Main.getInstance().getConfig().getBoolean("Trails.Fire.BoilEffect");
 		Material getBlock = p.getLocation().add(0, 1, 0).getBlock().getType();
@@ -47,8 +53,7 @@ public class Trails implements Listener {
 				return;
 			} else {
 				ParticleEffect.SMOKE.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
-				ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
-				ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), 2, 2, 2, 0, 1);
+				ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 				return;
 			}
 		} else {
@@ -59,17 +64,22 @@ public class Trails implements Listener {
 				}
 			}
 			ParticleEffect.SMOKE.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
-			ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
-			ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), 2, 2, 2, 0, 1);
+			ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 		}
 	}
 	
 	public static void waterTrail(Player p) {
+		float speed = Main.getInstance().getConfig().getInt("Trails.Water.Particles.Speed");
+		int amount = Main.getInstance().getConfig().getInt("Trails.Water.Particles.Amount");
+		
 		ParticleEffect.SPLASH.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0.5F, 2);
-		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), 0.2F, 0.2F, 0.2F, 0, 2);
+		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), (float) 0.3, (float) 0.3, (float) 0.3, (float) speed, amount);
 	}
 	
 	public static void airTrail(Player p) {
+		float speed = Main.getInstance().getConfig().getInt("Trails.Air.Particles.Speed");
+		int amount = Main.getInstance().getConfig().getInt("Trails.Air.Particles.Amount");
+		
 		boolean vanishInWater = Main.getInstance().getConfig().getBoolean("Trails.Air.DisappearInWater");
 		
 		if (vanishInWater) {
@@ -78,19 +88,25 @@ public class Trails implements Listener {
 			if (getBlock.equals(Material.STATIONARY_WATER)) {
 				return;
 			} else {
-				AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
+				AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 				return;
 			}
 		} else {
-			AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
+			AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 		}
 	}
 	
 	public static void chiTrail(Player p) {
-		ParticleEffect.CRIT.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
+		float speed = Main.getInstance().getConfig().getInt("Trails.Chi.Particles.Speed");
+		int amount = Main.getInstance().getConfig().getInt("Trails.Chi.Particles.Amount");
+		
+		ParticleEffect.CRIT.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 	}
 	
 	public static void avatarTrail(Player p) {
+		float speed = Main.getInstance().getConfig().getInt("Trails.Avatar.Particles.Speed");
+		int amount = Main.getInstance().getConfig().getInt("Trails.Avatar.Particles.Amount");
+		
 		boolean aReqEarthBlock = Main.getInstance().getConfig().getBoolean("Trails.Avatar.Earth.RequireEarthBlock");
 		boolean fireVanishInWater = Main.getInstance().getConfig().getBoolean("Trails.Avatar.Fire.DisappearInWater");
 		boolean doBoilEffect = Main.getInstance().getConfig().getBoolean("Trails.Avatar.Fire.BoilEffect");
@@ -102,22 +118,22 @@ public class Trails implements Listener {
 		if (fireVanishInWater) {
 			if (fireGetBlock.equals(Material.STATIONARY_WATER)) {
 				if (doBoilEffect) {
-					ParticleEffect.BUBBLE.display(p.getLocation().add(0, 1, 0), 0.5F, 1, 0.5F, 0.5F, 2);
+					ParticleEffect.BUBBLE.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 				}
 			} else {
-				ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
+				ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 			}
 		} else {
 			if (doBoilEffect) {
 				if (fireGetBlock.equals(Material.STATIONARY_WATER)) {
-					ParticleEffect.BUBBLE.display(p.getLocation().add(0, 1, 0), 0.5F, 1, 0.5F, 0.5F, 2);
+					ParticleEffect.BUBBLE.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 				}
 			}
-			ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
+			ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 		}
 		
 		//Water
-		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 1);
+		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 		
 		//Air
 		if (airVanishInWater) {
@@ -125,10 +141,10 @@ public class Trails implements Listener {
 			
 			if (airGetBlock.equals(Material.STATIONARY_WATER)) {
 			} else {
-				AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
+				AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 			}
 		} else {
-			AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
+			AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
 		}
 		
 		//Earth
@@ -143,13 +159,13 @@ public class Trails implements Listener {
 				getMat = null;
 			} else {
 				ParticleEffect.BLOCK_CRACK.display((ParticleEffect.ParticleData) 
-						new ParticleEffect.BlockData(getMat, blockByte), 0.5F, 0.5F, 0.5F, 0, 5, p.getLocation(), 500);
+						new ParticleEffect.BlockData(getMat, blockByte), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount, p.getLocation(), 500);
 				return;
 			}
 		} else {
 			getMat = Material.GRASS;
 			ParticleEffect.BLOCK_CRACK.display((ParticleEffect.ParticleData) 
-					new ParticleEffect.BlockData(getMat, blockByte), 0.5F, 0.5F, 0.5F, 0, 5, p.getLocation(), 500);
+					new ParticleEffect.BlockData(getMat, blockByte), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount, p.getLocation(), 500);
 		}
 	}
 

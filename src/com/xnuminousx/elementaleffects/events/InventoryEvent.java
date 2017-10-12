@@ -14,15 +14,22 @@ public class InventoryEvent implements Listener {
 	
 	Main plugin = Main.getInstance();
 	boolean doPrefix = Main.getInstance().getConfig().getBoolean("Language.Prefix.Enabled");
+	
+	String guiName = Main.getInstance().getConfig().getString("Language.GUIName");
+	
 	String prefix;
 	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
+	
+	ChatColor elementColor;
+	String trailType;
 	
 	@EventHandler
 	public void onInvClick(InventoryClickEvent event) {
 		Player p = (Player)event.getWhoClicked();
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(p);
 		
-		boolean reqEle = Main.getInstance().getConfig().getBoolean("Properties.RequireElement");
+		boolean reqEle = Main.getInstance().getConfig().getBoolean("Trails.Properties.RequireElement");
+		boolean closeInv = Main.getInstance().getConfig().getBoolean("Trails.CloseInventoryOnSelect");
 		
 		if (doPrefix) {
 			prefix = prefixColor + "ElementalEffects: ";
@@ -30,7 +37,7 @@ public class InventoryEvent implements Listener {
 			prefix = "";
 		}
 		
-		if (event.getInventory().getName() != "ElementalEffects") {
+		if (event.getInventory().getName() != guiName) {
 			return;
 		}
 		
@@ -40,10 +47,19 @@ public class InventoryEvent implements Listener {
 			
 		// Enable/Disable Earth Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Earth Trail")) {
+			elementColor = ChatColor.GREEN;
+			trailType = "Earth Trail";
+			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String noElement = prefix + elementColor + "You don't have the necessary element!";
+			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
+			
 			if (plugin.earth.contains(p)) {
 				// Disable trail
 				event.setCancelled(true);
 				plugin.earth.remove(p);
+				if (closeInv) {
+					p.closeInventory();
+				}
 				p.sendMessage(prefix + ChatColor.GREEN + "Earth Trail disabled!");
 				return;
 			} else if (p.hasPermission("elementaleffects.earth") || p.hasPermission("elementaleffects.*")) {
@@ -57,13 +73,15 @@ public class InventoryEvent implements Listener {
 						plugin.air.remove(p);
 						plugin.avatar.remove(p);
 						plugin.chi.remove(p);
-						p.sendMessage(prefix + ChatColor.GREEN + "Earth Trail enabled!");
+						p.sendMessage(enableMessage);
 						return;
 					} else {
 						// don't have the element warning
 						event.setCancelled(true);
-						p.closeInventory();
-						p.sendMessage(prefix + ChatColor.GREEN + "You don't have the necessary element!");
+						if (closeInv) {
+							p.closeInventory();
+						}
+						p.sendMessage(noElement);
 						return;
 					}
 				} else {
@@ -75,23 +93,36 @@ public class InventoryEvent implements Listener {
 					plugin.air.remove(p);
 					plugin.avatar.remove(p);
 					plugin.chi.remove(p);
-					p.sendMessage(prefix + ChatColor.GREEN + "Earth Trail enabled!");
+					if (closeInv) {
+						p.closeInventory();
+					}
+					p.sendMessage(enableMessage);
 					return;
 				}
 			} else {
 				// don't have permission
 				event.setCancelled(true);
-				p.closeInventory();
-				p.sendMessage(prefix + ChatColor.GREEN + "You don't have the necessary permission!");
+				if (closeInv) {
+					p.closeInventory();
+				}
+				p.sendMessage(noPerm);
 			}
 			return;
 			
 		// Enable/Disable Fire Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Fire Trail")) {
+			elementColor = ChatColor.RED;
+			trailType = "Fire Trail";
+			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String noElement = prefix + elementColor + "You don't have the necessary element!";
+			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.fire.contains(p)) {
 				// Disable trail
 				event.setCancelled(true);
 				plugin.fire.remove(p);
+				if (closeInv) {
+					p.closeInventory();
+				}
 				p.sendMessage(prefix + ChatColor.RED + "Fire Trail disabled!");
 				return;
 			} else if (p.hasPermission("elementaleffects.fire") || p.hasPermission("elementaleffects.*")) {
@@ -105,13 +136,18 @@ public class InventoryEvent implements Listener {
 						plugin.air.remove(p);
 						plugin.avatar.remove(p);
 						plugin.chi.remove(p);
-						p.sendMessage(prefix + ChatColor.RED + "Fire Trail enabled!");
+						if (closeInv) {
+							p.closeInventory();
+						}
+						p.sendMessage(enableMessage);
 						return;
 					} else {
 						// don't have the element warning
 						event.setCancelled(true);
-						p.closeInventory();
-						p.sendMessage(prefix + ChatColor.RED + "You don't have the necessary element!");
+						if (closeInv) {
+							p.closeInventory();
+						}
+						p.sendMessage(noElement);
 						return;
 					}
 				} else {
@@ -123,23 +159,36 @@ public class InventoryEvent implements Listener {
 					plugin.air.remove(p);
 					plugin.avatar.remove(p);
 					plugin.chi.remove(p);
-					p.sendMessage(prefix + ChatColor.RED + "Fire Trail enabled!");
+					if (closeInv) {
+						p.closeInventory();
+					}
+					p.sendMessage(enableMessage);
 					return;
 				}
 			} else {
 				// don't have permission
 				event.setCancelled(true);
-				p.closeInventory();
-				p.sendMessage(prefix + ChatColor.RED + "You don't have the necessary permission!");
+				if (closeInv) {
+					p.closeInventory();
+				}
+				p.sendMessage(noPerm);
 			}
 			return;
 			
 		// Enable/Disable Water Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Water Trail")) {
+			elementColor = ChatColor.AQUA;
+			trailType = "Water Trail";
+			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String noElement = prefix + elementColor + "You don't have the necessary element!";
+			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.water.contains(p)) {
 				// Disable trail
 				event.setCancelled(true);
 				plugin.water.remove(p);
+				if (closeInv) {
+					p.closeInventory();
+				}
 				p.sendMessage(prefix + ChatColor.AQUA + "Water Trail disabled!");
 				return;
 			} else if (p.hasPermission("elementaleffects.water") || p.hasPermission("elementaleffects.*")) {
@@ -153,13 +202,18 @@ public class InventoryEvent implements Listener {
 						plugin.air.remove(p);
 						plugin.avatar.remove(p);
 						plugin.chi.remove(p);
-						p.sendMessage(prefix + ChatColor.AQUA + "Water Trail enabled!");
+						if (closeInv) {
+							p.closeInventory();
+						}
+						p.sendMessage(enableMessage);
 						return;
 					} else {
 						// don't have the element warning
 						event.setCancelled(true);
-						p.closeInventory();
-						p.sendMessage(prefix + ChatColor.AQUA + "You don't have the necessary element!");
+						if (closeInv) {
+							p.closeInventory();
+						}
+						p.sendMessage(noElement);
 						return;
 					}
 				} else {
@@ -171,24 +225,37 @@ public class InventoryEvent implements Listener {
 					plugin.air.remove(p);
 					plugin.avatar.remove(p);
 					plugin.chi.remove(p);
-					p.sendMessage(prefix + ChatColor.AQUA + "Water Trail enabled!");
+					if (closeInv) {
+						p.closeInventory();
+					}
+					p.sendMessage(enableMessage);
 					return;
 				}
 			} else {
 				// don't have permission
 				event.setCancelled(true);
-				p.closeInventory();
-				p.sendMessage(prefix + ChatColor.AQUA + "You don't have the necessary permission!");
+				if (closeInv) {
+					p.closeInventory();
+				}
+				p.sendMessage(noPerm);
 			}
 			return;
 		
 			
 		// Enable/Disable Chi Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Chi Trail")) {
+			elementColor = ChatColor.GOLD;
+			trailType = "Chi Trail";
+			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String noElement = prefix + elementColor + "You don't have the necessary element!";
+			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.chi.contains(p)) {
 				// Disable trail
 				event.setCancelled(true);
 				plugin.chi.remove(p);
+				if (closeInv) {
+					p.closeInventory();
+				}
 				p.sendMessage(prefix + ChatColor.GOLD + "Chi Trail disabled!");
 				return;
 			} else if (p.hasPermission("elementaleffects.chi") || p.hasPermission("elementaleffects.*")) {
@@ -202,13 +269,18 @@ public class InventoryEvent implements Listener {
 						plugin.air.remove(p);
 						plugin.avatar.remove(p);
 						plugin.earth.remove(p);
-						p.sendMessage(prefix + ChatColor.GOLD + "Chi Trail enabled!");
+						if (closeInv) {
+							p.closeInventory();
+						}
+						p.sendMessage(enableMessage);
 						return;
 					} else {
 						// don't have the element warning
 						event.setCancelled(true);
-						p.closeInventory();
-						p.sendMessage(prefix + ChatColor.GOLD + "You don't have the necessary element!");
+						if (closeInv) {
+							p.closeInventory();
+						}
+						p.sendMessage(noElement);
 						return;
 					}
 				} else {
@@ -220,23 +292,35 @@ public class InventoryEvent implements Listener {
 					plugin.air.remove(p);
 					plugin.avatar.remove(p);
 					plugin.earth.remove(p);
-					p.sendMessage(prefix + ChatColor.GOLD + "Chi Trail enabled!");
+					if (closeInv) {
+						p.closeInventory();
+					}
+					p.sendMessage(enableMessage);
 					return;
 				}
 			} else {
 				// don't have permission
 				event.setCancelled(true);
-				p.closeInventory();
-				p.sendMessage(prefix + ChatColor.GOLD + "You don't have the necessary permission!");
+				if (closeInv) {
+					p.closeInventory();
+				}
+				p.sendMessage(noPerm);
 			}
 			return;
 			
 		// Enable/Disable Avatar Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Avatar Trail")) {
+			elementColor = ChatColor.DARK_PURPLE;
+			trailType = "Avatar Trail";
+			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.avatar.contains(p)) {
 				// Disable trail
 				event.setCancelled(true);
 				plugin.avatar.remove(p);
+				if (closeInv) {
+					p.closeInventory();
+				}
 				p.sendMessage(prefix + ChatColor.DARK_PURPLE + "Avatar Trail disabled!");
 				return;
 			} else if (p.hasPermission("elementaleffects.avatar") || p.hasPermission("elementaleffects.*")) {
@@ -247,21 +331,34 @@ public class InventoryEvent implements Listener {
 				plugin.air.remove(p);
 				plugin.earth.remove(p);
 				plugin.chi.remove(p);
-				p.sendMessage(prefix + ChatColor.DARK_PURPLE + "Avatar Trail enabled!");
+				if (closeInv) {
+					p.closeInventory();
+				}
+				p.sendMessage(enableMessage);
 				return;
 			} else {
 				// don't have permission
 				event.setCancelled(true);
-				p.closeInventory();
-				p.sendMessage(prefix + ChatColor.DARK_PURPLE + "You don't have the necessary permission!");
+				if (closeInv) {
+					p.closeInventory();
+				}
+				p.sendMessage(noPerm);
 			}
 			return;
 			
 		}  else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Air Trail")) {
+			elementColor = ChatColor.GRAY;
+			trailType = "Air Trail";
+			String enableMessage = prefix + elementColor + trailType + " has been enabled!";
+			String noElement = prefix + elementColor + "You don't have the necessary element!";
+			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.air.contains(p)) {
 				// Disable trail
 				event.setCancelled(true);
 				plugin.air.remove(p);
+				if (closeInv) {
+					p.closeInventory();
+				}
 				p.sendMessage(prefix + ChatColor.GRAY + "Air Trail disabled!");
 				return;
 			} else if (p.hasPermission("elementaleffects.air") || p.hasPermission("elementaleffects.*")) {
@@ -275,13 +372,18 @@ public class InventoryEvent implements Listener {
 						plugin.avatar.remove(p);
 						plugin.earth.remove(p);
 						plugin.chi.remove(p);
-						p.sendMessage(prefix + ChatColor.GRAY + "Air Trail enabled!");
+						if (closeInv) {
+							p.closeInventory();
+						}
+						p.sendMessage(enableMessage);
 						return;
 					} else {
 						// don't have the element warning
 						event.setCancelled(true);
-						p.closeInventory();
-						p.sendMessage(prefix + ChatColor.GRAY + "You don't have the necessary element!");
+						if (closeInv) {
+							p.closeInventory();
+						}
+						p.sendMessage(noElement);
 						return;
 					}
 				} else {
@@ -293,14 +395,19 @@ public class InventoryEvent implements Listener {
 					plugin.avatar.remove(p);
 					plugin.earth.remove(p);
 					plugin.chi.remove(p);
-					p.sendMessage(prefix + ChatColor.GRAY + "Air Trail enabled!");
+					if (closeInv) {
+						p.closeInventory();
+					}
+					p.sendMessage(enableMessage);
 					return;
 				}
 			} else {
 				// don't have permission
 				event.setCancelled(true);
-				p.closeInventory();
-				p.sendMessage(prefix + ChatColor.GRAY + "You don't have the necessary permission!");
+				if (closeInv) {
+					p.closeInventory();
+				}
+				p.sendMessage(noPerm);
 			}
 			return;
 		}
