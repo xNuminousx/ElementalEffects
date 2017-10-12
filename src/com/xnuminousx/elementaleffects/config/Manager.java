@@ -22,7 +22,7 @@ public class Manager {
 	private void loadConfig() {
 		FileConfiguration config = Main.plugin.getConfig();
 		
-		config.addDefault("Language.GUIName", "ElementalEffects");
+		config.addDefault("Language.TrailGUIName", "Elemental Trails");
 		config.addDefault("Language.Prefix.Enabled", true);
 		
 		config.addDefault("Trails.RequireElement", false);

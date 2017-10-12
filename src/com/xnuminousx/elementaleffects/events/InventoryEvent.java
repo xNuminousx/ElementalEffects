@@ -15,7 +15,7 @@ public class InventoryEvent implements Listener {
 	Main plugin = Main.getInstance();
 	boolean doPrefix = Main.getInstance().getConfig().getBoolean("Language.Prefix.Enabled");
 	
-	String guiName = Main.getInstance().getConfig().getString("Language.GUIName");
+	String trailGuiName = Main.getInstance().getConfig().getString("Language.TrailGUIName");
 	
 	String prefix;
 	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
@@ -24,7 +24,7 @@ public class InventoryEvent implements Listener {
 	String trailType;
 	
 	@EventHandler
-	public void onInvClick(InventoryClickEvent event) {
+	public void onTrailInvClick(InventoryClickEvent event) {
 		Player p = (Player)event.getWhoClicked();
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(p);
 		
@@ -37,7 +37,7 @@ public class InventoryEvent implements Listener {
 			prefix = "";
 		}
 		
-		if (event.getInventory().getName() != guiName) {
+		if (event.getInventory().getName() != trailGuiName) {
 			return;
 		}
 		
@@ -346,7 +346,7 @@ public class InventoryEvent implements Listener {
 			}
 			return;
 			
-		}  else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Air Trail")) {
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Air Trail")) {
 			elementColor = ChatColor.GRAY;
 			trailType = "Air Trail";
 			String enableMessage = prefix + elementColor + trailType + " has been enabled!";

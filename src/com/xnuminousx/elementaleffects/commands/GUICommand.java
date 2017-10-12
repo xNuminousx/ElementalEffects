@@ -29,14 +29,14 @@ public class GUICommand implements CommandExecutor {
 				sender.sendMessage("");
 				
 				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee trails");
-				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee effects");
+				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee trail, /ee effects");
 				sender.sendMessage(" " + ChatColor.YELLOW + "- Opens the trail GUI.");
 				return true;
 			} else if (args.length == 1) {
 				if (sender instanceof Player) {
 					Player p = (Player)sender;
 					if (args[0].equalsIgnoreCase("trails") || args[0].equalsIgnoreCase("trail") || args[0].equalsIgnoreCase("effects")) {
-						gui(p);
+						trailGui(p);
 						return true;
 					} else {
 						sender.sendMessage(ChatColor.RED + "Command not known! Try: " + ChatColor.YELLOW + "/ee trails");
@@ -52,8 +52,8 @@ public class GUICommand implements CommandExecutor {
 		return false;
 	}
 	
-	public void gui(Player p) {
-		String guiName = Main.getInstance().getConfig().getString("Language.GUIName");
+	public void trailGui(Player p) {
+		String guiName = Main.getInstance().getConfig().getString("Language.TrailGUIName");
 		
 		Inventory inv = Bukkit.createInventory(p, 45, guiName);
 		
