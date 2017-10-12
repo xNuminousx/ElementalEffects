@@ -99,8 +99,13 @@ public class Trails implements Listener {
 	public static void chiTrail(Player p) {
 		int amount = Main.getInstance().getConfig().getInt("Trails.Chi.Particles.Amount");
 		float speed = Main.getInstance().getConfig().getInt("Trails.Chi.Particles.Speed");
+		boolean doMagic = Main.getInstance().getConfig().getBoolean("Trails.Chi.Particles.DoMagicCrit"); 
 		
 		ParticleEffect.CRIT.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, (float) speed, amount);
+		if (doMagic) {
+			ParticleEffect.MAGIC_CRIT.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, (float) speed, amount);
+		}
+		
 	}
 	
 	public static void avatarTrail(Player p) {

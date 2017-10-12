@@ -44,6 +44,7 @@ public class Manager {
 		config.addDefault("Trails.Air.Particles.Speed", 0);
 		config.addDefault("Trails.Air.Particles.Amount", 2);
 		
+		config.addDefault("Trails.Chi.Particles.DoMagicCrit", false);
 		config.addDefault("Trails.Chi.Particles.Amount", 1);
 		config.addDefault("Trails.Chi.Particles.Speed", 0);
 		
