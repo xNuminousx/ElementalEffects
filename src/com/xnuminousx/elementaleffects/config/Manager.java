@@ -58,4 +58,20 @@ public class Manager {
 		config.options().copyDefaults(true);
 		plugin.saveConfig();
 	}
+	
+	public static boolean requireElement() {
+		return Main.getInstance().getConfig().getBoolean("Trails.RequireElement");
+	}
+	
+	public static String getGuiName() {
+		return Main.getInstance().getConfig().getString("Language.TrailGUIName");
+	}
+	
+	public static boolean closeInv() {
+		return Main.getInstance().getConfig().getBoolean("Trails.CloseInventoryOnSelect");
+	}
+	
+	public static boolean doPrefix() {
+		return Main.getInstance().getConfig().getBoolean("Language.Prefix.Enabled");
+	}
 }

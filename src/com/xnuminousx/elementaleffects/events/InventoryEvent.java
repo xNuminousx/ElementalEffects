@@ -9,14 +9,16 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.config.Manager;
 
 public class InventoryEvent implements Listener {
 	
 	Main plugin = Main.getInstance();
-	boolean doPrefix = Main.getInstance().getConfig().getBoolean("Language.Prefix.Enabled");
+	String trailGuiName = Manager.getGuiName();
+	boolean reqEle = Manager.requireElement();
+	boolean closeInv = Manager.closeInv();
 	
-	String trailGuiName = Main.getInstance().getConfig().getString("Language.TrailGUIName");
-	
+	boolean doPrefix = Manager.doPrefix();
 	String prefix;
 	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
 	
@@ -27,9 +29,6 @@ public class InventoryEvent implements Listener {
 	public void onTrailInvClick(InventoryClickEvent event) {
 		Player p = (Player)event.getWhoClicked();
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(p);
-		
-		boolean reqEle = Main.getInstance().getConfig().getBoolean("Trails.Properties.RequireElement");
-		boolean closeInv = Main.getInstance().getConfig().getBoolean("Trails.CloseInventoryOnSelect");
 		
 		if (doPrefix) {
 			prefix = prefixColor + "ElementalEffects: ";
@@ -58,54 +57,37 @@ public class InventoryEvent implements Listener {
 				// Disable trail
 				event.setCancelled(true);
 				plugin.earth.remove(p);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.earth") || p.hasPermission("elementaleffects.*")) {
 				if (reqEle) {
 					if (bPlayer.hasElement(Element.EARTH)) {
-						// give trail
+						// Give trail
 						event.setCancelled(true);
-						plugin.earth.add(p);
-						plugin.fire.remove(p);
-						plugin.water.remove(p);
-						plugin.air.remove(p);
-						plugin.avatar.remove(p);
-						plugin.chi.remove(p);
+						giveTrail(p, "earth");
+						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
 					} else {
-						// don't have the element warning
+						// Don't have the element warning
 						event.setCancelled(true);
-						if (closeInv) {
-							p.closeInventory();
-						}
+						closeInv(p);
 						p.sendMessage(noElement);
 						return;
 					}
 				} else {
-					//give trail
+					// Give trail
 					event.setCancelled(true);
-					plugin.earth.add(p);
-					plugin.fire.remove(p);
-					plugin.water.remove(p);
-					plugin.air.remove(p);
-					plugin.avatar.remove(p);
-					plugin.chi.remove(p);
-					if (closeInv) {
-						p.closeInventory();
-					}
+					giveTrail(p, "earth");
+					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
 				}
 			} else {
-				// don't have permission
+				// Don't have permission
 				event.setCancelled(true);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(noPerm);
 			}
 			return;
@@ -119,60 +101,35 @@ public class InventoryEvent implements Listener {
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.fire.contains(p)) {
-				// Disable trail
 				event.setCancelled(true);
 				plugin.fire.remove(p);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.fire") || p.hasPermission("elementaleffects.*")) {
 				if (reqEle) {
 					if (bPlayer.hasElement(Element.FIRE)) {
-						// give trail
 						event.setCancelled(true);
-						plugin.fire.add(p);
-						plugin.earth.remove(p);
-						plugin.water.remove(p);
-						plugin.air.remove(p);
-						plugin.avatar.remove(p);
-						plugin.chi.remove(p);
-						if (closeInv) {
-							p.closeInventory();
-						}
+						giveTrail(p, "fire");
+						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
 					} else {
-						// don't have the element warning
 						event.setCancelled(true);
-						if (closeInv) {
-							p.closeInventory();
-						}
+						closeInv(p);
 						p.sendMessage(noElement);
 						return;
 					}
 				} else {
-					//give trail
 					event.setCancelled(true);
-					plugin.fire.add(p);
-					plugin.earth.remove(p);
-					plugin.water.remove(p);
-					plugin.air.remove(p);
-					plugin.avatar.remove(p);
-					plugin.chi.remove(p);
-					if (closeInv) {
-						p.closeInventory();
-					}
+					giveTrail(p, "fire");
+					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
 				}
 			} else {
-				// don't have permission
 				event.setCancelled(true);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(noPerm);
 			}
 			return;
@@ -186,60 +143,35 @@ public class InventoryEvent implements Listener {
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.water.contains(p)) {
-				// Disable trail
 				event.setCancelled(true);
 				plugin.water.remove(p);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.water") || p.hasPermission("elementaleffects.*")) {
 				if (reqEle) {
 					if (bPlayer.hasElement(Element.WATER)) {
-						// give trail
 						event.setCancelled(true);
-						plugin.water.add(p);
-						plugin.fire.remove(p);
-						plugin.earth.remove(p);
-						plugin.air.remove(p);
-						plugin.avatar.remove(p);
-						plugin.chi.remove(p);
-						if (closeInv) {
-							p.closeInventory();
-						}
+						giveTrail(p, "water");
+						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
 					} else {
-						// don't have the element warning
 						event.setCancelled(true);
-						if (closeInv) {
-							p.closeInventory();
-						}
+						closeInv(p);
 						p.sendMessage(noElement);
 						return;
 					}
 				} else {
-					//give trail
 					event.setCancelled(true);
-					plugin.water.add(p);
-					plugin.fire.remove(p);
-					plugin.earth.remove(p);
-					plugin.air.remove(p);
-					plugin.avatar.remove(p);
-					plugin.chi.remove(p);
-					if (closeInv) {
-						p.closeInventory();
-					}
+					giveTrail(p, "water");
+					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
 				}
 			} else {
-				// don't have permission
 				event.setCancelled(true);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(noPerm);
 			}
 			return;
@@ -254,60 +186,35 @@ public class InventoryEvent implements Listener {
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.chi.contains(p)) {
-				// Disable trail
 				event.setCancelled(true);
 				plugin.chi.remove(p);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.chi") || p.hasPermission("elementaleffects.*")) {
 				if (reqEle) {
 					if (bPlayer.hasElement(Element.CHI)) {
-						// give trail
 						event.setCancelled(true);
-						plugin.chi.add(p);
-						plugin.fire.remove(p);
-						plugin.water.remove(p);
-						plugin.air.remove(p);
-						plugin.avatar.remove(p);
-						plugin.earth.remove(p);
-						if (closeInv) {
-							p.closeInventory();
-						}
+						giveTrail(p, "chi");
+						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
 					} else {
-						// don't have the element warning
 						event.setCancelled(true);
-						if (closeInv) {
-							p.closeInventory();
-						}
+						closeInv(p);
 						p.sendMessage(noElement);
 						return;
 					}
 				} else {
-					//give trail
 					event.setCancelled(true);
-					plugin.chi.add(p);
-					plugin.fire.remove(p);
-					plugin.water.remove(p);
-					plugin.air.remove(p);
-					plugin.avatar.remove(p);
-					plugin.earth.remove(p);
-					if (closeInv) {
-						p.closeInventory();
-					}
+					giveTrail(p, "chi");
+					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
 				}
 			} else {
-				// don't have permission
 				event.setCancelled(true);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(noPerm);
 			}
 			return;
@@ -320,37 +227,25 @@ public class InventoryEvent implements Listener {
 			String disableMessage = prefix + elementColor + trailType + " disabled!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.avatar.contains(p)) {
-				// Disable trail
 				event.setCancelled(true);
 				plugin.avatar.remove(p);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.avatar") || p.hasPermission("elementaleffects.*")) {
 				event.setCancelled(true);
-				plugin.avatar.add(p);
-				plugin.fire.remove(p);
-				plugin.water.remove(p);
-				plugin.air.remove(p);
-				plugin.earth.remove(p);
-				plugin.chi.remove(p);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				giveTrail(p, "avatar");
+				closeInv(p);
 				p.sendMessage(enableMessage);
 				return;
 			} else {
-				// don't have permission
 				event.setCancelled(true);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(noPerm);
 			}
 			return;
-			
+		
+		// Enable/Disable Air Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Air Trail")) {
 			elementColor = ChatColor.GRAY;
 			trailType = "Air Trail";
@@ -359,32 +254,20 @@ public class InventoryEvent implements Listener {
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
 			if (plugin.air.contains(p)) {
-				// Disable trail
 				event.setCancelled(true);
 				plugin.air.remove(p);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
 			} else if (p.hasPermission("elementaleffects.air") || p.hasPermission("elementaleffects.*")) {
 				if (reqEle) {
 					if (bPlayer.hasElement(Element.AIR)) {
-						// give trail
 						event.setCancelled(true);
-						plugin.air.add(p);
-						plugin.fire.remove(p);
-						plugin.water.remove(p);
-						plugin.avatar.remove(p);
-						plugin.earth.remove(p);
-						plugin.chi.remove(p);
-						if (closeInv) {
-							p.closeInventory();
-						}
+						giveTrail(p, "air");
+						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
 					} else {
-						// don't have the element warning
 						event.setCancelled(true);
 						if (closeInv) {
 							p.closeInventory();
@@ -393,29 +276,68 @@ public class InventoryEvent implements Listener {
 						return;
 					}
 				} else {
-					//give trail
 					event.setCancelled(true);
-					plugin.air.add(p);
-					plugin.fire.remove(p);
-					plugin.water.remove(p);
-					plugin.avatar.remove(p);
-					plugin.earth.remove(p);
-					plugin.chi.remove(p);
-					if (closeInv) {
-						p.closeInventory();
-					}
+					giveTrail(p, "air");
+					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
 				}
 			} else {
-				// don't have permission
 				event.setCancelled(true);
-				if (closeInv) {
-					p.closeInventory();
-				}
+				closeInv(p);
 				p.sendMessage(noPerm);
 			}
 			return;
+		}
+	}
+	public void giveTrail(Player p, String element) {
+		if (element.equalsIgnoreCase("earth")) {
+			plugin.earth.add(p);
+			plugin.fire.remove(p);
+			plugin.water.remove(p);
+			plugin.air.remove(p);
+			plugin.avatar.remove(p);
+			plugin.chi.remove(p);
+		} else if (element.equalsIgnoreCase("fire")) {
+			plugin.fire.add(p);
+			plugin.earth.remove(p);
+			plugin.water.remove(p);
+			plugin.air.remove(p);
+			plugin.avatar.remove(p);
+			plugin.chi.remove(p);
+		} else if (element.equalsIgnoreCase("water")) {
+			plugin.water.add(p);
+			plugin.fire.remove(p);
+			plugin.earth.remove(p);
+			plugin.air.remove(p);
+			plugin.avatar.remove(p);
+			plugin.chi.remove(p);
+		} else if (element.equalsIgnoreCase("air")) {
+			plugin.air.add(p);
+			plugin.fire.remove(p);
+			plugin.water.remove(p);
+			plugin.avatar.remove(p);
+			plugin.earth.remove(p);
+			plugin.chi.remove(p);
+		} else if (element.equalsIgnoreCase("chi")) {
+			plugin.chi.add(p);
+			plugin.fire.remove(p);
+			plugin.water.remove(p);
+			plugin.air.remove(p);
+			plugin.avatar.remove(p);
+			plugin.earth.remove(p);
+		} else if (element.equalsIgnoreCase("avatar")) {
+			plugin.avatar.add(p);
+			plugin.fire.remove(p);
+			plugin.water.remove(p);
+			plugin.air.remove(p);
+			plugin.earth.remove(p);
+			plugin.chi.remove(p);
+		}
+	}
+	public void closeInv(Player p) {
+		if (closeInv) {
+			p.closeInventory();
 		}
 	}
 }
