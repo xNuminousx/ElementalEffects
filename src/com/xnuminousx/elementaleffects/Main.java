@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.xnuminousx.elementaleffects.commands.GUICommand;
+import com.xnuminousx.elementaleffects.commands.Commands;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.events.EntityDamageEvent;
 import com.xnuminousx.elementaleffects.events.IndicatorInvEvent;
@@ -46,8 +46,8 @@ public class Main extends JavaPlugin {
 	}
 	
 	public void registerCommands() {
-		getCommand("elementaleffects").setExecutor(new GUICommand());
-		getCommand("ee").setExecutor(new GUICommand());
+		getCommand("elementaleffects").setExecutor(new Commands());
+		getCommand("ee").setExecutor(new Commands());
 	}
 	
 	public void registerListeners() {

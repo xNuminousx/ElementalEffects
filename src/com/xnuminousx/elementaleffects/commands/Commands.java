@@ -15,7 +15,7 @@ public class Commands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String lable, String[] args) {
 		String title = ChatColor.DARK_PURPLE + "" + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ElementalEffects";
 		
-		if (lable.equalsIgnoreCase("elementaleffects") || lable.equalsIgnoreCase("ee") || lable.equalsIgnoreCase("e")) {
+		if (lable.equalsIgnoreCase("elementaleffects") || lable.equalsIgnoreCase("ee")) {
 			if (args.length == 0) {
 				sender.sendMessage(ChatColor.DARK_AQUA + "--= " + title + ChatColor.DARK_AQUA + " =--");
 				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee");
@@ -40,11 +40,11 @@ public class Commands implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("trails") || args[0].equalsIgnoreCase("trail") || args[0].equalsIgnoreCase("effects")) {
 						TrailGui.openGUI(p);
 						return true;
-					} else if (args[0].equalsIgnoreCase("ind") || args[0].equalsIgnoreCase("indicaotrs") || args[0].equalsIgnoreCase("indicator")) {
+					} else if (args[0].equalsIgnoreCase("ind") || args[0].equalsIgnoreCase("indicators") || args[0].equalsIgnoreCase("indicator")) {
 						IndGui.openGui(p);
 						return true;
 					} else {
-						sender.sendMessage(ChatColor.RED + "Command not known! Try: " + ChatColor.YELLOW + "/ee trails");
+						sender.sendMessage(ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/ee");
 						return true;
 					}
 				} else {
