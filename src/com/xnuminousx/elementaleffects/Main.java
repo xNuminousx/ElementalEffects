@@ -9,8 +9,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.xnuminousx.elementaleffects.commands.GUICommand;
 import com.xnuminousx.elementaleffects.config.Manager;
-import com.xnuminousx.elementaleffects.events.InventoryEvent;
+import com.xnuminousx.elementaleffects.events.EntityDamageEvent;
+import com.xnuminousx.elementaleffects.events.IndicatorInvEvent;
 import com.xnuminousx.elementaleffects.events.MoveEvent;
+import com.xnuminousx.elementaleffects.events.TrailInvEvent;
 
 public class Main extends JavaPlugin {
 	
@@ -20,6 +22,8 @@ public class Main extends JavaPlugin {
 	public ArrayList<Player> air = new ArrayList<Player>();
 	public ArrayList<Player> chi = new ArrayList<Player>();
 	public ArrayList<Player> avatar = new ArrayList<Player>();
+	
+	public ArrayList<Player> hit = new ArrayList<Player>();
 	
 	public static Main plugin;
 	
@@ -49,7 +53,9 @@ public class Main extends JavaPlugin {
 	public void registerListeners() {
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		
-		pm.registerEvents(new InventoryEvent(), this);
+		pm.registerEvents(new TrailInvEvent(), this);
+		pm.registerEvents(new IndicatorInvEvent(), this);
 		pm.registerEvents(new MoveEvent(), this);
+		pm.registerEvents(new EntityDamageEvent(), this);
 	}
 }

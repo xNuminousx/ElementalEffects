@@ -11,7 +11,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.config.Manager;
 
 public class GUICommand implements CommandExecutor {
 
@@ -31,12 +31,21 @@ public class GUICommand implements CommandExecutor {
 				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee trails");
 				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee trail, /ee effects");
 				sender.sendMessage(" " + ChatColor.YELLOW + "- Opens the trail GUI.");
+
+				sender.sendMessage("");
+				
+				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee indicators");
+				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee indicator, /ee ind");
+				sender.sendMessage(" " + ChatColor.YELLOW + "- Opens the indicators GUI.");
 				return true;
 			} else if (args.length == 1) {
 				if (sender instanceof Player) {
 					Player p = (Player)sender;
 					if (args[0].equalsIgnoreCase("trails") || args[0].equalsIgnoreCase("trail") || args[0].equalsIgnoreCase("effects")) {
 						trailGui(p);
+						return true;
+					} else if (args[0].equalsIgnoreCase("ind") || args[0].equalsIgnoreCase("indicaotrs") || args[0].equalsIgnoreCase("indicator")) {
+						indicatorGui(p);
 						return true;
 					} else {
 						sender.sendMessage(ChatColor.RED + "Command not known! Try: " + ChatColor.YELLOW + "/ee trails");
@@ -53,7 +62,7 @@ public class GUICommand implements CommandExecutor {
 	}
 	
 	public void trailGui(Player p) {
-		String guiName = Main.getInstance().getConfig().getString("Language.TrailGUIName");
+		String guiName = Manager.getTrailGuiName();
 		
 		Inventory inv = Bukkit.createInventory(p, 45, guiName);
 		
@@ -91,6 +100,24 @@ public class GUICommand implements CommandExecutor {
 		inv.setItem(16, airItem);
 		inv.setItem(30, chiItem);
 		inv.setItem(32, avatarItem);
+		
+		p.openInventory(inv);
+	}
+	
+	public void indicatorGui(Player p) {
+		String guiName = Manager.getIndicatorGuiName();
+		
+		Inventory inv = Bukkit.createInventory(p, 9, guiName);
+		
+		ItemStack hitItem = new ItemStack(Material.REDSTONE);
+		
+		ItemMeta hitMeta = hitItem.getItemMeta();
+		
+		hitMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Hit Indicator");
+		
+		hitItem.setItemMeta(hitMeta);
+		
+		inv.setItem(1, hitItem);
 		
 		p.openInventory(inv);
 	}

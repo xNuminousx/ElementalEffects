@@ -23,6 +23,7 @@ public class Manager {
 		FileConfiguration config = Main.plugin.getConfig();
 		
 		config.addDefault("Language.TrailGUIName", "Elemental Trails");
+		config.addDefault("Language.IndicatorGUIName", "Elemental Indicators");
 		config.addDefault("Language.Prefix.Enabled", true);
 		
 		config.addDefault("Trails.RequireElement", false);
@@ -41,6 +42,7 @@ public class Manager {
 		config.addDefault("Trails.Water.Particles.Amount", 2);
 		
 		config.addDefault("Trails.Air.DisappearInWater", true);
+		config.addDefault("Trails.Air.CloudEffectInAir", true);
 		config.addDefault("Trails.Air.Particles.Speed", 0);
 		config.addDefault("Trails.Air.Particles.Amount", 2);
 		
@@ -55,16 +57,26 @@ public class Manager {
 		config.addDefault("Trails.Avatar.Particles.Speed", 0);
 		config.addDefault("Trails.Avatar.Particles.Amount", 2);
 		
+		config.addDefault("Indicators.Hit.MaxDamage", 3);
+		
 		config.options().copyDefaults(true);
 		plugin.saveConfig();
+	}
+	
+	public static double maxDamage() {
+		return Main.getInstance().getConfig().getDouble("Indicators.Hit.MaxDamage");
 	}
 	
 	public static boolean requireElement() {
 		return Main.getInstance().getConfig().getBoolean("Trails.RequireElement");
 	}
 	
-	public static String getGuiName() {
+	public static String getTrailGuiName() {
 		return Main.getInstance().getConfig().getString("Language.TrailGUIName");
+	}
+	
+	public static String getIndicatorGuiName() {
+		return Main.getInstance().getConfig().getString("Language.IndicatorGUIName");
 	}
 	
 	public static boolean closeInv() {

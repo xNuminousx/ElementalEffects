@@ -11,10 +11,10 @@ import com.projectkorra.projectkorra.Element;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 
-public class InventoryEvent implements Listener {
+public class TrailInvEvent implements Listener {
 	
 	Main plugin = Main.getInstance();
-	String trailGuiName = Manager.getGuiName();
+	String trailGuiName = Manager.getTrailGuiName();
 	boolean reqEle = Manager.requireElement();
 	boolean closeInv = Manager.closeInv();
 	
