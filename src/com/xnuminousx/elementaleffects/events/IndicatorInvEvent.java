@@ -46,9 +46,9 @@ public class IndicatorInvEvent implements Listener {
 			
 			if (plugin.hit.contains(p)) {
 				event.setCancelled(true);
+				plugin.hit.remove(p);
 				closeInv(p);
 				p.sendMessage(disableMessage);
-				plugin.hit.remove(p);
 				return;
 			} else if (p.hasPermission("elementaleffects.hit") || p.hasPermission("elementaleffects.*")) {
 				event.setCancelled(true);
@@ -69,4 +69,5 @@ public class IndicatorInvEvent implements Listener {
 			p.closeInventory();
 		}
 	}
+
 }
