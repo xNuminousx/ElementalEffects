@@ -10,7 +10,7 @@ import com.projectkorra.projectkorra.ability.EarthAbility;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 
-public class Trails implements Listener {
+public class Move implements Listener {
 	
 	public static void earthTrail(Player p) {
 		float speed = Main.getInstance().getConfig().getInt("Trails.Earth.Particles.Speed");
