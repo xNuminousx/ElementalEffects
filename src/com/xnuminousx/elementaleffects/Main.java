@@ -39,7 +39,6 @@ public class Main extends JavaPlugin implements Listener {
 	}
 	public void onDisable() {
 		Bukkit.getServer().getLogger().info("ElementalEffects disabled");
-		
 	}
 	
 	public static Main getInstance() {
