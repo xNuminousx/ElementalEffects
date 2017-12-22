@@ -42,7 +42,7 @@ public class Manager {
 		config.addDefault("Trails.Water.Particles.Amount", 2);
 		
 		config.addDefault("Trails.Air.DisappearInWater", true);
-		config.addDefault("Trails.Air.CloudEffectInAir", true);
+		config.addDefault("Trails.Air.CloudEffect", true);
 		config.addDefault("Trails.Air.Particles.Speed", 0);
 		config.addDefault("Trails.Air.Particles.Amount", 2);
 		
@@ -57,14 +57,14 @@ public class Manager {
 		config.addDefault("Trails.Avatar.Particles.Speed", 0);
 		config.addDefault("Trails.Avatar.Particles.Amount", 2);
 		
-		config.addDefault("Indicators.Hit.MaxDamage", 3);
+		config.addDefault("Indicators.Hit.CriticalDamage", 3);
 		
 		config.options().copyDefaults(true);
 		plugin.saveConfig();
 	}
 	
 	public static double maxDamage() {
-		return Main.getInstance().getConfig().getDouble("Indicators.Hit.MaxDamage");
+		return Main.getInstance().getConfig().getDouble("Indicators.Hit.CriticalDamage");
 	}
 	
 	public static boolean requireElement() {

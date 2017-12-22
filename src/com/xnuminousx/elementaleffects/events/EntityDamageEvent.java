@@ -19,17 +19,18 @@ public class EntityDamageEvent implements Listener {
 
 	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent event) {
-		Entity target = event.getEntity();
-		Player p = (Player)event.getDamager();
-		double amount = event.getDamage();
-		
-		if (plugin.hit.contains(p)) {
-			if (event.getEntity() instanceof LivingEntity) {
-				bloodEffect(target, amount);
+		if (event.getDamager() instanceof Player) {
+			Entity target = event.getEntity();
+			Player p = (Player)event.getDamager();
+			double amount = event.getDamage();
+			if (plugin.hit.contains(p)) {
+				if (event.getEntity() instanceof LivingEntity) {
+					bloodEffect(target, amount);
+					return;
+				}
+			} else {
 				return;
 			}
-		} else {
-			return;
 		}
 
 	}

@@ -23,10 +23,6 @@ public class MoveEvent implements Listener {
 	
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
-		Main.isMoving = true;
-		if (e.isCancelled()) {
-			Main.isMoving = false;
-		}
 		Player p = (Player)e.getPlayer();
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(p);
 		

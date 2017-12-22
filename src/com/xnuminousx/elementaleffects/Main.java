@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import com.xnuminousx.elementaleffects.commands.Commands;
 import com.xnuminousx.elementaleffects.config.Manager;
@@ -15,7 +14,6 @@ import com.xnuminousx.elementaleffects.events.EntityDamageEvent;
 import com.xnuminousx.elementaleffects.events.IndicatorInvEvent;
 import com.xnuminousx.elementaleffects.events.MoveEvent;
 import com.xnuminousx.elementaleffects.events.TrailInvEvent;
-import com.xnuminousx.elementaleffects.trails.Still;
 
 public class Main extends JavaPlugin implements Listener {
 	
@@ -29,7 +27,6 @@ public class Main extends JavaPlugin implements Listener {
 	public ArrayList<Player> hit = new ArrayList<Player>();
 	
 	public static Main plugin;
-	public static boolean isMoving;
 	
 	public void onEnable() {
 		plugin = this;
@@ -37,23 +34,6 @@ public class Main extends JavaPlugin implements Listener {
 		new Manager(this);
 		registerCommands();
 		registerListeners();
-		
-		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-			new BukkitRunnable() {
-
-				@Override
-				public void run() {
-					if (!isMoving) {
-						if (plugin.fire.contains(player)) {
-							Still.fireTrail(player);
-						}
-					} else {
-						return;
-					}
-				}
-				
-			}.runTaskTimerAsynchronously(plugin, 0, 0);
-		}
 		
 		Bukkit.getServer().getLogger().info("ElementalEffects enabled");
 	}

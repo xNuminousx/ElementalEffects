@@ -79,9 +79,9 @@ public class Move implements Listener {
 	public static void airTrail(Player p) {
 		float speed = Main.getInstance().getConfig().getInt("Trails.Air.Particles.Speed");
 		int amount = Main.getInstance().getConfig().getInt("Trails.Air.Particles.Amount");
-		boolean doCloud = Main.getInstance().getConfig().getBoolean("Trails.Air.CloudEffectInAir");
+		boolean doCloud = Main.getInstance().getConfig().getBoolean("Trails.Air.CloudEffect");
 		boolean vanishInWater = Main.getInstance().getConfig().getBoolean("Trails.Air.DisappearInWater");
-		Material getBlock = p.getLocation().add(0, 1.5, 0).getBlock().getType();
+		Material getBlock = p.getLocation().add(0, -1, 0).getBlock().getType();
 		
 		if (vanishInWater) {
 			
@@ -89,8 +89,8 @@ public class Move implements Listener {
 				return;
 			} else {
 				if (doCloud) {
-					if (!getBlock.isBlock()) {
-						AirAbility.getAirbendingParticles().display(p.getLocation().add(0, -0.5, 0), (float) 0.3, (float) 0.3, (float) 0.3, (float) speed, 5);
+					if (getBlock.equals(Material.AIR)) {
+						AirAbility.getAirbendingParticles().display(p.getLocation(), (float) 0.5, 0, (float) 0.5, (float) speed, 5);
 						return;
 					} else {
 						AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
@@ -103,8 +103,8 @@ public class Move implements Listener {
 			}
 		} else {
 			if (doCloud) {
-				if (!getBlock.isBlock()) {
-					AirAbility.getAirbendingParticles().display(p.getLocation().add(0, -0.5, 0), (float) 0.3, (float) 0.3, (float) 0.3, (float) speed, 5);
+				if (getBlock.equals(Material.AIR)) {
+					AirAbility.getAirbendingParticles().display(p.getLocation(), (float) 0.5, 0, (float) 0.5, (float) speed, 5);
 					return;
 				} else {
 					AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
