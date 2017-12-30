@@ -1,5 +1,7 @@
 package com.xnuminousx.elementaleffects.GUIs;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -16,6 +18,11 @@ public class TrailGui {
 		String guiName = Manager.getTrailGuiName();
 		
 		Inventory inv = Bukkit.createInventory(p, 45, guiName);
+		
+		ArrayList<String> hasPerm = new ArrayList<String>();
+		ArrayList<String> noPerm = new ArrayList<String>();
+		hasPerm.add(ChatColor.GREEN + "Enable" + ChatColor.GRAY + "/" + ChatColor.DARK_RED + "Disable");
+		noPerm.add(ChatColor.DARK_RED + "No permission!");
 		
 		ItemStack indGui = new ItemStack(Material.END_CRYSTAL);
 		ItemStack earthItem = new ItemStack(Material.GRASS);
@@ -35,11 +42,46 @@ public class TrailGui {
 		
 		indMeta.setDisplayName(ChatColor.DARK_AQUA + "Open Indicator GUI");
 		earthMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Earth Trail");
+		if (p.hasPermission("elementaleffects.earth") || p.hasPermission("elementaleffects.*")) {
+			earthMeta.setLore(hasPerm);
+		} else {
+			earthMeta.setLore(noPerm);
+		}
+		
 		waterMeta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "Water Trail");
+		if (p.hasPermission("elementaleffects.water") || p.hasPermission("elementaleffects.*")) {
+			waterMeta.setLore(hasPerm);
+		} else {
+			waterMeta.setLore(noPerm);
+		}
+		
 		fireMeta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "Fire Trail");
+		if (p.hasPermission("elementaleffects.fire") || p.hasPermission("elementaleffects.*")) {
+			fireMeta.setLore(hasPerm);
+		} else {
+			fireMeta.setLore(noPerm);
+		}
+		
 		airMeta.setDisplayName(ChatColor.GRAY + "" + ChatColor.BOLD + "Air Trail");
+		if (p.hasPermission("elementaleffects.air") || p.hasPermission("elementaleffects.*")) {
+			airMeta.setLore(hasPerm);
+		} else {
+			airMeta.setLore(noPerm);
+		}
+		
 		chiMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Chi Trail");
+		if (p.hasPermission("elementaleffects.chi") || p.hasPermission("elementaleffects.*")) {
+			chiMeta.setLore(hasPerm);
+		} else {
+			chiMeta.setLore(noPerm);
+		}
+		
 		avatarMeta.setDisplayName(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Avatar Trail");
+		if (p.hasPermission("elementaleffects.avatar") || p.hasPermission("elementaleffects.*")) {
+			avatarMeta.setLore(hasPerm);
+		} else {
+			avatarMeta.setLore(noPerm);
+		}
 		
 		indGui.setItemMeta(indMeta);
 		earthItem.setItemMeta(earthMeta);

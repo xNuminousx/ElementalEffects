@@ -38,6 +38,8 @@ public class IndicatorInvEvent implements Listener {
 		if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().equals(null)) {
 			event.setCancelled(true);
 			return;
+			
+		//Enable/Disable HitIndicator	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Hit Indicator")) {
 			ChatColor indColor = ChatColor.DARK_RED;
 			String indType = "Hit Indicator";
@@ -63,6 +65,8 @@ public class IndicatorInvEvent implements Listener {
 				p.sendMessage(noPerm);
 				return;
 			}
+			
+		//Open Trail GUI	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Open Trail GUI")) {
 			event.setCancelled(true);
 			TrailGui.openGUI(p);
