@@ -15,16 +15,21 @@ public class IndGui {
 	public static void openGui(Player p) {
 		String guiName = Manager.getIndicatorGuiName();
 		
-		Inventory inv = Bukkit.createInventory(p, 9, guiName);
+		Inventory inv = Bukkit.createInventory(p, 27, guiName);
 		
+		ItemStack trailGui = new ItemStack(Material.END_CRYSTAL);
 		ItemStack hitItem = new ItemStack(Material.REDSTONE);
 		
+		ItemMeta trailMeta = trailGui.getItemMeta();
 		ItemMeta hitMeta = hitItem.getItemMeta();
 		
+		trailMeta.setDisplayName(ChatColor.DARK_AQUA + "Open Trail GUI");
 		hitMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Hit Indicator");
 		
+		trailGui.setItemMeta(trailMeta);
 		hitItem.setItemMeta(hitMeta);
 		
+		inv.setItem(22, trailGui);
 		inv.setItem(1, hitItem);
 		
 		p.openInventory(inv);

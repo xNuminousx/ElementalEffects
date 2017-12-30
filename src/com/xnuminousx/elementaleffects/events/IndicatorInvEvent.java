@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.GUIs.TrailGui;
 import com.xnuminousx.elementaleffects.config.Manager;
 
 public class IndicatorInvEvent implements Listener {
@@ -62,6 +63,10 @@ public class IndicatorInvEvent implements Listener {
 				p.sendMessage(noPerm);
 				return;
 			}
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Open Trail GUI")) {
+			event.setCancelled(true);
+			TrailGui.openGUI(p);
+			return;
 		}
 	}
 	public void closeInv(Player p) {

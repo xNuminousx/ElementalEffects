@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.GUIs.IndGui;
 import com.xnuminousx.elementaleffects.config.Manager;
 
 public class TrailInvEvent implements Listener {
@@ -287,6 +288,12 @@ public class TrailInvEvent implements Listener {
 				closeInv(p);
 				p.sendMessage(noPerm);
 			}
+			return;
+			
+		//Open indicator GUI	
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Open Indicator GUI")) {
+			event.setCancelled(true);
+			IndGui.openGui(p);
 			return;
 		}
 	}

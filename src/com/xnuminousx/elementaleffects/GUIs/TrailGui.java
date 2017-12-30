@@ -17,6 +17,7 @@ public class TrailGui {
 		
 		Inventory inv = Bukkit.createInventory(p, 45, guiName);
 		
+		ItemStack indGui = new ItemStack(Material.END_CRYSTAL);
 		ItemStack earthItem = new ItemStack(Material.GRASS);
 		ItemStack waterItem = new ItemStack(Material.WATER_BUCKET);
 		ItemStack fireItem = new ItemStack(Material.BLAZE_POWDER);
@@ -24,6 +25,7 @@ public class TrailGui {
 		ItemStack chiItem = new ItemStack(Material.LEASH);
 		ItemStack avatarItem = new ItemStack(Material.NETHER_STAR);
 		
+		ItemMeta indMeta = indGui.getItemMeta();
 		ItemMeta earthMeta = earthItem.getItemMeta();
 		ItemMeta waterMeta = waterItem.getItemMeta();
 		ItemMeta fireMeta = fireItem.getItemMeta();
@@ -31,6 +33,7 @@ public class TrailGui {
 		ItemMeta chiMeta = chiItem.getItemMeta();
 		ItemMeta avatarMeta = avatarItem.getItemMeta();
 		
+		indMeta.setDisplayName(ChatColor.DARK_AQUA + "Open Indicator GUI");
 		earthMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Earth Trail");
 		waterMeta.setDisplayName(ChatColor.AQUA + "" + ChatColor.BOLD + "Water Trail");
 		fireMeta.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "Fire Trail");
@@ -38,6 +41,7 @@ public class TrailGui {
 		chiMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.BOLD + "Chi Trail");
 		avatarMeta.setDisplayName(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "Avatar Trail");
 		
+		indGui.setItemMeta(indMeta);
 		earthItem.setItemMeta(earthMeta);
 		waterItem.setItemMeta(waterMeta);
 		fireItem.setItemMeta(fireMeta);
@@ -45,6 +49,7 @@ public class TrailGui {
 		chiItem.setItemMeta(chiMeta);
 		avatarItem.setItemMeta(avatarMeta);
 		
+		inv.setItem(40, indGui);
 		inv.setItem(10, earthItem);
 		inv.setItem(12, waterItem);
 		inv.setItem(14, fireItem);
