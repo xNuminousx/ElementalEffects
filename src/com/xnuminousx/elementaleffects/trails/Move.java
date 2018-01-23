@@ -130,69 +130,14 @@ public class Move implements Listener {
 	}
 	
 	public static void avatarTrail(Player p) {
-		float speed = Main.getInstance().getConfig().getInt("Trails.Avatar.Particles.Speed");
-		int amount = Main.getInstance().getConfig().getInt("Trails.Avatar.Particles.Amount");
-		
-		boolean aReqEarthBlock = Main.getInstance().getConfig().getBoolean("Trails.Avatar.Earth.RequireEarthBlock");
-		boolean fireVanishInWater = Main.getInstance().getConfig().getBoolean("Trails.Avatar.Fire.DisappearInWater");
-		boolean doBoilEffect = Main.getInstance().getConfig().getBoolean("Trails.Avatar.Fire.BoilEffect");
-		boolean airVanishInWater = Main.getInstance().getConfig().getBoolean("Trails.Avatar.Air.DisappearInWater");
-		
 		//Fire
-		Material fireGetBlock = p.getLocation().add(0, 1, 0).getBlock().getType();
-		
-		if (fireVanishInWater) {
-			if (fireGetBlock.equals(Material.STATIONARY_WATER)) {
-				if (doBoilEffect) {
-					ParticleEffect.BUBBLE.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
-				}
-			} else {
-				ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
-			}
-		} else {
-			if (doBoilEffect) {
-				if (fireGetBlock.equals(Material.STATIONARY_WATER)) {
-					ParticleEffect.BUBBLE.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
-				}
-			}
-			ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
-		}
-		
+		fireTrail(p);
 		//Water
-		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
-		
+		waterTrail(p);
 		//Air
-		if (airVanishInWater) {
-			Material airGetBlock = p.getLocation().add(0, 1, 0).getBlock().getType();
-			
-			if (airGetBlock.equals(Material.STATIONARY_WATER)) {
-			} else {
-				AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
-			}
-		} else {
-			AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
-		}
-		
+		airTrail(p);
 		//Earth
-		byte blockByte = 0;
-		Block earthGetBlock;
-		Material getMat;
-		earthGetBlock = p.getLocation().add(0, -1, 0).getBlock();
-		getMat = earthGetBlock.getType();
-		
-		if (aReqEarthBlock) {
-			if (!EarthAbility.isEarthbendable(p, earthGetBlock)) {
-				getMat = null;
-			} else {
-				ParticleEffect.BLOCK_CRACK.display((ParticleEffect.ParticleData) 
-						new ParticleEffect.BlockData(getMat, blockByte), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount, p.getLocation(), 500);
-				return;
-			}
-		} else {
-			getMat = Material.GRASS;
-			ParticleEffect.BLOCK_CRACK.display((ParticleEffect.ParticleData) 
-					new ParticleEffect.BlockData(getMat, blockByte), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount, p.getLocation(), 500);
-		}
+		earthTrail(p);
 	}
 
 }
