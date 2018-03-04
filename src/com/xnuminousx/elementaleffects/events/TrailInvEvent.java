@@ -295,13 +295,6 @@ public class TrailInvEvent implements Listener {
 			event.setCancelled(true);
 			IndGui.openGui(p);
 			return;
-		
-		//Testing non-moving trails	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Test")) {
-			event.setCancelled(true);
-			plugin.test.add(p);
-			closeInv(p);
-			return;
 		}
 	}
 	public void giveTrail(Player p, String element) {

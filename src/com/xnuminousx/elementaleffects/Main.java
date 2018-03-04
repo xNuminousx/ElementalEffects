@@ -23,7 +23,6 @@ public class Main extends JavaPlugin implements Listener {
 	public ArrayList<Player> air = new ArrayList<Player>();
 	public ArrayList<Player> chi = new ArrayList<Player>();
 	public ArrayList<Player> avatar = new ArrayList<Player>();
-	public ArrayList<Player> test = new ArrayList<Player>();
 	
 	public ArrayList<Player> hit = new ArrayList<Player>();
 	

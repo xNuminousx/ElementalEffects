@@ -23,12 +23,6 @@ public class TrailGui {
 		ArrayList<String> noPerm = new ArrayList<String>();
 		hasPerm.add(ChatColor.GREEN + "Enable" + ChatColor.GRAY + "/" + ChatColor.DARK_RED + "Disable");
 		noPerm.add(ChatColor.DARK_RED + "No permission!");
-		
-		ItemStack testItem = new ItemStack(Material.APPLE);
-		ItemMeta testMeta = testItem.getItemMeta();
-		testMeta.setDisplayName("Test");
-		testItem.setItemMeta(testMeta);
-		inv.setItem(0, testItem);
 			
 		ItemStack indGui = new ItemStack(Material.END_CRYSTAL);
 		ItemStack earthItem = new ItemStack(Material.GRASS);
