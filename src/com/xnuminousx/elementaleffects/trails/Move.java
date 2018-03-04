@@ -1,9 +1,11 @@
 package com.xnuminousx.elementaleffects.trails;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.ability.EarthAbility;
@@ -11,6 +13,31 @@ import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 
 public class Move implements Listener {
+	
+	public static void stillEffect(Player p) {
+		new BukkitRunnable() {
+
+			private int currPoint;
+
+			@Override
+			public void run() {
+				Location location = p.getLocation();
+				for (int i = 0; i < 6; i++) {
+					currPoint += 360;
+					if (currPoint > 360) {
+						currPoint = 0;
+					}
+					double radians = Math.toRadians(currPoint);
+					double x = Math.cos(radians);
+					double z = Math.sin(radians);
+					location.add(x, 0, z);
+					ParticleEffect.FLAME.display(location, 0, 0, 0, 0, 1);
+					location.subtract(x, 0, z);
+				}
+			}
+			
+		}.runTaskTimer(Main.plugin, 0, 3);
+	}
 	
 	public static void earthTrail(Player p) {
 		float speed = Main.getInstance().getConfig().getInt("Trails.Earth.Particles.Speed");

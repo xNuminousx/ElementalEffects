@@ -1,4 +1,4 @@
-package com.xnuminousx.elementaleffects.GUIs;
+package com.xnuminousx.elementaleffects.gui;
 
 import java.util.ArrayList;
 

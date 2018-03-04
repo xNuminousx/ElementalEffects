@@ -7,8 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import com.xnuminousx.elementaleffects.Main;
-import com.xnuminousx.elementaleffects.GUIs.TrailGui;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.gui.TrailGui;
 
 public class IndicatorInvEvent implements Listener {
 	

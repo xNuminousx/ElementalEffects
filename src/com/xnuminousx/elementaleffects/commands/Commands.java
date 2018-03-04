@@ -6,8 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.xnuminousx.elementaleffects.GUIs.IndGui;
-import com.xnuminousx.elementaleffects.GUIs.TrailGui;
+import com.xnuminousx.elementaleffects.gui.IndGui;
+import com.xnuminousx.elementaleffects.gui.TrailGui;
 
 public class Commands implements CommandExecutor {
 

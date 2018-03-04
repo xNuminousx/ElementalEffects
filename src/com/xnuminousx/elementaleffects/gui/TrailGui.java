@@ -1,4 +1,4 @@
-package com.xnuminousx.elementaleffects.GUIs;
+package com.xnuminousx.elementaleffects.gui;
 
 import java.util.ArrayList;
 
@@ -24,6 +24,12 @@ public class TrailGui {
 		hasPerm.add(ChatColor.GREEN + "Enable" + ChatColor.GRAY + "/" + ChatColor.DARK_RED + "Disable");
 		noPerm.add(ChatColor.DARK_RED + "No permission!");
 		
+		ItemStack testItem = new ItemStack(Material.APPLE);
+		ItemMeta testMeta = testItem.getItemMeta();
+		testMeta.setDisplayName("Test");
+		testItem.setItemMeta(testMeta);
+		inv.setItem(0, testItem);
+			
 		ItemStack indGui = new ItemStack(Material.END_CRYSTAL);
 		ItemStack earthItem = new ItemStack(Material.GRASS);
 		ItemStack waterItem = new ItemStack(Material.WATER_BUCKET);
