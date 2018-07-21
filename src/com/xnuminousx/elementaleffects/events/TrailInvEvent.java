@@ -691,9 +691,9 @@ public class TrailInvEvent implements Listener {
 			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.air2.contains(p)) {
+			if (plugin.flight.contains(p)) {
 				event.setCancelled(true);
-				plugin.air2.remove(p);
+				plugin.flight.remove(p);
 				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
