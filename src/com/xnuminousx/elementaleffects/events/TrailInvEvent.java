@@ -506,9 +506,9 @@ public class TrailInvEvent implements Listener {
 			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.chi.contains(p)) {
+			if (plugin.chi2.contains(p)) {
 				event.setCancelled(true);
-				plugin.chi.remove(p);
+				plugin.chi2.remove(p);
 				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
