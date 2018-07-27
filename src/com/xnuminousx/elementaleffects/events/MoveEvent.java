@@ -9,7 +9,16 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.xnuminousx.elementaleffects.Main;
-import com.xnuminousx.elementaleffects.trails.Move;
+import com.xnuminousx.elementaleffects.trails.AirTrail;
+import com.xnuminousx.elementaleffects.trails.AvatarTrail;
+import com.xnuminousx.elementaleffects.trails.ChiTrail;
+import com.xnuminousx.elementaleffects.trails.EarthTrail;
+import com.xnuminousx.elementaleffects.trails.FireTrail;
+import com.xnuminousx.elementaleffects.trails.Hydro;
+import com.xnuminousx.elementaleffects.trails.IceTrail;
+import com.xnuminousx.elementaleffects.trails.Intensity;
+import com.xnuminousx.elementaleffects.trails.SandTrail;
+import com.xnuminousx.elementaleffects.trails.WaterTrail;
 
 public class MoveEvent implements Listener {
 
@@ -36,7 +45,7 @@ public class MoveEvent implements Listener {
 		if (plugin.earth.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.EARTH)) {
-					Move.earthTrail(p);
+					new EarthTrail(p);
 				} else {
 					if (plugin.earth.contains(p)) {
 						plugin.earth.remove(p);
@@ -48,12 +57,12 @@ public class MoveEvent implements Listener {
 					}
 				}
 			} else {
-				Move.earthTrail(p);
+				new EarthTrail(p);
 			}
 		} else if (plugin.sand.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.EARTH) && bPlayer.hasElement(Element.SAND)) {
-					Move.sandTrail(p);;
+					new SandTrail(p);
 				} else {
 					if (plugin.sand.contains(p)) {
 						plugin.sand.remove(p);
@@ -65,12 +74,12 @@ public class MoveEvent implements Listener {
 					}
 				}
 			} else {
-				Move.sandTrail(p);
+				new SandTrail(p);
 			}
 		}  else if (plugin.fire.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.FIRE)) {
-					Move.fireTrail(p);
+					new FireTrail(p);
 				} else {
 					if (plugin.fire.contains(p)) {
 						plugin.fire.remove(p);
@@ -82,15 +91,15 @@ public class MoveEvent implements Listener {
 					}
 				}
 			} else {
-				Move.fireTrail(p);
+				new FireTrail(p);
 			}
-		} else if (plugin.fire2.contains(p)) {
+		} else if (plugin.flamearms.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.FIRE)) {
-					Move.fireTrail(p);
+					new FireTrail(p);
 				} else {
-					if (plugin.fire2.contains(p)) {
-						plugin.fire2.remove(p);
+					if (plugin.flamearms.contains(p)) {
+						plugin.flamearms.remove(p);
 						p.sendMessage(prefix + ChatColor.RED + elementChMess);
 						return;
 					} else {
@@ -99,12 +108,12 @@ public class MoveEvent implements Listener {
 					}
 				}
 			} else {
-				Move.fireTrail(p);
+				new FireTrail(p);
 			}
 		} else if (plugin.water.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.WATER)) {
-					Move.waterTrail(p);
+					new WaterTrail(p);
 				} else {
 					if (plugin.water.contains(p)) {
 						plugin.water.remove(p);
@@ -116,12 +125,12 @@ public class MoveEvent implements Listener {
 					}
 				}
 			} else {
-				Move.waterTrail(p);
+				new WaterTrail(p);
 			}
 		} else if (plugin.water2.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.WATER)) {
-					Move.waterTrail2(p);
+					new Hydro(p);
 				} else {
 					if (plugin.water2.contains(p)) {
 						plugin.water2.remove(p);
@@ -133,12 +142,12 @@ public class MoveEvent implements Listener {
 					}
 				}
 			} else {
-				Move.waterTrail2(p);
+				new Hydro(p);
 			}
 		} else if (plugin.ice.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.WATER) && bPlayer.hasElement(Element.ICE)) {
-					Move.iceTrail(p);
+					new IceTrail(p);
 				} else {
 					if (plugin.ice.contains(p)) {
 						plugin.ice.remove(p);
@@ -150,12 +159,12 @@ public class MoveEvent implements Listener {
 					}
 				}
 			} else {
-				Move.iceTrail(p);
+				new IceTrail(p);
 			}
 		} else if (plugin.air.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.AIR)) {
-					Move.airTrail(p);
+					new AirTrail(p);
 				} else {
 					if (plugin.air.contains(p)) {
 						plugin.air.remove(p);
@@ -167,12 +176,12 @@ public class MoveEvent implements Listener {
 					}
 				}
 			} else {
-				Move.airTrail(p);
+				new AirTrail(p);
 			}
 		} else if (plugin.chi2.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.CHI)) {
-					Move.chiTrail2(p);
+					new Intensity(p);
 				} else {
 					if (plugin.chi2.contains(p)) {
 						plugin.chi2.remove(p);
@@ -184,12 +193,12 @@ public class MoveEvent implements Listener {
 					}
 				}
 			} else {
-				Move.chiTrail2(p);
+				new Intensity(p);
 			}
 		} else if (plugin.chi.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.CHI)) {
-					Move.chiTrail(p);
+					new ChiTrail(p);
 				} else {
 					if (plugin.chi.contains(p)) {
 						plugin.chi.remove(p);
@@ -201,10 +210,10 @@ public class MoveEvent implements Listener {
 					}
 				}
 			} else {
-				Move.chiTrail(p);
+				new ChiTrail(p);
 			}
 		} else if (plugin.avatar.contains(p)) {
-			Move.avatarTrail(p);
+			new AvatarTrail(p);
 		}
 	}
 }

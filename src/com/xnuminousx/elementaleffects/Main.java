@@ -21,7 +21,7 @@ public class Main extends JavaPlugin implements Listener {
 	public ArrayList<Player> lava = new ArrayList<Player>();
 	public ArrayList<Player> sand = new ArrayList<Player>();
 	public ArrayList<Player> fire = new ArrayList<Player>();
-	public ArrayList<Player> fire2 = new ArrayList<Player>();
+	public ArrayList<Player> flamearms = new ArrayList<Player>();
 	public ArrayList<Player> lightning = new ArrayList<Player>();
 	public ArrayList<Player> water = new ArrayList<Player>();
 	public ArrayList<Player> water2 = new ArrayList<Player>();

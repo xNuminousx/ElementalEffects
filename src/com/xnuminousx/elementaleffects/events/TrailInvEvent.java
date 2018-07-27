@@ -11,7 +11,15 @@ import com.projectkorra.projectkorra.Element;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.gui.IndGui;
-import com.xnuminousx.elementaleffects.trails.Move;
+import com.xnuminousx.elementaleffects.trails.AeroSphere;
+import com.xnuminousx.elementaleffects.trails.ElementalRings;
+import com.xnuminousx.elementaleffects.trails.FlameArms;
+import com.xnuminousx.elementaleffects.trails.IceBoots;
+import com.xnuminousx.elementaleffects.trails.LavaTrail;
+import com.xnuminousx.elementaleffects.trails.SandCloak;
+import com.xnuminousx.elementaleffects.trails.StaticField;
+import com.xnuminousx.elementaleffects.trails.WaterRings;
+import com.xnuminousx.elementaleffects.trails.Float;
 
 public class TrailInvEvent implements Listener {
 	
@@ -116,7 +124,7 @@ public class TrailInvEvent implements Listener {
 						// Give trail
 						event.setCancelled(true);
 						giveTrail(p, "lava");
-						Move.lavaTrail(p);
+						new LavaTrail(p);
 						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
@@ -131,7 +139,7 @@ public class TrailInvEvent implements Listener {
 					// Give trail
 					event.setCancelled(true);
 					giveTrail(p, "lava");
-					Move.lavaTrail(p);
+					new LavaTrail(p);
 					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
@@ -144,7 +152,7 @@ public class TrailInvEvent implements Listener {
 			}
 			return;
 			
-		// Enable/Disable Fire Trail	
+		// Enable/Disable SandCloak Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Sandy Cloak")) {
 			elementColor = ChatColor.YELLOW;
 			trailType = "Sandy Cloak";
@@ -166,7 +174,7 @@ public class TrailInvEvent implements Listener {
 						// Give trail
 						event.setCancelled(true);
 						giveTrail(p, "sand");
-						Move.sandCloak(p);
+						new SandCloak(p);
 						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
@@ -181,7 +189,7 @@ public class TrailInvEvent implements Listener {
 					// Give trail
 					event.setCancelled(true);
 					giveTrail(p, "sand");
-					Move.sandCloak(p);
+					new SandCloak(p);
 					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
@@ -244,9 +252,9 @@ public class TrailInvEvent implements Listener {
 			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.fire2.contains(p)) {
+			if (plugin.flamearms.contains(p)) {
 				event.setCancelled(true);
-				plugin.fire2.remove(p);
+				plugin.flamearms.remove(p);
 				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
@@ -255,7 +263,7 @@ public class TrailInvEvent implements Listener {
 					if (bPlayer.hasElement(Element.FIRE)) {
 						event.setCancelled(true);
 						giveTrail(p, "fire2");
-						Move.fireTrail2(p);
+						new FlameArms(p);
 						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
@@ -268,7 +276,7 @@ public class TrailInvEvent implements Listener {
 				} else {
 					event.setCancelled(true);
 					giveTrail(p, "fire2");
-					Move.fireTrail2(p);
+					new FlameArms(p);
 					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
@@ -299,7 +307,7 @@ public class TrailInvEvent implements Listener {
 					if (bPlayer.hasElement(Element.FIRE) && bPlayer.hasElement(Element.LIGHTNING)) {
 						event.setCancelled(true);
 						giveTrail(p, "lightning");
-						Move.staticField(p);
+						new StaticField(p);
 						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
@@ -312,7 +320,7 @@ public class TrailInvEvent implements Listener {
 				} else {
 					event.setCancelled(true);
 					giveTrail(p, "lightning");
-					Move.staticField(p);
+					new StaticField(p);
 					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
@@ -385,7 +393,7 @@ public class TrailInvEvent implements Listener {
 					if (bPlayer.hasElement(Element.WATER)) {
 						event.setCancelled(true);
 						giveTrail(p, "water2");
-						Move.playWaterRings(p);
+						new WaterRings(p);
 						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
@@ -398,7 +406,7 @@ public class TrailInvEvent implements Listener {
 				} else {
 					event.setCancelled(true);
 					giveTrail(p, "water2");
-					Move.playWaterRings(p);
+					new WaterRings(p);
 					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
@@ -430,7 +438,7 @@ public class TrailInvEvent implements Listener {
 					if (bPlayer.hasElement(Element.WATER) && bPlayer.hasElement(Element.ICE)) {
 						event.setCancelled(true);
 						giveTrail(p, "ice");
-						Move.iceBoots(p);
+						new IceBoots(p);
 						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
@@ -443,7 +451,7 @@ public class TrailInvEvent implements Listener {
 				} else {
 					event.setCancelled(true);
 					giveTrail(p, "ice");
-					Move.iceBoots(p);
+					new IceBoots(p);
 					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
@@ -582,7 +590,7 @@ public class TrailInvEvent implements Listener {
 			} else if (p.hasPermission("elementaleffects.avatar") || p.hasPermission("elementaleffects.*")) {
 				event.setCancelled(true);
 				giveTrail(p, "avatar2");
-				Move.elementalRings(p);
+				new ElementalRings(p);
 				closeInv(p);
 				p.sendMessage(enableMessage);
 				return;
@@ -655,7 +663,7 @@ public class TrailInvEvent implements Listener {
 				if (reqEle) {
 					if (bPlayer.hasElement(Element.AIR)) {
 						event.setCancelled(true);
-						Move.aeroSphere(p);
+						new AeroSphere(p);
 						giveTrail(p, "air2");
 						closeInv(p);
 						p.sendMessage(enableMessage);
@@ -671,7 +679,7 @@ public class TrailInvEvent implements Listener {
 				} else {
 					event.setCancelled(true);
 					giveTrail(p, "air2");
-					Move.aeroSphere(p);
+					new AeroSphere(p);
 					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
@@ -701,7 +709,7 @@ public class TrailInvEvent implements Listener {
 				if (reqEle) {
 					if (bPlayer.hasElement(Element.AIR) && bPlayer.hasElement(Element.FLIGHT)) {
 						event.setCancelled(true);
-						Move.ffloat(p);
+						new Float(p);
 						giveTrail(p, "flight");
 						closeInv(p);
 						p.sendMessage(enableMessage);
@@ -717,7 +725,7 @@ public class TrailInvEvent implements Listener {
 				} else {
 					event.setCancelled(true);
 					giveTrail(p, "flight");
-					Move.ffloat(p);
+					new Float(p);
 					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
@@ -742,7 +750,7 @@ public class TrailInvEvent implements Listener {
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
 			plugin.water2.remove(p);
@@ -757,7 +765,7 @@ public class TrailInvEvent implements Listener {
 		} else if (element.equalsIgnoreCase("lava")) {
 			plugin.lava.add(p);
 			plugin.sand.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.earth.remove(p);
 			plugin.water.remove(p);
@@ -772,7 +780,7 @@ public class TrailInvEvent implements Listener {
 			plugin.chi2.remove(p);
 		} else if (element.equalsIgnoreCase("sand")) {
 			plugin.sand.add(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.earth.remove(p);
 			plugin.lava.remove(p);
@@ -788,7 +796,7 @@ public class TrailInvEvent implements Listener {
 			plugin.chi2.remove(p);
 		} else if (element.equalsIgnoreCase("fire")) {
 			plugin.fire.add(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
@@ -804,7 +812,7 @@ public class TrailInvEvent implements Listener {
 			plugin.chi.remove(p);
 			plugin.chi2.remove(p);
 		} else if (element.equalsIgnoreCase("fire2")) {
-			plugin.fire2.add(p);
+			plugin.flamearms.add(p);
 			plugin.fire.remove(p);
 			plugin.lightning.remove(p);
 			plugin.earth.remove(p);
@@ -822,7 +830,7 @@ public class TrailInvEvent implements Listener {
 			plugin.chi2.remove(p);
 		} else if (element.equalsIgnoreCase("lightning")) {
 			plugin.lightning.add(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.fire.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
@@ -842,7 +850,7 @@ public class TrailInvEvent implements Listener {
 			plugin.water2.remove(p);
 			plugin.ice.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
@@ -859,7 +867,7 @@ public class TrailInvEvent implements Listener {
 			plugin.water.remove(p);
 			plugin.ice.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
@@ -876,7 +884,7 @@ public class TrailInvEvent implements Listener {
 			plugin.water2.remove(p);
 			plugin.water.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
@@ -893,7 +901,7 @@ public class TrailInvEvent implements Listener {
 			plugin.air2.remove(p);
 			plugin.flight.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
 			plugin.water2.remove(p);
@@ -910,7 +918,7 @@ public class TrailInvEvent implements Listener {
 			plugin.air.remove(p);
 			plugin.flight.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
 			plugin.water2.remove(p);
@@ -927,7 +935,7 @@ public class TrailInvEvent implements Listener {
 			plugin.air2.remove(p);
 			plugin.air.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
 			plugin.water2.remove(p);
@@ -943,7 +951,7 @@ public class TrailInvEvent implements Listener {
 			plugin.chi.add(p);
 			plugin.chi2.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
 			plugin.water2.remove(p);
@@ -962,7 +970,7 @@ public class TrailInvEvent implements Listener {
 			plugin.water.remove(p);
 			plugin.ice.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
@@ -977,7 +985,7 @@ public class TrailInvEvent implements Listener {
 			plugin.avatar.add(p);
 			plugin.avatar2.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
 			plugin.water2.remove(p);
@@ -994,7 +1002,7 @@ public class TrailInvEvent implements Listener {
 			plugin.avatar2.add(p);
 			plugin.avatar.remove(p);
 			plugin.fire.remove(p);
-			plugin.fire2.remove(p);
+			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
 			plugin.water2.remove(p);
