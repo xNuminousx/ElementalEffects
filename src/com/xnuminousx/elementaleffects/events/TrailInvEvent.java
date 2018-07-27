@@ -742,6 +742,12 @@ public class TrailInvEvent implements Listener {
 			event.setCancelled(true);
 			IndGui.openGui(p);
 			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Disable Trail")) {
+			event.setCancelled(true);
+			removeTrails(p);
+			p.sendMessage(prefix + ChatColor.RED + "Active trail disabled!");
+			closeInv(p);
+			return;
 		}
 	}
 	public void giveTrail(Player p, String element) {
@@ -1016,6 +1022,25 @@ public class TrailInvEvent implements Listener {
 			plugin.chi.remove(p);
 			plugin.intensity.remove(p);
 		}
+	}
+	
+	public void removeTrails(Player p) {
+		plugin.elementrings.remove(p);
+		plugin.avatar.remove(p);
+		plugin.fire.remove(p);
+		plugin.flamearms.remove(p);
+		plugin.lightning.remove(p);
+		plugin.water.remove(p);
+		plugin.hydro.remove(p);
+		plugin.ice.remove(p);
+		plugin.air.remove(p);
+		plugin.aero.remove(p);
+		plugin.flight.remove(p);
+		plugin.earth.remove(p);
+		plugin.sand.remove(p);
+		plugin.lava.remove(p);
+		plugin.chi.remove(p);
+		plugin.intensity.remove(p);
 	}
 	public void closeInv(Player p) {
 		if (closeInv) {
