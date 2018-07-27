@@ -33,22 +33,58 @@ public class Manager {
 		config.addDefault("Trails.Earth.Particles.Speed", 0);
 		config.addDefault("Trails.Earth.Particles.Amount", 5);
 		
+		config.addDefault("Trails.Sand.Cloak.Radius", 0.5);
+		config.addDefault("Trails.Sand.Particles.Speed", 0);
+		config.addDefault("Trails.Sand.Particles.Amount", 10);
+		
 		config.addDefault("Trails.Fire.DisappearInWater", true);
 		config.addDefault("Trails.Fire.BoilEffect", true);
 		config.addDefault("Trails.Fire.Particles.Speed", 0);
 		config.addDefault("Trails.Fire.Particles.Amount", 2);
 		
+		config.addDefault("Trails.Fire2.Particles.Speed", 0);
+		config.addDefault("Trails.Fire2.Particles.Amount", 2);
+		config.addDefault("Trails.Fire2.Rings.Enabled", true);
+		
+		config.addDefault("Trails.Lightning.Particles.Amount", 5);
+		config.addDefault("Trails.Lightning.Field.Enabled", true);
+		config.addDefault("Trails.Lightning.Field.Amount", 2);
+		config.addDefault("Trails.Lightning.Field.Speed", 3);
+		
 		config.addDefault("Trails.Water.Particles.Speed", 0);
 		config.addDefault("Trails.Water.Particles.Amount", 2);
+		
+		config.addDefault("Trails.Water2.Particles.Speed", 0);
+		config.addDefault("Trails.Water2.Particles.Amount", 2);
+		config.addDefault("Trails.Water2.Ring.Speed", 3);
+		config.addDefault("Trails.Water2.Ring.Size", 1);
+		
+		config.addDefault("Trails.Ice.Boots.Speed", 0);
+		config.addDefault("Trails.Ice.Boots.Amount", 8);
+		config.addDefault("Trails.Ice.Particles.Speed", 0);
+		config.addDefault("Trails.Ice.Particles.Amount", 5);
 		
 		config.addDefault("Trails.Air.DisappearInWater", true);
 		config.addDefault("Trails.Air.CloudEffect", true);
 		config.addDefault("Trails.Air.Particles.Speed", 0);
 		config.addDefault("Trails.Air.Particles.Amount", 2);
 		
+		config.addDefault("Trails.Air2.Sphere.Size", 2);
+		
+		config.addDefault("Trails.Flight.Particles.Speed", 0);
+		config.addDefault("Trails.Flight.Particles.Amount", 1);
+		config.addDefault("Trails.Flight.Sparks.Enabled", true);
+		
 		config.addDefault("Trails.Chi.Particles.DoMagicCrit", false);
 		config.addDefault("Trails.Chi.Particles.Amount", 1);
 		config.addDefault("Trails.Chi.Particles.Speed", 0);
+		
+		config.addDefault("Trails.Chi2.Sound.Enabled", true);
+		config.addDefault("Trails.Chi2.Particles.Amount", 1);
+		config.addDefault("Trails.Chi2.Particles.Speed", 0.5);
+		config.addDefault("Trails.Chi2.DashEffect.Enabled", true);
+		config.addDefault("Trails.Chi2.DashEffect.Speed", 0.05);
+		config.addDefault("Trails.Chi2.DashEffect.Amount", 1);
 		
 		config.addDefault("Trails.Avatar.Earth.RequireEarthBlock", false);
 		config.addDefault("Trails.Avatar.Fire.DisappearInWater", false);

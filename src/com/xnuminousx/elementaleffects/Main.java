@@ -18,11 +18,21 @@ import com.xnuminousx.elementaleffects.events.TrailInvEvent;
 public class Main extends JavaPlugin implements Listener {
 	
 	public ArrayList<Player> earth = new ArrayList<Player>();
+	public ArrayList<Player> lava = new ArrayList<Player>();
+	public ArrayList<Player> sand = new ArrayList<Player>();
 	public ArrayList<Player> fire = new ArrayList<Player>();
+	public ArrayList<Player> fire2 = new ArrayList<Player>();
+	public ArrayList<Player> lightning = new ArrayList<Player>();
 	public ArrayList<Player> water = new ArrayList<Player>();
+	public ArrayList<Player> water2 = new ArrayList<Player>();
+	public ArrayList<Player> ice = new ArrayList<Player>();
 	public ArrayList<Player> air = new ArrayList<Player>();
+	public ArrayList<Player> air2 = new ArrayList<Player>();
+	public ArrayList<Player> flight = new ArrayList<Player>();
 	public ArrayList<Player> chi = new ArrayList<Player>();
+	public ArrayList<Player> chi2 = new ArrayList<Player>();
 	public ArrayList<Player> avatar = new ArrayList<Player>();
+	public ArrayList<Player> avatar2 = new ArrayList<Player>();
 	
 	public ArrayList<Player> hit = new ArrayList<Player>();
 	

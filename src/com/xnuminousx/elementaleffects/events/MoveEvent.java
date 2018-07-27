@@ -50,13 +50,47 @@ public class MoveEvent implements Listener {
 			} else {
 				Move.earthTrail(p);
 			}
-		} else if (plugin.fire.contains(p)) {
+		} else if (plugin.sand.contains(p)) {
+			if (reqEle) {
+				if (bPlayer.hasElement(Element.EARTH) && bPlayer.hasElement(Element.SAND)) {
+					Move.sandTrail(p);;
+				} else {
+					if (plugin.sand.contains(p)) {
+						plugin.sand.remove(p);
+						p.sendMessage(prefix + ChatColor.RED + elementChMess);
+						return;
+					} else {
+						p.sendMessage(prefix + ChatColor.RED + lackEle);
+						return;
+					}
+				}
+			} else {
+				Move.sandTrail(p);
+			}
+		}  else if (plugin.fire.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.FIRE)) {
 					Move.fireTrail(p);
 				} else {
 					if (plugin.fire.contains(p)) {
 						plugin.fire.remove(p);
+						p.sendMessage(prefix + ChatColor.RED + elementChMess);
+						return;
+					} else {
+						p.sendMessage(prefix + ChatColor.RED + lackEle);
+						return;
+					}
+				}
+			} else {
+				Move.fireTrail(p);
+			}
+		} else if (plugin.fire2.contains(p)) {
+			if (reqEle) {
+				if (bPlayer.hasElement(Element.FIRE)) {
+					Move.fireTrail(p);
+				} else {
+					if (plugin.fire2.contains(p)) {
+						plugin.fire2.remove(p);
 						p.sendMessage(prefix + ChatColor.RED + elementChMess);
 						return;
 					} else {
@@ -84,6 +118,40 @@ public class MoveEvent implements Listener {
 			} else {
 				Move.waterTrail(p);
 			}
+		} else if (plugin.water2.contains(p)) {
+			if (reqEle) {
+				if (bPlayer.hasElement(Element.WATER)) {
+					Move.waterTrail2(p);
+				} else {
+					if (plugin.water2.contains(p)) {
+						plugin.water2.remove(p);
+						p.sendMessage(prefix + ChatColor.BLUE + elementChMess);
+						return;
+					} else {
+						p.sendMessage(prefix + ChatColor.BLUE + lackEle);
+						return;
+					}
+				}
+			} else {
+				Move.waterTrail2(p);
+			}
+		} else if (plugin.ice.contains(p)) {
+			if (reqEle) {
+				if (bPlayer.hasElement(Element.WATER) && bPlayer.hasElement(Element.ICE)) {
+					Move.iceTrail(p);
+				} else {
+					if (plugin.ice.contains(p)) {
+						plugin.ice.remove(p);
+						p.sendMessage(prefix + ChatColor.DARK_AQUA + elementChMess);
+						return;
+					} else {
+						p.sendMessage(prefix + ChatColor.DARK_AQUA + lackEle);
+						return;
+					}
+				}
+			} else {
+				Move.iceTrail(p);
+			}
 		} else if (plugin.air.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.AIR)) {
@@ -100,6 +168,23 @@ public class MoveEvent implements Listener {
 				}
 			} else {
 				Move.airTrail(p);
+			}
+		} else if (plugin.chi2.contains(p)) {
+			if (reqEle) {
+				if (bPlayer.hasElement(Element.CHI)) {
+					Move.chiTrail2(p);
+				} else {
+					if (plugin.chi2.contains(p)) {
+						plugin.chi2.remove(p);
+						p.sendMessage(prefix + ChatColor.YELLOW + elementChMess);
+						return;
+					} else {
+						p.sendMessage(prefix + ChatColor.YELLOW + lackEle);
+						return;
+					}
+				}
+			} else {
+				Move.chiTrail2(p);
 			}
 		} else if (plugin.chi.contains(p)) {
 			if (reqEle) {
