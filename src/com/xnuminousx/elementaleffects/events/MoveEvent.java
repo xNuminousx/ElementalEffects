@@ -127,13 +127,13 @@ public class MoveEvent implements Listener {
 			} else {
 				new WaterTrail(p);
 			}
-		} else if (plugin.water2.contains(p)) {
+		} else if (plugin.hydro.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.WATER)) {
 					new Hydro(p);
 				} else {
-					if (plugin.water2.contains(p)) {
-						plugin.water2.remove(p);
+					if (plugin.hydro.contains(p)) {
+						plugin.hydro.remove(p);
 						p.sendMessage(prefix + ChatColor.BLUE + elementChMess);
 						return;
 					} else {
@@ -178,13 +178,13 @@ public class MoveEvent implements Listener {
 			} else {
 				new AirTrail(p);
 			}
-		} else if (plugin.chi2.contains(p)) {
+		} else if (plugin.intensity.contains(p)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(Element.CHI)) {
 					new Intensity(p);
 				} else {
-					if (plugin.chi2.contains(p)) {
-						plugin.chi2.remove(p);
+					if (plugin.intensity.contains(p)) {
+						plugin.intensity.remove(p);
 						p.sendMessage(prefix + ChatColor.YELLOW + elementChMess);
 						return;
 					} else {

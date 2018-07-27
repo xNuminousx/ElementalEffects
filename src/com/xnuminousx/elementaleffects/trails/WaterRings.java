@@ -20,7 +20,7 @@ public class WaterRings {
 
 			@Override
 			public void run() {
-				if (plugin.water2.isEmpty()) {
+				if (plugin.hydro.isEmpty()) {
 					this.cancel();
 				}
 				progress(player);

@@ -14,11 +14,10 @@ import com.xnuminousx.elementaleffects.config.Manager;
 
 public class TrailGui {
 	
-	@SuppressWarnings("deprecation")
 	public static void openGUI(Player p) {
 		String guiName = Manager.getTrailGuiName();
 		
-		Inventory inv = Bukkit.createInventory(p, 45, guiName);
+		Inventory inv = Bukkit.createInventory(p, 54, guiName);
 		
 		ArrayList<String> hasPerm = new ArrayList<String>();
 		ArrayList<String> noPerm = new ArrayList<String>();
@@ -26,13 +25,12 @@ public class TrailGui {
 		noPerm.add(ChatColor.DARK_RED + "" + ChatColor.BOLD + "No permission!");
 			
 		ItemStack indGui = new ItemStack(Material.END_CRYSTAL);
+		ItemStack removeTrail = new ItemStack(Material.BARRIER);
 		ItemStack earthItem = new ItemStack(Material.GRASS);
 		ItemStack sandItem = new ItemStack(Material.SAND);
 		ItemStack lavaItem = new ItemStack(Material.MAGMA_CREAM);
 		ItemStack waterItem = new ItemStack(Material.WATER_BUCKET);
-		ItemStack waterItem2 = new ItemStack(Material.POTION);
-		// Finding a way to get a water bottle instead of a potion 
-		waterItem2.getData().setData((byte) 0);
+		ItemStack waterItem2 = new ItemStack(Material.POTION, 1, (byte)0);
 		ItemStack iceItem = new ItemStack(Material.ICE);
 		ItemStack fireItem = new ItemStack(Material.BLAZE_POWDER);
 		ItemStack fireItem2 = new ItemStack(Material.FIREBALL);
@@ -46,6 +44,7 @@ public class TrailGui {
 		ItemStack avatarItem2 = new ItemStack(Material.BEACON);
 		
 		ItemMeta indMeta = indGui.getItemMeta();
+		ItemMeta removeMeta = removeTrail.getItemMeta();
 		ItemMeta earthMeta = earthItem.getItemMeta();
 		ItemMeta sandMeta = sandItem.getItemMeta();
 		ItemMeta lavaMeta = lavaItem.getItemMeta();
@@ -64,6 +63,9 @@ public class TrailGui {
 		ItemMeta avatarMeta2 = avatarItem2.getItemMeta();
 		
 		indMeta.setDisplayName(ChatColor.DARK_AQUA + "Open Indicator GUI");
+		
+		removeMeta.setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Disable Trail");
+		
 		earthMeta.setDisplayName(ChatColor.GREEN + "" + ChatColor.BOLD + "Earth Trail");
 		if (p.hasPermission("elementaleffects.earth") || p.hasPermission("elementaleffects.*")) {
 			earthMeta.setLore(hasPerm);
@@ -177,6 +179,7 @@ public class TrailGui {
 		}
 		
 		indGui.setItemMeta(indMeta);
+		removeTrail.setItemMeta(removeMeta);
 		earthItem.setItemMeta(earthMeta);
 		sandItem.setItemMeta(sandMeta);
 		lavaItem.setItemMeta(lavaMeta);
@@ -194,23 +197,24 @@ public class TrailGui {
 		avatarItem.setItemMeta(avatarMeta);
 		avatarItem2.setItemMeta(avatarMeta2);
 		
-		inv.setItem(40, indGui);
-		inv.setItem(10, earthItem);
-		inv.setItem(19, sandItem);
-		inv.setItem(9, lavaItem);
-		inv.setItem(12, waterItem);
-		inv.setItem(3, waterItem2);
-		inv.setItem(21, iceItem);
-		inv.setItem(14, fireItem);
-		inv.setItem(23, fireItem2);
-		inv.setItem(5, lightningItem);
-		inv.setItem(16, airItem);
-		inv.setItem(25, airItem2);
-		inv.setItem(17, flightItem);
-		inv.setItem(30, chiItem);
-		inv.setItem(39, chiItem2);
-		inv.setItem(32, avatarItem);
-		inv.setItem(41, avatarItem2);
+		inv.setItem(13, indGui);
+		inv.setItem(31, removeTrail);
+		inv.setItem(9, earthItem);
+		inv.setItem(18, sandItem);
+		inv.setItem(27, lavaItem);
+		inv.setItem(11, waterItem);
+		inv.setItem(20, waterItem2);
+		inv.setItem(29, iceItem);
+		inv.setItem(15, fireItem);
+		inv.setItem(24, fireItem2);
+		inv.setItem(33, lightningItem);
+		inv.setItem(17, airItem);
+		inv.setItem(26, airItem2);
+		inv.setItem(35, flightItem);
+		inv.setItem(51, chiItem);
+		inv.setItem(52, chiItem2);
+		inv.setItem(46, avatarItem);
+		inv.setItem(47, avatarItem2);
 		
 		p.openInventory(inv);
 	}

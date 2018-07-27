@@ -21,7 +21,7 @@ public class AeroSphere {
 			
 			@Override
 			public void run() {
-				if (plugin.air2.isEmpty()) {
+				if (plugin.aero.isEmpty()) {
 					this.cancel();
 				}
 				progress(player);
