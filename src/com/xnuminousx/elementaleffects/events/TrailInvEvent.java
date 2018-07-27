@@ -382,9 +382,9 @@ public class TrailInvEvent implements Listener {
 			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.water2.contains(p)) {
+			if (plugin.hydro.contains(p)) {
 				event.setCancelled(true);
-				plugin.water2.remove(p);
+				plugin.hydro.remove(p);
 				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
@@ -506,7 +506,7 @@ public class TrailInvEvent implements Listener {
 			}
 			return;
 			
-		//Enable or Disable Chi Trail 2 (Intensity)
+		//Enable/Disable Chi Trail 2 (Intensity)
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Intensity")) {
 			elementColor = ChatColor.YELLOW;
 			trailType = "Intensity";
@@ -514,9 +514,9 @@ public class TrailInvEvent implements Listener {
 			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.chi2.contains(p)) {
+			if (plugin.intensity.contains(p)) {
 				event.setCancelled(true);
-				plugin.chi2.remove(p);
+				plugin.intensity.remove(p);
 				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
@@ -581,9 +581,9 @@ public class TrailInvEvent implements Listener {
 			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
 			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.avatar2.contains(p)) {
+			if (plugin.elementrings.contains(p)) {
 				event.setCancelled(true);
-				plugin.avatar2.remove(p);
+				plugin.elementrings.remove(p);
 				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
@@ -653,9 +653,9 @@ public class TrailInvEvent implements Listener {
 			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
 			String noElement = prefix + elementColor + "You don't have the necessary element!";
 			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.air2.contains(p)) {
+			if (plugin.aero.contains(p)) {
 				event.setCancelled(true);
-				plugin.air2.remove(p);
+				plugin.aero.remove(p);
 				closeInv(p);
 				p.sendMessage(disableMessage);
 				return;
@@ -753,15 +753,15 @@ public class TrailInvEvent implements Listener {
 			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("lava")) {
 			plugin.lava.add(p);
 			plugin.sand.remove(p);
@@ -769,15 +769,15 @@ public class TrailInvEvent implements Listener {
 			plugin.lightning.remove(p);
 			plugin.earth.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("sand")) {
 			plugin.sand.add(p);
 			plugin.flamearms.remove(p);
@@ -785,15 +785,15 @@ public class TrailInvEvent implements Listener {
 			plugin.earth.remove(p);
 			plugin.lava.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("fire")) {
 			plugin.fire.add(p);
 			plugin.flamearms.remove(p);
@@ -802,15 +802,15 @@ public class TrailInvEvent implements Listener {
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("fire2")) {
 			plugin.flamearms.add(p);
 			plugin.fire.remove(p);
@@ -819,15 +819,15 @@ public class TrailInvEvent implements Listener {
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("lightning")) {
 			plugin.lightning.add(p);
 			plugin.flamearms.remove(p);
@@ -836,18 +836,18 @@ public class TrailInvEvent implements Listener {
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("water")) {
 			plugin.water.add(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.fire.remove(p);
 			plugin.flamearms.remove(p);
@@ -856,14 +856,14 @@ public class TrailInvEvent implements Listener {
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("water2")) {
-			plugin.water2.add(p);
+			plugin.hydro.add(p);
 			plugin.water.remove(p);
 			plugin.ice.remove(p);
 			plugin.fire.remove(p);
@@ -873,15 +873,15 @@ public class TrailInvEvent implements Listener {
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("ice")) {
 			plugin.ice.add(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.water.remove(p);
 			plugin.fire.remove(p);
 			plugin.flamearms.remove(p);
@@ -890,83 +890,83 @@ public class TrailInvEvent implements Listener {
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("air")) {
 			plugin.air.add(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.fire.remove(p);
 			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("air2")) {
-			plugin.air2.add(p);
+			plugin.aero.add(p);
 			plugin.air.remove(p);
 			plugin.flight.remove(p);
 			plugin.fire.remove(p);
 			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("flight")) {
 			plugin.flight.add(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.air.remove(p);
 			plugin.fire.remove(p);
 			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("chi")) {
 			plugin.chi.add(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 			plugin.fire.remove(p);
 			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 		} else if (element.equalsIgnoreCase("chi2")) {
-			plugin.chi2.add(p);
-			plugin.water2.remove(p);
+			plugin.intensity.add(p);
+			plugin.hydro.remove(p);
 			plugin.water.remove(p);
 			plugin.ice.remove(p);
 			plugin.fire.remove(p);
@@ -976,45 +976,45 @@ public class TrailInvEvent implements Listener {
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.avatar.remove(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.chi.remove(p);
 		} else if (element.equalsIgnoreCase("avatar")) {
 			plugin.avatar.add(p);
-			plugin.avatar2.remove(p);
+			plugin.elementrings.remove(p);
 			plugin.fire.remove(p);
 			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		} else if (element.equalsIgnoreCase("avatar2")) {
-			plugin.avatar2.add(p);
+			plugin.elementrings.add(p);
 			plugin.avatar.remove(p);
 			plugin.fire.remove(p);
 			plugin.flamearms.remove(p);
 			plugin.lightning.remove(p);
 			plugin.water.remove(p);
-			plugin.water2.remove(p);
+			plugin.hydro.remove(p);
 			plugin.ice.remove(p);
 			plugin.air.remove(p);
-			plugin.air2.remove(p);
+			plugin.aero.remove(p);
 			plugin.flight.remove(p);
 			plugin.earth.remove(p);
 			plugin.sand.remove(p);
 			plugin.lava.remove(p);
 			plugin.chi.remove(p);
-			plugin.chi2.remove(p);
+			plugin.intensity.remove(p);
 		}
 	}
 	public void closeInv(Player p) {

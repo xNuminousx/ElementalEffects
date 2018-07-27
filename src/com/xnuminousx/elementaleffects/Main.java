@@ -24,15 +24,15 @@ public class Main extends JavaPlugin implements Listener {
 	public ArrayList<Player> flamearms = new ArrayList<Player>();
 	public ArrayList<Player> lightning = new ArrayList<Player>();
 	public ArrayList<Player> water = new ArrayList<Player>();
-	public ArrayList<Player> water2 = new ArrayList<Player>();
+	public ArrayList<Player> hydro = new ArrayList<Player>();
 	public ArrayList<Player> ice = new ArrayList<Player>();
 	public ArrayList<Player> air = new ArrayList<Player>();
-	public ArrayList<Player> air2 = new ArrayList<Player>();
+	public ArrayList<Player> aero = new ArrayList<Player>();
 	public ArrayList<Player> flight = new ArrayList<Player>();
 	public ArrayList<Player> chi = new ArrayList<Player>();
-	public ArrayList<Player> chi2 = new ArrayList<Player>();
+	public ArrayList<Player> intensity = new ArrayList<Player>();
 	public ArrayList<Player> avatar = new ArrayList<Player>();
-	public ArrayList<Player> avatar2 = new ArrayList<Player>();
+	public ArrayList<Player> elementrings = new ArrayList<Player>();
 	
 	public ArrayList<Player> hit = new ArrayList<Player>();
 	

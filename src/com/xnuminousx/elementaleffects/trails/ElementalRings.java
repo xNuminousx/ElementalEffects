@@ -53,7 +53,7 @@ public class ElementalRings {
 				if (anglee == 360) {
 					anglee = 0;
 				}
-				if (plugin.avatar2.isEmpty()) {
+				if (plugin.elementrings.isEmpty()) {
 					this.cancel();
 				}
 			}
