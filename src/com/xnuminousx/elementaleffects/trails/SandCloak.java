@@ -1,6 +1,8 @@
 package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -10,6 +12,7 @@ import com.xnuminousx.elementaleffects.Main;
 public class SandCloak {
 	
 	double cloakRadius = Main.getInstance().getConfig().getDouble("Trails.Sand.Cloak.Radius");
+	boolean reqSand = Main.getInstance().getConfig().getBoolean("Trails.Sand.Cloak.RequireSand");
 	Main plugin = Main.getInstance();
 	
 	public SandCloak(Player player) {
@@ -17,11 +20,16 @@ public class SandCloak {
 
 			@Override
 			public void run() {
-				
-				progress(player);
-				
+				Block getBlock = player.getLocation().add(0, -1.5, 0).getBlock();
 				if (plugin.sand.isEmpty()) {
 					this.cancel();
+				}
+				if (reqSand) {
+					if (getBlock.getType().equals(Material.SAND)) {
+						progress(player);
+					}
+				} else {
+					progress(player);
 				}
 			}
 			
@@ -36,11 +44,9 @@ public class SandCloak {
 			double x = Math.cos(Math.toRadians(i)) * cloakRadius;
 			double z = Math.sin(Math.toRadians(i)) * cloakRadius;
 			
-			GeneralMethods.displayColoredParticle(loc.add(x, 0.5, z), "FBFFBA");
-			GeneralMethods.displayColoredParticle(locDown.add(x, 0, z), "FBFFBA");
-			GeneralMethods.displayColoredParticle(locUp.add(x, 1, z), "FBFFBA");
-			
+			GeneralMethods.displayColoredParticle(locUp.add(x, 0.5, z),"FBFFBA");
+			GeneralMethods.displayColoredParticle(loc.add(x, 0.1, z), "FBFFBA");
+			GeneralMethods.displayColoredParticle(locDown.add(x, -0.3, z), "FBFFBA");
 		}
 	}
-
 }

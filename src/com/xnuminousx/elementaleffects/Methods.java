@@ -19,5 +19,4 @@ public class Methods {
 		double z = v.getX() * -sin + v.getZ() * cos;
 		return v.setX(x).setZ(z);
 	}
-
 }
