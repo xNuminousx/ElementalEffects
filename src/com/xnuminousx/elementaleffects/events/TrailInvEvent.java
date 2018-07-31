@@ -12,6 +12,7 @@ import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.gui.IndGui;
 import com.xnuminousx.elementaleffects.trails.AeroSphere;
+import com.xnuminousx.elementaleffects.trails.Cloud;
 import com.xnuminousx.elementaleffects.trails.ElementalRings;
 import com.xnuminousx.elementaleffects.trails.FlameArms;
 import com.xnuminousx.elementaleffects.trails.IceBoots;
@@ -620,6 +621,7 @@ public class TrailInvEvent implements Listener {
 					if (bPlayer.hasElement(Element.AIR)) {
 						event.setCancelled(true);
 						giveTrail(p, "air");
+						new Cloud(p);
 						closeInv(p);
 						p.sendMessage(enableMessage);
 						return;
@@ -634,6 +636,7 @@ public class TrailInvEvent implements Listener {
 				} else {
 					event.setCancelled(true);
 					giveTrail(p, "air");
+					new Cloud(p);
 					closeInv(p);
 					p.sendMessage(enableMessage);
 					return;
