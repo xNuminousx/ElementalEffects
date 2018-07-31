@@ -9,12 +9,12 @@ import com.xnuminousx.elementaleffects.Main;
 
 public class Intensity {
 	
-	int amount = Main.getInstance().getConfig().getInt("Trails.Chi2.Particles.Amount");
-	float speed = Main.getInstance().getConfig().getInt("Trails.Chi2.Particles.Speed");
-	boolean dash = Main.getInstance().getConfig().getBoolean("Trails.Chi2.DashEffect.Enabled");
-	int dashamount = Main.getInstance().getConfig().getInt("Trails.Chi2.DashEffect.Amount");
-	float dashspeed = Main.getInstance().getConfig().getInt("Trails.Chi2.DashEffect.Speed");
-	boolean enablesound = Main.getInstance().getConfig().getBoolean("Trails.Chi2.Sound.Enabled");
+	int amount = Main.getInstance().getConfig().getInt("Trails.Intensity.Particles.Amount");
+	float speed = Main.getInstance().getConfig().getInt("Trails.Intensity.Particles.Speed");
+	boolean dash = Main.getInstance().getConfig().getBoolean("Trails.Intensity.DashEffect.Enabled");
+	int dashamount = Main.getInstance().getConfig().getInt("Trails.Intensity.DashEffect.Amount");
+	float dashspeed = Main.getInstance().getConfig().getInt("Trails.Intensity.DashEffect.Speed");
+	boolean enablesound = Main.getInstance().getConfig().getBoolean("Trails.Intensity.Sound.Enabled");
 
 	public Intensity(Player player) {
 		progress(player);

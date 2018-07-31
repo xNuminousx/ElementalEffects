@@ -9,8 +9,8 @@ import com.xnuminousx.elementaleffects.Main;
 
 public class WaterRings {
 	
-	int ringspeed = Main.getInstance().getConfig().getInt("Trails.Water2.Ring.Speed");
-	float size = Main.getInstance().getConfig().getInt("Trails.Water2.Ring.Size");
+	int ringspeed = Main.getInstance().getConfig().getInt("Trails.Hydro.Ring.Speed");
+	float size = Main.getInstance().getConfig().getInt("Trails.Hydro.Ring.Size");
 	int points = 60;
 	int currPoint;
 	Main plugin = Main.getInstance();

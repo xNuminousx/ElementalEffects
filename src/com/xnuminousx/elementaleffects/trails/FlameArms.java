@@ -12,9 +12,9 @@ import com.xnuminousx.elementaleffects.Methods;
 
 public class FlameArms {
 	
-	int amount = Main.getInstance().getConfig().getInt("Trails.Fire2.Particles.Amount");
-	float speed = Main.getInstance().getConfig().getInt("Trails.Fire2.Particles.Speed");
-	boolean enablerings = Main.getInstance().getConfig().getBoolean("Trails.Fire2.Rings.Enabled");
+	int amount = Main.getInstance().getConfig().getInt("Trails.FlameArms.Particles.Amount");
+	float speed = Main.getInstance().getConfig().getInt("Trails.FlameArms.Particles.Speed");
+	boolean enablerings = Main.getInstance().getConfig().getBoolean("Trails.FlameArms.Rings.Enabled");
 	int anglee;
 	int anglee2;
 	int point;

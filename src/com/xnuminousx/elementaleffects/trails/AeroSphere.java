@@ -31,7 +31,7 @@ public class AeroSphere {
 	}
 	
 	public void progress(Player p) {
-		double size = Main.getInstance().getConfig().getDouble("Trails.Air2.Sphere.Size");
+		double size = Main.getInstance().getConfig().getDouble("Trails.AeroSphere.Size");
 		Location baseLoc = p.getLocation().clone().add(0, size / 2, 0);
 	    Location fakeLoc = baseLoc.clone();
 	    fakeLoc.setPitch(0.0F);
