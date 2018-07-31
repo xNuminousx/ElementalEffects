@@ -20,8 +20,8 @@ public class TrailGui {
 		
 		Inventory inv = Bukkit.createInventory(p, 54, guiName);
 		
-		ArrayList<String> openInd = new ArrayList<String>();
-		ArrayList<String> removeTrail = new ArrayList<String>();
+		List<String> openInd = new ArrayList<String>();
+		List<String> removeTrail = new ArrayList<String>();
 		openInd.add("Use this to open the indicator GUI");
 		removeTrail.add("Click here to remove your active trail");
 		
@@ -67,7 +67,7 @@ public class TrailGui {
 		return itemType;
 	}
 	
-	public static ItemStack miscItem(Material item, String name, ChatColor color, ArrayList<String> description) {
+	public static ItemStack miscItem(Material item, String name, ChatColor color, List<String> description) {
 		ItemStack itemType = new ItemStack(item);
 		ItemMeta itemMeta = itemType.getItemMeta();
 		

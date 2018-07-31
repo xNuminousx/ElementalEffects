@@ -751,6 +751,9 @@ public class TrailInvEvent implements Listener {
 			p.sendMessage(prefix + ChatColor.RED + "Active trail disabled!");
 			closeInv(p);
 			return;
+		} else {
+			event.setCancelled(true);
+			return;
 		}
 	}
 	public void giveTrail(Player p, String element) {
