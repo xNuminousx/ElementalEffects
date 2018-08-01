@@ -96,6 +96,9 @@ public class Manager {
 		
 		config.addDefault("Indicators.Hit.CriticalDamage", 3);
 		
+		config.addDefault("Indicators.AvatarState.RequireAvatarState", true);
+		config.addDefault("Indicators.AvatarState.PlayEyeGlow", true);
+		
 		config.options().copyDefaults(true);
 		plugin.saveConfig();
 	}
