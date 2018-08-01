@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.gui.TrailGui;
+import com.xnuminousx.elementaleffects.indicators.AvatarStateInd;
 
 public class IndicatorInvEvent implements Listener {
 	
@@ -56,6 +57,34 @@ public class IndicatorInvEvent implements Listener {
 			} else if (p.hasPermission("elementaleffects.hit") || p.hasPermission("elementaleffects.*")) {
 				event.setCancelled(true);
 				plugin.hit.add(p);
+				closeInv(p);
+				p.sendMessage(enableMessage);
+				return;
+			} else {
+				event.setCancelled(true);
+				closeInv(p);
+				p.sendMessage(noPerm);
+				return;
+			}
+		
+		//Enable/Disable AvatarStateIndicator	
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Avatar State Indicator")) {
+			ChatColor indColor = ChatColor.DARK_PURPLE;
+			String indType = "Avatar State Indicator";
+			String enableMessage = prefix + indColor + indType + " has been enabled!";
+			String disableMessage = prefix + indColor + indType + " has been disabled!";
+			String noPerm = prefix + indColor + " You don't have the necessary permission!";
+			
+			if (plugin.avatarstate.contains(p)) {
+				event.setCancelled(true);
+				plugin.avatarstate.remove(p);
+				closeInv(p);
+				p.sendMessage(disableMessage);
+				return;
+			} else if (p.hasPermission("elementaleffects.avatarstate") || p.hasPermission("elementaleffects.*")) {
+				event.setCancelled(true);
+				plugin.avatarstate.add(p);
+				new AvatarStateInd(p);
 				closeInv(p);
 				p.sendMessage(enableMessage);
 				return;

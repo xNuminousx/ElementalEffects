@@ -24,6 +24,7 @@ public class IndGui {
 		
 		inv.setItem(22, Methods.miscItem(Material.END_CRYSTAL, "Open Trail GUI", ChatColor.DARK_AQUA, openTrail));
 		inv.setItem(1, Methods.createItem(p, Material.REDSTONE, "Hit Indicator", ChatColor.DARK_RED, "hit"));
+		inv.setItem(3, Methods.createItem(p, Material.GHAST_TEAR, "Avatar State Indicator", ChatColor.DARK_PURPLE, "avatarstate"));
 		
 		p.openInventory(inv);
 	}
