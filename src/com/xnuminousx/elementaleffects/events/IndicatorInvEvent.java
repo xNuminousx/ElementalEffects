@@ -1,5 +1,7 @@
 package com.xnuminousx.elementaleffects.events;
 
+import java.util.ArrayList;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,6 +12,8 @@ import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.gui.TrailGui;
 import com.xnuminousx.elementaleffects.indicators.AvatarStateInd;
+import com.xnuminousx.elementaleffects.utils.IndUtils;
+import com.xnuminousx.elementaleffects.utils.Names;
 
 public class IndicatorInvEvent implements Listener {
 	
@@ -22,6 +26,18 @@ public class IndicatorInvEvent implements Listener {
 	String prefix;
 	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
 
+	public String enableMessage(ChatColor color, String indName) {
+		return prefix + color + "" + ChatColor.BOLD + indName + ChatColor.RESET + ChatColor.GREEN + " enabled!";
+	}
+	
+	public String disableMessage(ChatColor color, String indName) {
+		return prefix + color + "" + ChatColor.BOLD + indName + ChatColor.RESET + ChatColor.RED + " disabled!";
+	}
+	
+	public String noPermissionMessage(ChatColor color) {
+		return prefix + color + "You don't have the necessary permission!";
+	}
+	
 	@EventHandler
 	public void onInvClick(InventoryClickEvent event) {
 		Player p = (Player)event.getWhoClicked();
@@ -41,64 +57,31 @@ public class IndicatorInvEvent implements Listener {
 			return;
 			
 		//Enable/Disable HitIndicator	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Hit Indicator")) {
-			ChatColor indColor = ChatColor.DARK_RED;
-			String indType = "Hit Indicator";
-			String enableMessage = prefix + indColor + indType + " has been enabled!";
-			String disableMessage = prefix + indColor + indType + " has been disabled!";;
-			String noPerm = prefix + indColor + " You don't have the necessary permission!";;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.hitIndicator())) {
+			event.setCancelled(true);
+			this.setIndicator(plugin.hit, p, ChatColor.DARK_RED, Names.hitIndicator());
+			return;
 			
-			if (plugin.hit.contains(p)) {
-				event.setCancelled(true);
-				plugin.hit.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.hit") || p.hasPermission("elementaleffects.*")) {
-				event.setCancelled(true);
-				plugin.hit.add(p);
-				closeInv(p);
-				p.sendMessage(enableMessage);
-				return;
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-				return;
-			}
-		
 		//Enable/Disable AvatarStateIndicator	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Avatar State Indicator")) {
-			ChatColor indColor = ChatColor.DARK_PURPLE;
-			String indType = "Avatar State Indicator";
-			String enableMessage = prefix + indColor + indType + " has been enabled!";
-			String disableMessage = prefix + indColor + indType + " has been disabled!";
-			String noPerm = prefix + indColor + " You don't have the necessary permission!";
-			
-			if (plugin.avatarstate.contains(p)) {
-				event.setCancelled(true);
-				plugin.avatarstate.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.avatarstate") || p.hasPermission("elementaleffects.*")) {
-				event.setCancelled(true);
-				plugin.avatarstate.add(p);
-				new AvatarStateInd(p);
-				closeInv(p);
-				p.sendMessage(enableMessage);
-				return;
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-				return;
-			}
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.avatarIndicator())) {
+			event.setCancelled(true);
+			this.setIndicator(plugin.avatarstate, p, ChatColor.DARK_PURPLE, Names.avatarIndicator());
+			new AvatarStateInd(p);
+			return;
 			
 		//Open Trail GUI	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Open Trail GUI")) {
 			event.setCancelled(true);
 			TrailGui.openGUI(p);
+			return;
+			
+		//Disable active indicator	
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Disable Indicator")) {
+			event.setCancelled(true);
+			ArrayList<Player> activeIndicator = IndUtils.getActiveIndicator(p);
+			IndUtils.removeActiveIndicator(activeIndicator, p);
+			p.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active indicator" + ChatColor.RESET + ChatColor.RED + " disabled!");
+			closeInv(p);
 			return;
 		}
 	}
@@ -107,5 +90,29 @@ public class IndicatorInvEvent implements Listener {
 			p.closeInventory();
 		}
 	}
-
+	
+	public void setIndicator(ArrayList<Player> object, Player player, ChatColor chatColor, String indName) {
+		if (object.contains(player)) {
+			object.remove(player);
+			closeInv(player);
+			player.sendMessage(disableMessage(chatColor, indName));
+		} else if (hasPermissions(player, indName)) {
+			object.add(player);
+			closeInv(player);
+			player.sendMessage(enableMessage(chatColor, indName));
+		} else {
+			closeInv(player);
+			player.sendMessage(noPermissionMessage(chatColor));
+		}
+	}
+	
+	public boolean hasPermissions(Player player, String indName) {
+		if (indName == Names.hitIndicator() && player.hasPermission("elementaleffects.hit")) {
+			return true;
+		} else if (indName == Names.avatarIndicator() && player.hasPermission("elementaleffects.avatarstate")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

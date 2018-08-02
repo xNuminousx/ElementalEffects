@@ -2,6 +2,15 @@ package com.xnuminousx.elementaleffects.utils;
 
 public class Names {
 	
+	//The place to grab/edit indicator names
+	
+	public static String hitIndicator() {
+		return "Hit Indicator";
+	}
+	public static String avatarIndicator() {
+		return "Avatar State Indicator";
+	}
+	
 	//The place to grab/edit trail names
 	
 	public static String aeroSphere() {
