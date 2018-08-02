@@ -41,7 +41,7 @@ public class TrailGui {
 		inv.setItem(51, Methods.createItem(p, Material.LEASH, "Chi Trail", ChatColor.GOLD, "chi"));
 		inv.setItem(52, Methods.createItem(p, Material.WOOD_SWORD, "Intensity", ChatColor.GOLD, "chi2"));
 		inv.setItem(46, Methods.createItem(p, Material.NETHER_STAR, "Avatar Trail", ChatColor.DARK_PURPLE, "avatar"));
-		inv.setItem(47, Methods.createItem(p, Material.BEACON, "Elemental Rings", ChatColor.DARK_PURPLE, "avatar2l"));
+		inv.setItem(47, Methods.createItem(p, Material.BEACON, "Elemental Rings", ChatColor.DARK_PURPLE, "avatar2"));
 		
 		p.openInventory(inv);
 	}

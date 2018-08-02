@@ -24,7 +24,6 @@ public class AvatarStateInd {
 	private int currPoint;
 
 	public AvatarStateInd(Player player) {
-		playSpark = true;
 		new BukkitRunnable() {
 			
 			@Override
@@ -42,6 +41,8 @@ public class AvatarStateInd {
 		if (reqAS) {
 			if (CoreAbility.hasAbility(p, AvatarState.class)) {
 				playAnimations(p, location);
+			} else {
+				playSpark = true;
 			}
 		} else {
 			playAnimations(p, location);
@@ -49,8 +50,8 @@ public class AvatarStateInd {
 	}
 	
 	public void playAnimations(Player p, Location location) {
-		Location rightEye = GeneralMethods.getRightSide(p.getEyeLocation().add(p.getEyeLocation().getDirection().multiply(0.4)), 0.18);
-		Location leftEye = GeneralMethods.getLeftSide(p.getEyeLocation().add(p.getEyeLocation().getDirection().multiply(0.4)), 0.18);
+		Location rightEye = GeneralMethods.getRightSide(p.getEyeLocation().add(p.getEyeLocation().getDirection().multiply(0.36)), 0.18);
+		Location leftEye = GeneralMethods.getLeftSide(p.getEyeLocation().add(p.getEyeLocation().getDirection().multiply(0.36)), 0.18);
 		
 		if (playEyeGlow) {
 			//White
@@ -74,7 +75,6 @@ public class AvatarStateInd {
 			location.add(x, y, z);
 			if (new Random().nextInt(4) == 0) {
 				ParticleEffect.BLOCK_CRACK.display(new BlockData(Material.PORTAL, (byte) 0), 0F, 0F, 0F, 0F, 1, location, 257D);
-				ParticleEffect.PORTAL.display(location, 0, 0, 0, 0, 2);
 			}
 			ParticleEffect.PORTAL.display(location, 0, 0, 0, 0, 2);
 			location.subtract(x, y, z);
@@ -85,7 +85,7 @@ public class AvatarStateInd {
 			ParticleEffect.MOB_SPELL.display(p.getLocation(), 1, 1, 1, 1, 2);
 		}
 		if (playSpark) {
-			ParticleEffect.FIREWORKS_SPARK.display(p.getLocation().add(0, 1, 0), 0, 0, 0, 0.2F, 10);
+			ParticleEffect.FIREWORKS_SPARK.display(p.getLocation().add(0, 1, 0), 0, 0, 0, 0.2F, 20);
 			playSpark = false;
 		}
 	}
