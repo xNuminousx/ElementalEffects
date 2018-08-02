@@ -29,7 +29,7 @@ public class Names {
 		return "Flame Arms";
 	}
 	public static String flight() {
-		return "Float";
+		return "Float!";
 	}
 	public static String hydro() {
 		return "Hydro";

@@ -46,10 +46,10 @@ public class Main extends JavaPlugin implements Listener {
 		registerCommands();
 		registerListeners();
 		
-		Bukkit.getServer().getLogger().info("ElementalEffects enabled");
+		plugin.getLogger().info("Successfully enabled ElementalEffects v" + plugin.getDescription().getVersion());
 	}
 	public void onDisable() {
-		Bukkit.getServer().getLogger().info("ElementalEffects disabled");
+		plugin.getLogger().info("Successfully disabled ElementalEffects v" + plugin.getDescription().getVersion());
 	}
 	
 	public static Main getInstance() {
