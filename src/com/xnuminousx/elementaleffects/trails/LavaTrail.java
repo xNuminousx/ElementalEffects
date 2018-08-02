@@ -21,11 +21,10 @@ public class LavaTrail {
 
 			@Override
 			public void run() {
-				if (plugin.lava.contains(player)) {
-					progress(player);
-				} else {
+				if (plugin.lava.isEmpty()) {
 					this.cancel();
 				}
+				progress(player);
 			}
 			
 		}.runTaskTimer(Main.getInstance(), 0, 1);
