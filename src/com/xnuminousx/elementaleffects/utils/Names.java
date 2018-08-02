@@ -35,7 +35,7 @@ public class Names {
 		return "Hydro";
 	}
 	public static String iceBoots() {
-		return "Ice Boots";
+		return "Icicle Shoes";
 	}
 	public static String intensity() {
 		return "Intensity";
