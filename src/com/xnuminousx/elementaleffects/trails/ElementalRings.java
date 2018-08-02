@@ -10,7 +10,7 @@ import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.projectkorra.projectkorra.util.ParticleEffect.BlockData;
 import com.xnuminousx.elementaleffects.Main;
-import com.xnuminousx.elementaleffects.Methods;
+import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class ElementalRings {
 	

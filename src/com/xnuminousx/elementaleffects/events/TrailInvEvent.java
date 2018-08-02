@@ -1,5 +1,7 @@
 package com.xnuminousx.elementaleffects.events;
 
+import java.util.ArrayList;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,6 +22,8 @@ import com.xnuminousx.elementaleffects.trails.LavaTrail;
 import com.xnuminousx.elementaleffects.trails.SandCloak;
 import com.xnuminousx.elementaleffects.trails.StaticField;
 import com.xnuminousx.elementaleffects.trails.WaterRings;
+import com.xnuminousx.elementaleffects.utils.Names;
+import com.xnuminousx.elementaleffects.utils.TrailUtils;
 import com.xnuminousx.elementaleffects.trails.Float;
 
 public class TrailInvEvent implements Listener {
@@ -33,13 +37,25 @@ public class TrailInvEvent implements Listener {
 	String prefix;
 	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
 	
-	ChatColor elementColor;
-	String trailType;
+	public String enableMessage(ChatColor color, String trailName) {
+		return prefix + color + "" + ChatColor.BOLD + trailName + ChatColor.RESET + ChatColor.GREEN + " enabled!";
+	}
+	
+	public String disableMessage(ChatColor color, String trailName) {
+		return prefix + color + "" + ChatColor.BOLD + trailName + ChatColor.RESET + ChatColor.RED + " disabled!";
+	}
+	
+	public String noElementMessage(ChatColor color) {
+		return prefix + color + "You don't have the necessary element!";
+	}
+	
+	public String noPermissionMessage(ChatColor color) {
+		return prefix + color + "You don't have the necessary permission!";
+	}
 	
 	@EventHandler
 	public void onTrailInvClick(InventoryClickEvent event) {
-		Player p = (Player)event.getWhoClicked();
-		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(p);
+		Player player = (Player)event.getWhoClicked();
 		
 		if (doPrefix) {
 			prefix = prefixColor + "ElementalEffects: ";
@@ -49,1008 +65,198 @@ public class TrailInvEvent implements Listener {
 		
 		if (event.getInventory().getName() != trailGuiName) {
 			return;
-		}
 		
-		if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().equals(null)) {
+		} else if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().equals(null)) {
 			event.setCancelled(true);
 			return;
 			
-		// Enable/Disable Earth Trail	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Earth Trail")) {
-			elementColor = ChatColor.GREEN;
-			trailType = "Earth Trail";
-			String enableMessage = prefix + elementColor + trailType + " enabled!";
-			String disableMessage = prefix + elementColor + trailType + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			
-			if (plugin.earth.contains(p)) {
-				// Disable trail
-				event.setCancelled(true);
-				plugin.earth.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.earth") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.EARTH)) {
-						// Give trail
-						event.setCancelled(true);
-						giveTrail(p, "earth");
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						// Don't have the element warning
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					// Give trail
-					event.setCancelled(true);
-					giveTrail(p, "earth");
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				// Don't have permission
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		// Enable/Disable Earth Trail
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.earthTrail())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.earth, player, ChatColor.GREEN, Names.earthTrail(), Element.EARTH, null);
 			
 		// Enable/Disable Earth Trail 2 (Eruption)	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Eruption")) {
-			elementColor = ChatColor.DARK_GREEN;
-			trailType = "Eruption";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			
-			if (plugin.lava.contains(p)) {
-				// Disable trail
-				event.setCancelled(true);
-				plugin.lava.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.lava") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.EARTH) && bPlayer.hasElement(Element.LAVA)) {
-						// Give trail
-						event.setCancelled(true);
-						giveTrail(p, "lava");
-						new LavaTrail(p);
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						// Don't have the element warning
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					// Give trail
-					event.setCancelled(true);
-					giveTrail(p, "lava");
-					new LavaTrail(p);
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				// Don't have permission
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.lavaTrail())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.lava, player, ChatColor.DARK_GREEN, Names.lavaTrail(), Element.EARTH, Element.LAVA);
+			new LavaTrail(player);
 			
 		// Enable/Disable SandCloak Trail	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Sandy Cloak")) {
-			elementColor = ChatColor.YELLOW;
-			trailType = "Sandy Cloak";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.sandyCloak())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.sand, player, ChatColor.YELLOW, Names.sandyCloak(), Element.EARTH, Element.SAND);
+			new SandCloak(player);
 			
-			if (plugin.sand.contains(p)) {
-				// Disable trail
-				event.setCancelled(true);
-				plugin.sand.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.sand") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.EARTH) && bPlayer.hasElement(Element.SAND)) {
-						// Give trail
-						event.setCancelled(true);
-						giveTrail(p, "sand");
-						new SandCloak(p);
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						// Don't have the element warning
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					// Give trail
-					event.setCancelled(true);
-					giveTrail(p, "sand");
-					new SandCloak(p);
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				// Don't have permission
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
-			
-		// Enable/Disable Fire Trail	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Fire Trail")) {
-			elementColor = ChatColor.RED;
-			trailType = "Fire Trail";
-			String enableMessage = prefix + elementColor + trailType + " enabled!";
-			String disableMessage = prefix + elementColor + trailType + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.fire.contains(p)) {
-				event.setCancelled(true);
-				plugin.fire.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.fire") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.FIRE)) {
-						event.setCancelled(true);
-						giveTrail(p, "fire");
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "fire");
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		// Enable/Disable Fire Trail
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.fireTrail())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.fire, player, ChatColor.RED, Names.fireTrail(), Element.FIRE, null);
 			
 		// Enable/Disable Fire Trail 2 (Flame Arms)	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Flame Arms")) {
-			elementColor = ChatColor.RED;
-			trailType = "Flame Arms";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.flamearms.contains(p)) {
-				event.setCancelled(true);
-				plugin.flamearms.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.fire2") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.FIRE)) {
-						event.setCancelled(true);
-						giveTrail(p, "fire2");
-						new FlameArms(p);
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "fire2");
-					new FlameArms(p);
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.flameArms())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.flamearms, player, ChatColor.RED, Names.flameArms(), Element.FIRE, null);
+			new FlameArms(player);
 			
 		// Enable/Disable Lightning (Static Field) Trail	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Static Field")) {
-			elementColor = ChatColor.DARK_RED;
-			trailType = "Static Field";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.lightning.contains(p)) {
-				event.setCancelled(true);
-				plugin.lightning.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.lightning") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.FIRE) && bPlayer.hasElement(Element.LIGHTNING)) {
-						event.setCancelled(true);
-						giveTrail(p, "lightning");
-						new StaticField(p);
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "lightning");
-					new StaticField(p);
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.staticField())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.lightning, player, ChatColor.DARK_RED, Names.staticField(), Element.FIRE, Element.LIGHTNING);
+			new StaticField(player);
 		
 		// Enable/Disable Water Trail		
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Water Trail")) {
-			elementColor = ChatColor.AQUA;
-			trailType = "Water Trail";
-			String enableMessage = prefix + elementColor + trailType + " enabled!";
-			String disableMessage = prefix + elementColor + trailType + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.water.contains(p)) {
-				event.setCancelled(true);
-				plugin.water.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.water") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.WATER)) {
-						event.setCancelled(true);
-						giveTrail(p, "water");
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "water");
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.waterTrail())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.water, player, ChatColor.AQUA, Names.waterTrail(), Element.WATER, null);
 			
 			// Enable/Disable Water Trail 2 (Hydro)
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Hydro")) {
-			elementColor = ChatColor.BLUE;
-			trailType = "Hydro";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.hydro.contains(p)) {
-				event.setCancelled(true);
-				plugin.hydro.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.water2") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.WATER)) {
-						event.setCancelled(true);
-						giveTrail(p, "water2");
-						new WaterRings(p);
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "water2");
-					new WaterRings(p);
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
-		
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.hydro())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.hydro, player, ChatColor.BLUE, Names.hydro(), Element.WATER, null);
+			new WaterRings(player);
 			
 		// Enable/Disable Ice Trail	(Ice Shoes)
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Icicle Shoes")) {
-			elementColor = ChatColor.DARK_AQUA;
-			trailType = "Icicle Shoes";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.ice.contains(p)) {
-				event.setCancelled(true);
-				plugin.ice.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.ice") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.WATER) && bPlayer.hasElement(Element.ICE)) {
-						event.setCancelled(true);
-						giveTrail(p, "ice");
-						new IceBoots(p);
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "ice");
-					new IceBoots(p);
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
-		
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.iceBoots())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.ice, player, ChatColor.DARK_AQUA, Names.iceBoots(), Element.WATER, Element.ICE);
+			new IceBoots(player);
 			
 		// Enable/Disable Chi Trail	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Chi Trail")) {
-			elementColor = ChatColor.GOLD;
-			trailType = "Chi Trail";
-			String enableMessage = prefix + elementColor + trailType + " enabled!";
-			String disableMessage = prefix + elementColor + trailType + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.chi.contains(p)) {
-				event.setCancelled(true);
-				plugin.chi.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.chi") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.CHI)) {
-						event.setCancelled(true);
-						giveTrail(p, "chi");
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "chi");
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.chiTrail())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.chi, player, ChatColor.GOLD, Names.chiTrail(), Element.CHI, null);
 			
 		//Enable/Disable Chi Trail 2 (Intensity)
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Intensity")) {
-			elementColor = ChatColor.YELLOW;
-			trailType = "Intensity";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.intensity.contains(p)) {
-				event.setCancelled(true);
-				plugin.intensity.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.chi2") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.CHI)) {
-						event.setCancelled(true);
-						giveTrail(p, "chi2");
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						closeInv(p);
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "chi2");
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.intensity())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.intensity, player, ChatColor.YELLOW, Names.intensity(), Element.CHI, null);
 			
 		// Enable/Disable Avatar Trail	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Avatar Trail")) {
-			elementColor = ChatColor.DARK_PURPLE;
-			trailType = "Avatar Trail";
-			String enableMessage = prefix + elementColor + trailType + " enabled!";
-			String disableMessage = prefix + elementColor + trailType + " disabled!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.avatar.contains(p)) {
-				event.setCancelled(true);
-				plugin.avatar.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.avatar") || p.hasPermission("elementaleffects.*")) {
-				event.setCancelled(true);
-				giveTrail(p, "avatar");
-				closeInv(p);
-				p.sendMessage(enableMessage);
-				return;
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.avatarTrail())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.avatar, player, ChatColor.DARK_PURPLE, Names.avatarTrail(), Element.AVATAR, null);
 		
 		// Enable/Disable Avatar Trail 2 (Elemental Rings)
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Elemental Rings")) {
-			elementColor = ChatColor.DARK_PURPLE;
-			trailType = "Elemental Rings";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.elementrings.contains(p)) {
-				event.setCancelled(true);
-				plugin.elementrings.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.avatar") || p.hasPermission("elementaleffects.*")) {
-				event.setCancelled(true);
-				giveTrail(p, "avatar2");
-				new ElementalRings(p);
-				closeInv(p);
-				p.sendMessage(enableMessage);
-				return;
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
-		
-		// Enable/Disable Air Trail	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Air Trail")) {
-			elementColor = ChatColor.GRAY;
-			trailType = "Air Trail";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.air.contains(p)) {
-				event.setCancelled(true);
-				plugin.air.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.air") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.AIR)) {
-						event.setCancelled(true);
-						giveTrail(p, "air");
-						new Cloud(p);
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						if (closeInv) {
-							p.closeInventory();
-						}
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "air");
-					new Cloud(p);
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.elementalRings())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.elementrings, player, ChatColor.DARK_PURPLE, Names.elementalRings(), Element.AVATAR, null);
+			new ElementalRings(player);
 			
+		// Enable/Disable Air Trail	
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.airTrail())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.air, player, ChatColor.GRAY, Names.airTrail(), Element.AIR, null);
+			new Cloud(player);
+
 		// Enable/Disable Air Trail 2 (Aero)	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Aero Sphere")) {
-			elementColor = ChatColor.GRAY;
-			trailType = "Aero Sphere";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.aero.contains(p)) {
-				event.setCancelled(true);
-				plugin.aero.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.air2") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.AIR)) {
-						event.setCancelled(true);
-						new AeroSphere(p);
-						giveTrail(p, "air2");
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						if (closeInv) {
-							p.closeInventory();
-						}
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "air2");
-					new AeroSphere(p);
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.aeroSphere())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.aero, player, ChatColor.GRAY, Names.aeroSphere(), Element.AIR, null);
+			new AeroSphere(player);
 			
 		// Enable/Disable Flight Trail (Float!)	
-		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Float!")) {
-			elementColor = ChatColor.DARK_GRAY;
-			trailType = "Float!";
-			String enableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.GREEN + " enabled!";
-			String disableMessage = prefix + elementColor + ChatColor.BOLD + "" + trailType + ChatColor.RESET + "" + ChatColor.RED + " disabled!";
-			String noElement = prefix + elementColor + "You don't have the necessary element!";
-			String noPerm = prefix + elementColor + "You don't have the necessary permission!";
-			if (plugin.flight.contains(p)) {
-				event.setCancelled(true);
-				plugin.flight.remove(p);
-				closeInv(p);
-				p.sendMessage(disableMessage);
-				return;
-			} else if (p.hasPermission("elementaleffects.flight") || p.hasPermission("elementaleffects.*")) {
-				if (reqEle) {
-					if (bPlayer.hasElement(Element.AIR) && bPlayer.hasElement(Element.FLIGHT)) {
-						event.setCancelled(true);
-						new Float(p);
-						giveTrail(p, "flight");
-						closeInv(p);
-						p.sendMessage(enableMessage);
-						return;
-					} else {
-						event.setCancelled(true);
-						if (closeInv) {
-							p.closeInventory();
-						}
-						p.sendMessage(noElement);
-						return;
-					}
-				} else {
-					event.setCancelled(true);
-					giveTrail(p, "flight");
-					new Float(p);
-					closeInv(p);
-					p.sendMessage(enableMessage);
-					return;
-				}
-			} else {
-				event.setCancelled(true);
-				closeInv(p);
-				p.sendMessage(noPerm);
-			}
-			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.flight())) {
+			event.setCancelled(true);
+			this.setTrail(plugin.flight, player, ChatColor.DARK_GRAY, Names.flight(), Element.AIR, Element.FLIGHT);
+			new Float(player);
 			
 		//Open indicator GUI	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Open Indicator GUI")) {
 			event.setCancelled(true);
-			IndGui.openGui(p);
+			IndGui.openGui(player);
 			return;
+			
+		//Disable trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Disable Trail")) {
 			event.setCancelled(true);
-			removeTrails(p);
-			p.sendMessage(prefix + ChatColor.RED + "Active trail disabled!");
-			closeInv(p);
+			ArrayList<Player> activeTrail = TrailUtils.getActiveTrail(player);
+			TrailUtils.removeActiveTrail(activeTrail, player);
+			player.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active trail" + ChatColor.RESET + ChatColor.RED + " disabled!");
+			closeInv(player);
 			return;
+		
+		//Security	
 		} else {
 			event.setCancelled(true);
 			return;
 		}
 	}
-	public void giveTrail(Player p, String element) {
-		if (element.equalsIgnoreCase("earth")) {
-			plugin.earth.add(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("lava")) {
-			plugin.lava.add(p);
-			plugin.sand.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.earth.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("sand")) {
-			plugin.sand.add(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.earth.remove(p);
-			plugin.lava.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("fire")) {
-			plugin.fire.add(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("fire2")) {
-			plugin.flamearms.add(p);
-			plugin.fire.remove(p);
-			plugin.lightning.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("lightning")) {
-			plugin.lightning.add(p);
-			plugin.flamearms.remove(p);
-			plugin.fire.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("water")) {
-			plugin.water.add(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("water2")) {
-			plugin.hydro.add(p);
-			plugin.water.remove(p);
-			plugin.ice.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("ice")) {
-			plugin.ice.add(p);
-			plugin.hydro.remove(p);
-			plugin.water.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("air")) {
-			plugin.air.add(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("air2")) {
-			plugin.aero.add(p);
-			plugin.air.remove(p);
-			plugin.flight.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("flight")) {
-			plugin.flight.add(p);
-			plugin.aero.remove(p);
-			plugin.air.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("chi")) {
-			plugin.chi.add(p);
-			plugin.intensity.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-		} else if (element.equalsIgnoreCase("chi2")) {
-			plugin.intensity.add(p);
-			plugin.hydro.remove(p);
-			plugin.water.remove(p);
-			plugin.ice.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.avatar.remove(p);
-			plugin.elementrings.remove(p);
-			plugin.chi.remove(p);
-		} else if (element.equalsIgnoreCase("avatar")) {
-			plugin.avatar.add(p);
-			plugin.elementrings.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
-		} else if (element.equalsIgnoreCase("avatar2")) {
-			plugin.elementrings.add(p);
-			plugin.avatar.remove(p);
-			plugin.fire.remove(p);
-			plugin.flamearms.remove(p);
-			plugin.lightning.remove(p);
-			plugin.water.remove(p);
-			plugin.hydro.remove(p);
-			plugin.ice.remove(p);
-			plugin.air.remove(p);
-			plugin.aero.remove(p);
-			plugin.flight.remove(p);
-			plugin.earth.remove(p);
-			plugin.sand.remove(p);
-			plugin.lava.remove(p);
-			plugin.chi.remove(p);
-			plugin.intensity.remove(p);
+	
+	public void setTrail(ArrayList<Player> object, Player player, ChatColor chatColor, String trailName, Element element, Element sub) {
+		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+		
+		if (object.contains(player)) {
+			object.remove(player);
+			closeInv(player);
+			player.sendMessage(disableMessage(chatColor, trailName));
+		} else if (hasPermissions(player, trailName)) {
+			if (reqEle) {
+				if (bPlayer.hasElement(element) && bPlayer.hasElement(sub)) {
+					// Give trail
+					TrailUtils.setActiveTrail(trailName, player);
+					closeInv(player);
+					player.sendMessage(enableMessage(chatColor, trailName));
+				} else {
+					// Doesn't have element
+					closeInv(player);
+					player.sendMessage(noElementMessage(chatColor));
+				}
+			} else {
+				// Give trail
+				TrailUtils.setActiveTrail(trailName, player);
+				closeInv(player);
+				player.sendMessage(enableMessage(chatColor, trailName));
+			}
+		} else {
+			// Doesn't have permission
+			closeInv(player);
+			player.sendMessage(noPermissionMessage(chatColor));
 		}
 	}
 	
-	public void removeTrails(Player p) {
-		plugin.elementrings.remove(p);
-		plugin.avatar.remove(p);
-		plugin.fire.remove(p);
-		plugin.flamearms.remove(p);
-		plugin.lightning.remove(p);
-		plugin.water.remove(p);
-		plugin.hydro.remove(p);
-		plugin.ice.remove(p);
-		plugin.air.remove(p);
-		plugin.aero.remove(p);
-		plugin.flight.remove(p);
-		plugin.earth.remove(p);
-		plugin.sand.remove(p);
-		plugin.lava.remove(p);
-		plugin.chi.remove(p);
-		plugin.intensity.remove(p);
-	}
 	public void closeInv(Player p) {
 		if (closeInv) {
 			p.closeInventory();
+		}
+	}
+	
+	public boolean hasPermissions(Player player, String trailName) {
+		if (trailName == Names.earthTrail() && player.hasPermission("elementaleffects.earth")) {
+			return true;
+		} else if (trailName == Names.lavaTrail() && player.hasPermission("elementaleffects.lava")) {
+			return true;
+		} else if (trailName == Names.sandyCloak() && player.hasPermission("elementaleffects.sand")) {
+			return true;
+		} else if (trailName == Names.fireTrail() && player.hasPermission("elementaleffets.fire")) {
+			return true;
+		} else if (trailName == Names.flameArms() && player.hasPermission("elementaleffects.fire2")) {
+			return true;
+		} else if (trailName == Names.staticField() && player.hasPermission("elementaleffects.lightning")) {
+			return true;
+		} else if (trailName == Names.waterTrail() && player.hasPermission("elementaleffects.water")) {
+			return true;
+		} else if (trailName == Names.hydro() && player.hasPermission("elementaleffects.water2")) {
+			return true;
+		} else if (trailName == Names.iceBoots() && player.hasPermission("elementaleffects.ice")) {
+			return true;
+		} else if (trailName == Names.airTrail() && player.hasPermission("elementaleffects.air")) {
+			return true;
+		} else if (trailName == Names.aeroSphere() && player.hasPermission("elementaleffects.air2")) {
+			return true;
+		} else if (trailName == Names.flight() && player.hasPermission("elementaleffects.flight")) {
+			return true;
+		} else if (trailName == Names.chiTrail() && player.hasPermission("elementaleffects.chi")) {
+			return true;
+		} else if (trailName == Names.intensity() && player.hasPermission("elementaleffects.chi2")) {
+			return true;
+		} else if (trailName == Names.avatarTrail() && player.hasPermission("elementaleffects.avatar")) {
+			return true;
+		} else if (trailName == Names.elementalRings() && player.hasPermission("elementaleffects.avatar2")) {
+			return true;
+		} else if (player.hasPermission("elementaleffects.*")) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

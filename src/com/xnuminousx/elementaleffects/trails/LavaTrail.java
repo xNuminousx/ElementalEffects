@@ -21,9 +21,9 @@ public class LavaTrail {
 
 			@Override
 			public void run() {
-				progress(player);
-				
-				if (plugin.lava.isEmpty()) {
+				if (plugin.lava.contains(player)) {
+					progress(player);
+				} else {
 					this.cancel();
 				}
 			}

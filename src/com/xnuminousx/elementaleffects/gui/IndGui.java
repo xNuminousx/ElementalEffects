@@ -9,8 +9,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import com.xnuminousx.elementaleffects.Methods;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class IndGui {
 	

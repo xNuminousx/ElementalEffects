@@ -1,4 +1,4 @@
-package com.xnuminousx.elementaleffects;
+package com.xnuminousx.elementaleffects.utils;
 
 import java.util.ArrayList;
 import java.util.List;
