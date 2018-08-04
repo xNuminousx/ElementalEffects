@@ -34,8 +34,9 @@ public class Main extends JavaPlugin implements Listener {
 	public ArrayList<Player> avatar = new ArrayList<Player>();
 	public ArrayList<Player> elementrings = new ArrayList<Player>();
 	
-	public ArrayList<Player> hit = new ArrayList<Player>();
 	public ArrayList<Player> avatarstate = new ArrayList<Player>();
+	public ArrayList<Player> hit = new ArrayList<Player>();
+	public ArrayList<Player> moon = new ArrayList<Player>();
 	
 	public static Main plugin;
 	

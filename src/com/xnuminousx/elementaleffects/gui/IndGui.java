@@ -28,8 +28,9 @@ public class IndGui {
 		
 		inv.setItem(13, Methods.miscItem(Material.END_CRYSTAL, "Open Trail GUI", ChatColor.DARK_AQUA, openTrail));
 		inv.setItem(31, Methods.miscItem(Material.BARRIER, "Disable Indicator", ChatColor.DARK_RED, removeInd));
-		inv.setItem(11, Methods.createItem(p, Material.REDSTONE, Names.hitIndicator(), ChatColor.DARK_RED, "hit"));
 		inv.setItem(15, Methods.createItem(p, Material.GHAST_TEAR, Names.avatarIndicator(), ChatColor.DARK_PURPLE, "avatarstate"));
+		inv.setItem(11, Methods.createItem(p, Material.REDSTONE, Names.hitIndicator(), ChatColor.DARK_RED, "hit"));
+		inv.setItem(29, Methods.createItem(p, Material.ENDER_PEARL, Names.moonIndicator(), ChatColor.BLUE, "moon"));
 		
 		p.openInventory(inv);
 	}

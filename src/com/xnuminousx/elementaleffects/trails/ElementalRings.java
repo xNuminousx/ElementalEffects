@@ -28,7 +28,7 @@ public class ElementalRings {
 					if (currPoint > 360) {
 						currPoint = 0;
 					}
-					double angle = currPoint * 3.141592653589793D / 180.0D;
+					double angle = currPoint * Math.PI / 180;
 					double x = 2 * Math.cos(angle);
 					double z = 2 * Math.sin(angle);
 					Location loc = player.getLocation().add(x, 1, z);

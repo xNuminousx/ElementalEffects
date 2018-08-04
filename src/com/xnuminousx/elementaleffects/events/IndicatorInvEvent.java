@@ -12,6 +12,7 @@ import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.gui.TrailGui;
 import com.xnuminousx.elementaleffects.indicators.AvatarStateInd;
+import com.xnuminousx.elementaleffects.indicators.MoonIndicator;
 import com.xnuminousx.elementaleffects.utils.IndUtils;
 import com.xnuminousx.elementaleffects.utils.Names;
 
@@ -69,6 +70,12 @@ public class IndicatorInvEvent implements Listener {
 			new AvatarStateInd(p);
 			return;
 			
+		//Enable/Disable MoonIndicator	
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.moonIndicator())) {
+			event.setCancelled(true);
+			this.setIndicator(plugin.moon, p, ChatColor.BLUE, Names.moonIndicator());
+			new MoonIndicator(p);
+			
 		//Open Trail GUI	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Open Trail GUI")) {
 			event.setCancelled(true);
@@ -110,6 +117,10 @@ public class IndicatorInvEvent implements Listener {
 		if (indName == Names.hitIndicator() && player.hasPermission("elementaleffects.hit")) {
 			return true;
 		} else if (indName == Names.avatarIndicator() && player.hasPermission("elementaleffects.avatarstate")) {
+			return true;
+		} else if (indName == Names.moonIndicator() && player.hasPermission("elementaleffects.moon")) {
+			return true;
+		} else if (player.hasPermission("elementaleffects.*")) {
 			return true;
 		} else {
 			return false;

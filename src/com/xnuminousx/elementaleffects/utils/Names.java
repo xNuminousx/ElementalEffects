@@ -4,11 +4,14 @@ public class Names {
 	
 	//The place to grab/edit indicator names
 	
+	public static String avatarIndicator() {
+		return "Avatar State Indicator";
+	}
 	public static String hitIndicator() {
 		return "Hit Indicator";
 	}
-	public static String avatarIndicator() {
-		return "Avatar State Indicator";
+	public static String moonIndicator() {
+		return "Moon Indicator";
 	}
 	
 	//The place to grab/edit trail names
