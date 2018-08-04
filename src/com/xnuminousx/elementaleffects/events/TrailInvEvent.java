@@ -74,91 +74,107 @@ public class TrailInvEvent implements Listener {
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.earthTrail())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.earth, player, ChatColor.GREEN, Names.earthTrail(), Element.EARTH, null);
+			return;
 			
 		// Enable/Disable Earth Trail 2 (Eruption)	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.lavaTrail())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.lava, player, ChatColor.DARK_GREEN, Names.lavaTrail(), Element.EARTH, Element.LAVA);
 			new LavaTrail(player);
+			return;
 			
 		// Enable/Disable SandCloak Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.sandyCloak())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.sand, player, ChatColor.YELLOW, Names.sandyCloak(), Element.EARTH, Element.SAND);
 			new SandCloak(player);
+			return;
 			
 		// Enable/Disable Fire Trail
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.fireTrail())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.fire, player, ChatColor.RED, Names.fireTrail(), Element.FIRE, null);
+			return;
 			
 		// Enable/Disable Fire Trail 2 (Flame Arms)	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.flameArms())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.flamearms, player, ChatColor.RED, Names.flameArms(), Element.FIRE, null);
 			new FlameArms(player);
+			return;
 			
 		// Enable/Disable Lightning (Static Field) Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.staticField())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.lightning, player, ChatColor.DARK_RED, Names.staticField(), Element.FIRE, Element.LIGHTNING);
 			new StaticField(player);
+			return;
 		
 		// Enable/Disable Water Trail		
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.waterTrail())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.water, player, ChatColor.AQUA, Names.waterTrail(), Element.WATER, null);
+			return;
 			
 			// Enable/Disable Water Trail 2 (Hydro)
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.hydro())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.hydro, player, ChatColor.BLUE, Names.hydro(), Element.WATER, null);
 			new WaterRings(player);
+			return;
 			
 		// Enable/Disable Ice Trail	(Ice Shoes)
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.iceBoots())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.ice, player, ChatColor.DARK_AQUA, Names.iceBoots(), Element.WATER, Element.ICE);
 			new IceBoots(player);
+			return;
 			
 		// Enable/Disable Chi Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.chiTrail())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.chi, player, ChatColor.GOLD, Names.chiTrail(), Element.CHI, null);
+			return;
 			
 		//Enable/Disable Chi Trail 2 (Intensity)
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.intensity())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.intensity, player, ChatColor.YELLOW, Names.intensity(), Element.CHI, null);
+			return;
 			
 		// Enable/Disable Avatar Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.avatarTrail())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.avatar, player, ChatColor.DARK_PURPLE, Names.avatarTrail(), Element.AVATAR, null);
+			return;
 		
 		// Enable/Disable Avatar Trail 2 (Elemental Rings)
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.elementalRings())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.elementrings, player, ChatColor.DARK_PURPLE, Names.elementalRings(), Element.AVATAR, null);
 			new ElementalRings(player);
+			return;
 			
 		// Enable/Disable Air Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.airTrail())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.air, player, ChatColor.GRAY, Names.airTrail(), Element.AIR, null);
 			new Cloud(player);
+			return;
 
 		// Enable/Disable Air Trail 2 (Aero)	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.aeroSphere())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.aero, player, ChatColor.GRAY, Names.aeroSphere(), Element.AIR, null);
 			new AeroSphere(player);
+			return;
 			
 		// Enable/Disable Flight Trail (Float!)	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.flight())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.flight, player, ChatColor.DARK_GRAY, Names.flight(), Element.AIR, Element.FLIGHT);
 			new Float(player);
+			return;
 			
 		//Open indicator GUI	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Open Indicator GUI")) {

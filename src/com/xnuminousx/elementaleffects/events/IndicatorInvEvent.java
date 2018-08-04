@@ -76,12 +76,14 @@ public class IndicatorInvEvent implements Listener {
 			event.setCancelled(true);
 			this.setIndicator(plugin.moon, p, ChatColor.BLUE, Names.moonIndicator());
 			new MoonIndicator(p);
+			return;
 			
 		//Enable/Disable SunIndicator	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.sunIndicator())) {
 			event.setCancelled(true);
 			this.setIndicator(plugin.sun, p, ChatColor.YELLOW, Names.sunIndicator());
 			new SunIndicator(p);
+			return;
 			
 		//Open Trail GUI	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Open Trail GUI")) {
@@ -95,6 +97,11 @@ public class IndicatorInvEvent implements Listener {
 			IndUtils.removeActiveIndicators(p);
 			p.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active indicators" + ChatColor.RESET + ChatColor.RED + " disabled!");
 			closeInv(p);
+			return;
+			
+		//Security	
+		} else {
+			event.setCancelled(true);
 			return;
 		}
 	}
