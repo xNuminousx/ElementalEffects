@@ -19,6 +19,10 @@ public class MoonIndicator {
 	Location location3;
 	Location location4;
 	int currPoint;
+	boolean reqNight = Main.plugin.getConfig().getBoolean("Indicators.Moon.RequireNight");
+	boolean reqWater = Main.plugin.getConfig().getBoolean("Indicators.Moon.RequireWaterElement");
+	boolean doFullMoon = Main.plugin.getConfig().getBoolean("Indicators.Moon.FullMoon.Enabled");
+	boolean enhanceParticles = Main.plugin.getConfig().getBoolean("Indicators.Moon.FullMoon.EnhanceParticles");
 	
 	public MoonIndicator(Player player) {
 		new BukkitRunnable() {
@@ -40,68 +44,96 @@ public class MoonIndicator {
 		location3 = player.getLocation();
 		location4 = player.getLocation();
 		
-		if (bPlayer.hasElement(Element.WATER)) {
-			//Is full moon
-			if (WaterAbility.isFullMoon(player.getWorld())) {
-				for (int i = 0; i < 1; i++) {
-					currPoint += 360 / 70;
-					if (currPoint > 550) {
-						currPoint = 0;
+		if (reqWater) {
+			if (bPlayer.hasElement(Element.WATER)) {
+				if (reqNight) {
+					if (WaterAbility.isFullMoon(player.getWorld()) && enhanceParticles) {
+						playFullMoon(player);
+					} else if (WaterAbility.isNight(player.getWorld())) {
+						playNight(player);
 					}
-					if (currPoint == 0) {
-						ParticleEffect.SNOWBALL_POOF.display(player.getLocation().add(0, 1, 0), 0.6F, 0.6F, 0.6F, 0.3F, 20);
+				} else {
+					if (WaterAbility.isFullMoon(player.getWorld()) && enhanceParticles) {
+						playFullMoon(player);
 					}
-					double angle = currPoint * Math.PI / 270 * Math.cos(Math.PI);
-					double x = 1 * Math.cos(angle + i);
-					double y = Math.cos(angle) + 1.5;
-		            double y2 = -1 * Math.sin(angle) + 1.5;
-		            double z = 1 * Math.sin(angle + i);
-					location.add(x, y, z);
-					location2.add(x, y2, z);
-					location3.add(z, y, x);
-					location4.add(z, y2, x);
-					ParticleEffect.WATER_DROP.display(location, 0, 0, 0, 0, 1);
-					ParticleEffect.WATER_DROP.display(location2, 0, 0, 0, 0, 1);
-					ParticleEffect.WATER_DROP.display(location3, 0, 0, 0, 0, 1);
-					ParticleEffect.WATER_DROP.display(location4, 0, 0, 0, 0, 1);
-					GeneralMethods.displayColoredParticle(location, "0000D1");
-					GeneralMethods.displayColoredParticle(location2, "0000D1");
-					GeneralMethods.displayColoredParticle(location3, "0000D1");
-					GeneralMethods.displayColoredParticle(location4, "0000D1");
-					location.subtract(x, y, z);
-					location2.subtract(x, y2, z);
-					location3.subtract(z, y, x);
-					location4.subtract(z, y2, x);
-				}
-			//Is not full moon	
-			} else if (WaterAbility.isNight(player.getWorld())) {
-				for (int i = 0; i < 1; i++) {
-					currPoint += 360 / 70;
-					if (currPoint > 550) {
-						currPoint = 0;
-					}
-					if (currPoint == 0) {
-						ParticleEffect.SNOWBALL_POOF.display(player.getLocation().add(0, 0.5, 0), 0.2F, 0.2F, 0.2F, 0.3F, 10);
-					}
-					double angle = currPoint * Math.PI / 270 * Math.cos(Math.PI);
-					double x = 1 * Math.cos(angle + i);
-		            double y = Math.cos(angle) + 1.5;
-		            double y2 = -1 * Math.sin(angle) + 1.5;
-		            double z = 1 * Math.sin(angle + i);
-					location.add(x, y, z);
-					location2.add(x, y2, z);
-					location3.add(z, y, x);
-					location4.add(z, y2, x);
-					ParticleEffect.WATER_WAKE.display(location, 0, 0, 0, 0, 1);
-					ParticleEffect.WATER_WAKE.display(location2, 0, 0, 0, 0, 1);
-					ParticleEffect.WATER_WAKE.display(location3, 0, 0, 0, 0, 1);
-					ParticleEffect.WATER_WAKE.display(location4, 0, 0, 0, 0, 1);
-					location.subtract(x, y, z);
-					location2.subtract(x, y2, z);
-					location3.subtract(z, y, x);
-					location4.subtract(z, y2, x);
+					playNight(player);
 				}
 			}
+		} else {
+			if (reqNight) {
+				if (WaterAbility.isFullMoon(player.getWorld()) && enhanceParticles) {
+					playFullMoon(player);
+				} else if (WaterAbility.isNight(player.getWorld())) {
+					playNight(player);
+				}
+			} else {
+				if (WaterAbility.isFullMoon(player.getWorld()) && enhanceParticles) {
+					playFullMoon(player);
+				}
+				playNight(player);
+			}
+		}
+	}
+	
+	public void playNight(Player player) {
+		for (int i = 0; i < 1; i++) {
+			currPoint += 360 / 70;
+			if (currPoint > 550) {
+				currPoint = 0;
+			}
+			if (currPoint == 0) {
+				ParticleEffect.SNOWBALL_POOF.display(player.getLocation().add(0, 0.5, 0), 0.2F, 0.2F, 0.2F, 0.3F, 10);
+			}
+			double angle = currPoint * Math.PI / 270 * Math.cos(Math.PI);
+			double x = 1 * Math.cos(angle + i);
+            double y = Math.cos(angle) + 1.5;
+            double y2 = -1 * Math.sin(angle) + 1.5;
+            double z = 1 * Math.sin(angle + i);
+			location.add(x, y, z);
+			location2.add(x, y2, z);
+			location3.add(z, y, x);
+			location4.add(z, y2, x);
+			ParticleEffect.WATER_WAKE.display(location, 0, 0, 0, 0, 1);
+			ParticleEffect.WATER_WAKE.display(location2, 0, 0, 0, 0, 1);
+			ParticleEffect.WATER_WAKE.display(location3, 0, 0, 0, 0, 1);
+			ParticleEffect.WATER_WAKE.display(location4, 0, 0, 0, 0, 1);
+			location.subtract(x, y, z);
+			location2.subtract(x, y2, z);
+			location3.subtract(z, y, x);
+			location4.subtract(z, y2, x);
+		}
+	}
+	
+	public void playFullMoon(Player player) {
+		for (int i = 0; i < 1; i++) {
+			currPoint += 360 / 70;
+			if (currPoint > 550) {
+				currPoint = 0;
+			}
+			if (currPoint == 0) {
+				ParticleEffect.SNOWBALL_POOF.display(player.getLocation().add(0, 1, 0), 0.6F, 0.6F, 0.6F, 0.3F, 20);
+			}
+			double angle = currPoint * Math.PI / 270 * Math.cos(Math.PI);
+			double x = 1 * Math.cos(angle + i);
+			double y = Math.cos(angle) + 1.5;
+            double y2 = -1 * Math.sin(angle) + 1.5;
+            double z = 1 * Math.sin(angle + i);
+			location.add(x, y, z);
+			location2.add(x, y2, z);
+			location3.add(z, y, x);
+			location4.add(z, y2, x);
+			ParticleEffect.WATER_DROP.display(location, 0, 0, 0, 0, 1);
+			ParticleEffect.WATER_DROP.display(location2, 0, 0, 0, 0, 1);
+			ParticleEffect.WATER_DROP.display(location3, 0, 0, 0, 0, 1);
+			ParticleEffect.WATER_DROP.display(location4, 0, 0, 0, 0, 1);
+			GeneralMethods.displayColoredParticle(location, "0000D1");
+			GeneralMethods.displayColoredParticle(location2, "0000D1");
+			GeneralMethods.displayColoredParticle(location3, "0000D1");
+			GeneralMethods.displayColoredParticle(location4, "0000D1");
+			location.subtract(x, y, z);
+			location2.subtract(x, y2, z);
+			location3.subtract(z, y, x);
+			location4.subtract(z, y2, x);
 		}
 	}
 }

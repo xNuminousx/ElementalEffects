@@ -99,6 +99,14 @@ public class Manager {
 		config.addDefault("Indicators.AvatarState.RequireAvatarState", true);
 		config.addDefault("Indicators.AvatarState.PlayEyeGlow", true);
 		
+		config.addDefault("Indicators.Moon.RequireNight", true);
+		config.addDefault("Indicators.Moon.RequireWaterElement", true);
+		config.addDefault("Indicators.Moon.FullMoon.Enabled", true);
+		config.addDefault("Indicators.Moon.FullMoon.EnhanceParticles", true);
+		
+		config.addDefault("Indicators.Sun.RequireDay", true);
+		config.addDefault("Indicators.Sun.RequireFireElement", true);
+		
 		config.options().copyDefaults(true);
 		plugin.saveConfig();
 	}
