@@ -13,6 +13,7 @@ import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.gui.TrailGui;
 import com.xnuminousx.elementaleffects.indicators.AvatarStateInd;
 import com.xnuminousx.elementaleffects.indicators.MoonIndicator;
+import com.xnuminousx.elementaleffects.indicators.SunIndicator;
 import com.xnuminousx.elementaleffects.utils.IndUtils;
 import com.xnuminousx.elementaleffects.utils.Names;
 
@@ -76,6 +77,12 @@ public class IndicatorInvEvent implements Listener {
 			this.setIndicator(plugin.moon, p, ChatColor.BLUE, Names.moonIndicator());
 			new MoonIndicator(p);
 			
+		//Enable/Disable SunIndicator	
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.sunIndicator())) {
+			event.setCancelled(true);
+			this.setIndicator(plugin.sun, p, ChatColor.YELLOW, Names.sunIndicator());
+			new SunIndicator(p);
+			
 		//Open Trail GUI	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Open Trail GUI")) {
 			event.setCancelled(true);
@@ -85,9 +92,8 @@ public class IndicatorInvEvent implements Listener {
 		//Disable active indicator	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Disable Indicator")) {
 			event.setCancelled(true);
-			ArrayList<Player> activeIndicator = IndUtils.getActiveIndicator(p);
-			IndUtils.removeActiveIndicator(activeIndicator, p);
-			p.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active indicator" + ChatColor.RESET + ChatColor.RED + " disabled!");
+			IndUtils.removeActiveIndicators(p);
+			p.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active indicators" + ChatColor.RESET + ChatColor.RED + " disabled!");
 			closeInv(p);
 			return;
 		}
@@ -119,6 +125,8 @@ public class IndicatorInvEvent implements Listener {
 		} else if (indName == Names.avatarIndicator() && player.hasPermission("elementaleffects.avatarstate")) {
 			return true;
 		} else if (indName == Names.moonIndicator() && player.hasPermission("elementaleffects.moon")) {
+			return true;
+		} else if (indName == Names.sunIndicator() && player.hasPermission("elementaleffects.sun")) {
 			return true;
 		} else if (player.hasPermission("elementaleffects.*")) {
 			return true;

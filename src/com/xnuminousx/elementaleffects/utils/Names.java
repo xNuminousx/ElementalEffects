@@ -13,6 +13,9 @@ public class Names {
 	public static String moonIndicator() {
 		return "Moon Indicator";
 	}
+	public static String sunIndicator() {
+		return "Sun Indicator";
+	}
 	
 	//The place to grab/edit trail names
 	

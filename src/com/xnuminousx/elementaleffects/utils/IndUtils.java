@@ -15,6 +15,10 @@ public class IndUtils {
 			return plugin.hit;
 		} else if (plugin.avatarstate.contains(player)) {
 			return plugin.avatarstate;
+		} else if (plugin.moon.contains(player)) {
+			return plugin.moon;
+		} else if (plugin.sun.contains(player)) {
+			return plugin.sun;
 		} else {
 			return null;
 		}
@@ -24,5 +28,14 @@ public class IndUtils {
 		if (object.contains(player)) {
 			object.remove(player);
 		}
+	}
+	
+	public static void removeActiveIndicators(Player player) {
+		Main plugin = Main.getInstance();
+		
+		plugin.avatarstate.remove(player);
+		plugin.hit.remove(player);
+		plugin.moon.remove(player);
+		plugin.sun.remove(player);
 	}
 }
