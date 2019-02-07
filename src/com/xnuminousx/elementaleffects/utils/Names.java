@@ -64,6 +64,9 @@ public class Names {
 	public static String staticField() {
 		return "Static Field";
 	}
+	public static String valentine() {
+		return "Spread The Love";
+	}
 	public static String waterTrail() {
 		return "Water Trail";
 	}

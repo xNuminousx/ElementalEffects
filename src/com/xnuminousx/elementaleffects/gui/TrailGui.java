@@ -34,13 +34,13 @@ public class TrailGui {
 		inv.setItem(20, Methods.createItem(p, Material.POTION, Names.hydro(), ChatColor.BLUE, "water2"));
 		inv.setItem(29, Methods.createItem(p, Material.ICE, Names.iceBoots(), ChatColor.DARK_AQUA, "ice"));
 		inv.setItem(15, Methods.createItem(p, Material.BLAZE_POWDER, Names.fireTrail(), ChatColor.RED, "fire"));
-		inv.setItem(24, Methods.createItem(p, Material.FIREBALL, Names.flameArms(), ChatColor.RED, "fire2"));
-		inv.setItem(33, Methods.createItem(p, Material.REDSTONE_TORCH_ON, Names.staticField(), ChatColor.DARK_RED, "lightning"));
+		inv.setItem(24, Methods.createItem(p, Material.FIRE_CHARGE, Names.flameArms(), ChatColor.RED, "fire2"));
+		inv.setItem(33, Methods.createItem(p, Material.REDSTONE_TORCH, Names.staticField(), ChatColor.DARK_RED, "lightning"));
 		inv.setItem(17, Methods.createItem(p, Material.STRING, Names.airTrail(), ChatColor.GRAY, "air"));
-		inv.setItem(26, Methods.createItem(p, Material.WEB, Names.aeroSphere(), ChatColor.GRAY, "air2"));
+		inv.setItem(26, Methods.createItem(p, Material.COBWEB, Names.aeroSphere(), ChatColor.GRAY, "air2"));
 		inv.setItem(35, Methods.createItem(p, Material.FEATHER, Names.flight(), ChatColor.DARK_GRAY, "flight"));
-		inv.setItem(51, Methods.createItem(p, Material.LEASH, Names.chiTrail(), ChatColor.GOLD, "chi"));
-		inv.setItem(52, Methods.createItem(p, Material.WOOD_SWORD, Names.intensity(), ChatColor.GOLD, "chi2"));
+		inv.setItem(51, Methods.createItem(p, Material.LEAD, Names.chiTrail(), ChatColor.GOLD, "chi"));
+		inv.setItem(52, Methods.createItem(p, Material.WOODEN_SWORD, Names.intensity(), ChatColor.GOLD, "chi2"));
 		inv.setItem(46, Methods.createItem(p, Material.NETHER_STAR, Names.avatarTrail(), ChatColor.DARK_PURPLE, "avatar"));
 		inv.setItem(47, Methods.createItem(p, Material.BEACON, Names.elementalRings(), ChatColor.DARK_PURPLE, "avatar2"));
 		

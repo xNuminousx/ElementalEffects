@@ -2,9 +2,9 @@ package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.entity.Player;
 
-import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class Hydro {
 
@@ -16,14 +16,14 @@ public class Hydro {
 	}
 	
 	public void progress(Player p) {
-		GeneralMethods.displayColoredParticle(p.getLocation(), "A8A8FF", 0.3F, 0.3F, 0.3F);
-		GeneralMethods.displayColoredParticle(p.getLocation().add(0, 1, 0), "A8A8FF", 0.3F, 0.3F, 0.3F);
-		GeneralMethods.displayColoredParticle(p.getLocation().add(0, 2, 0), "A8A8FF", 0.3F, 0.3F, 0.3F);
-		ParticleEffect.SPLASH.display(p.getLocation(), 0.2F, 0.2F, 0.2F, 0.2F, 5);
-		ParticleEffect.SPLASH.display(p.getLocation().add(0, 1, 0), 0.2F, 0.2F, 0.2F, 0F, 5);
-		ParticleEffect.SPLASH.display(p.getLocation().add(0, 2, 0), 0.2F, 0.2F, 0.2F, 0F, 5);
-		ParticleEffect.DRIP_WATER.display(p.getLocation(), 0.2F, 0.2F, 0.2F, speed, amount);
-		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), 0.2F, 0.2F, 0.2F, speed, amount);
-		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 2, 0), 0.2F, 0.2F, 0.2F, speed, amount);
+		Methods.playColoredParticle(p.getLocation(), 1, 0.3, 0.3, 0.3, 168, 168, 255);
+		Methods.playColoredParticle(p.getLocation().add(0, 1, 0), 1, 0.3, 0.3, 0.3, 168, 168, 255);
+		Methods.playColoredParticle(p.getLocation().add(0, 2, 0), 1, 0.3, 0.3, 0.3, 168, 168, 255);
+		ParticleEffect.WATER_SPLASH.display(p.getLocation(), 5, 0.2F, 0.2F, 0.2F, 0.2F);
+		ParticleEffect.WATER_SPLASH.display(p.getLocation().add(0, 1, 0), 5, 0.2F, 0.2F, 0.2F, 0F);
+		ParticleEffect.WATER_SPLASH.display(p.getLocation().add(0, 2, 0), 5, 0.2F, 0.2F, 0.2F, 0F);
+		ParticleEffect.DRIP_WATER.display(p.getLocation(), amount, 0.2F, 0.2F, 0.2F, speed);
+		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), amount, 0.2F, 0.2F, 0.2F, speed);
+		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 2, 0), amount, 0.2F, 0.2F, 0.2F, speed);
 	}
 }

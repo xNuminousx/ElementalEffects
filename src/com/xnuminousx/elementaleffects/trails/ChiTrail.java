@@ -16,9 +16,9 @@ public class ChiTrail {
 	}
 	
 	public void progress(Player p) {
-		ParticleEffect.CRIT.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, (float) speed, amount);
+		ParticleEffect.CRIT.display(p.getLocation().add(0, 1, 0), amount, 0.5F, 0.5F, 0.5F, (float) speed);
 		if (doMagic) {
-			ParticleEffect.MAGIC_CRIT.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, (float) speed, amount);
+			ParticleEffect.CRIT_MAGIC.display(p.getLocation().add(0, 1, 0), amount, 0.5F, 0.5F, 0.5F, (float) speed);
 		}
 	}
 

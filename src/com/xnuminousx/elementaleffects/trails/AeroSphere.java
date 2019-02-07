@@ -43,9 +43,9 @@ public class AeroSphere {
 	        tempLoc.add(newDir);
 	        tempLoc.setY(tempLoc.getY() + size * Math.sin(Math.toRadians(j)));
 	        if (random.nextInt(30) == 0) {
-	        	ParticleEffect.MOB_SPELL.display(255.0F, 255.0F, 255.0F, 0.003F, 0, tempLoc, 257.0D);
+	        	ParticleEffect.SPELL_MOB.display(tempLoc, 2, 255, 255, 255, 0.003);
 	        } else {
-	        	ParticleEffect.MOB_SPELL_AMBIENT.display(tempLoc, 0.2F, 0.2F, 0.2F, 0.0F, 2);
+	        	ParticleEffect.SPELL_MOB_AMBIENT.display(tempLoc, 2, 0.2F, 0.2F, 0.2F, 0);
 	        }
 	    }
 	}

@@ -61,7 +61,7 @@ public class Manager {
 		config.addDefault("Trails.Hydro.Ring.Size", 1);
 		
 		config.addDefault("Trails.Ice.Boots.Speed", 0);
-		config.addDefault("Trails.Ice.Boots.Amount", 8);
+		config.addDefault("Trails.Ice.Boots.Amount", 4);
 		config.addDefault("Trails.Ice.Particles.Speed", 0);
 		config.addDefault("Trails.Ice.Particles.Amount", 5);
 		

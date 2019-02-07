@@ -37,8 +37,8 @@ public class FlameArms {
 	}
 	
 	public void progress(Player p) {
-		ParticleEffect.FLAME.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), 0.15F, 0.15F, 0.15F, speed, amount);
-		ParticleEffect.FLAME.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), 0.15F, 0.15F, 0.15F, speed, amount);
+		ParticleEffect.FLAME.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0.15F, 0.15F, 0.15F, speed);
+		ParticleEffect.FLAME.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0.15F, 0.15F, 0.15F, speed);
 		
 		if (enablerings) {
 			anglee+=10;
@@ -52,10 +52,10 @@ public class FlameArms {
 			Methods.rotateAroundAxisX(v1, -xRotation);
 			Methods.rotateAroundAxisY(v1, -((location.getYaw() * Math.PI / 180) - 1.575));
 
-			ParticleEffect.CRIT.display(0F, 0F, 0F, 0F, 1, location.clone().add(v1), 257D);
-			ParticleEffect.CRIT.display(0F, 0F, 0F, 0F, 1, location.clone().add(v), 257D);
-			GeneralMethods.displayColoredParticle(location.clone().add(v), "D86827", 0.0F, 0.0F, 0.0F);
-			GeneralMethods.displayColoredParticle(location.clone().add(v1), "D86827", 0.0F, 0.0F, 0.0F);
+			ParticleEffect.CRIT.display(location.clone().add(v), 1, 0, 0, 0, 0);
+			ParticleEffect.CRIT.display(location.clone().add(v1), 1, 0, 0, 0, 0);
+			Methods.playColoredParticle(location.clone().add(v), 1, 0, 0, 0, 216, 104, 39);
+			Methods.playColoredParticle(location.clone().add(v1), 1, 0, 0, 0, 216, 104, 39);
 			if (anglee == 360) {
 				anglee = 0;
 			}
@@ -71,18 +71,18 @@ public class FlameArms {
 			Methods.rotateAroundAxisX(v1Right, -xRotationRight);
 			Methods.rotateAroundAxisY(v1Right, -((locationRight.getYaw() * Math.PI / 180) - 1.575));
 
-			ParticleEffect.CRIT.display(0F, 0F, 0F, 0F, 1, locationRight.clone().add(v1Right), 257D);
-			ParticleEffect.CRIT.display(0F, 0F, 0F, 0F, 1, locationRight.clone().add(vRight), 257D);
-			GeneralMethods.displayColoredParticle(locationRight.clone().add(vRight), "D86827", 0.0F, 0.0F, 0.0F);
-			GeneralMethods.displayColoredParticle(locationRight.clone().add(v1Right), "D86827", 0.0F, 0.0F, 0.0F);
+			ParticleEffect.CRIT.display(locationRight.clone().add(vRight), 1, 0, 0, 0, 0);
+			ParticleEffect.CRIT.display(locationRight.clone().add(v1Right), 1, 0, 0, 0, 0);
+			Methods.playColoredParticle(locationRight.clone().add(vRight), 1, 0, 0, 0, 216, 104, 39);
+			Methods.playColoredParticle(locationRight.clone().add(v1Right), 1, 0, 0, 0, 216, 104, 39);
 			if (anglee2 == 360) {
 				anglee2 = 0;
 			}
 		}
 		
 		if (!p.isOnGround()) {
-			ParticleEffect.FLAME.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), 0F, 0F, 0F, 0.1F, 4);
-			ParticleEffect.FLAME.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), 0F, 0F, 0F, 0.1F, 4);
+			ParticleEffect.FLAME.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), 4, 0F, 0F, 0F, 0.1F);
+			ParticleEffect.FLAME.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), 4, 0F, 0F, 0F, 0.1F);
 		}
 	}
 

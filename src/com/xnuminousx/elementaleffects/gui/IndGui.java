@@ -31,7 +31,7 @@ public class IndGui {
 		inv.setItem(15, Methods.createItem(p, Material.GHAST_TEAR, Names.avatarIndicator(), ChatColor.DARK_PURPLE, "avatarstate"));
 		inv.setItem(11, Methods.createItem(p, Material.REDSTONE, Names.hitIndicator(), ChatColor.DARK_RED, "hit"));
 		inv.setItem(29, Methods.createItem(p, Material.ENDER_PEARL, Names.moonIndicator(), ChatColor.BLUE, "moon"));
-		inv.setItem(33, Methods.createItem(p, Material.WATCH, Names.sunIndicator(), ChatColor.YELLOW, "sun"));
+		inv.setItem(33, Methods.createItem(p, Material.CLOCK, Names.sunIndicator(), ChatColor.YELLOW, "sun"));
 		
 		p.openInventory(inv);
 	}

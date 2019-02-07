@@ -10,6 +10,7 @@ import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.FireAbility;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class SunIndicator {
 
@@ -67,7 +68,7 @@ public class SunIndicator {
 			double x = 0.4 * Math.cos(angle);
 			double z = 0.4 * Math.sin(angle);
 			location.add(x, 0, z);
-			ParticleEffect.FLAME.display(location, 0, 0, 0, 0.01F, 1);
+			ParticleEffect.FLAME.display(location, 1, 0, 0, 0, 0.01F);
 			location.subtract(x, 0, z);
 		}
 		for (int i = 0; i < 8; i++) {
@@ -76,11 +77,11 @@ public class SunIndicator {
 			double x = 0.5 * Math.cos(angle);
 			double z = 0.5 * Math.sin(angle);
 			location.add(x, 0, z);
-			GeneralMethods.displayColoredParticle(location, "D86827");
+			Methods.playColoredParticle(location, 1, 0, 0, 0, 255, 115, 33);
 			location.subtract(x, 0, z);
 		}
-		ParticleEffect.FLAME.display(GeneralMethods.getRightSide(player.getLocation(), .4).add(0, 0.7, 0), 0.08F, 0.08F, 0.08F, 0.01F, 1);
-		ParticleEffect.FLAME.display(GeneralMethods.getLeftSide(player.getLocation(), .4).add(0, 0.7, 0), 0.08F, 0.08F, 0.08F, 0.01F, 1);
-		ParticleEffect.SMOKE_NORMAL.display(player.getLocation().add(0, 1.7, 0), 0.2F, 0.2F, 0.2F, 0F, 2);
+		ParticleEffect.FLAME.display(GeneralMethods.getRightSide(player.getLocation(), .4).add(0, 0.7, 0), 1, 0.08F, 0.08F, 0.08F, 0.01F);
+		ParticleEffect.FLAME.display(GeneralMethods.getLeftSide(player.getLocation(), .4).add(0, 0.7, 0), 1, 0.08F, 0.08F, 0.08F, 0.01F);
+		ParticleEffect.SMOKE_NORMAL.display(player.getLocation().add(0, 1.7, 0), 2, 0.2F, 0.2F, 0.2F, 0F);
 	}
 }

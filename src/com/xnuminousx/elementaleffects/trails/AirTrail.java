@@ -21,14 +21,14 @@ public class AirTrail {
 		
 		if (vanishInWater) {
 			
-			if (getBlock.equals(Material.STATIONARY_WATER)) {
+			if (getBlock.equals(Material.WATER)) {
 				return;
 			} else {
-				AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
+				AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), amount, 0.5, 0.5, 0.5, speed);
 				return;
 			}
 		} else {
-			AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
+			AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), amount, 0.5, 0.5, 0.5, speed);
 			return;
 		}
 		

@@ -1,11 +1,9 @@
 package com.xnuminousx.elementaleffects.trails;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import com.projectkorra.projectkorra.util.ParticleEffect;
-import com.projectkorra.projectkorra.util.ParticleEffect.BlockData;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class SandTrail {
 	
@@ -18,7 +16,6 @@ public class SandTrail {
 	}
 	
 	public void progress(Player p) {
-		ParticleEffect.BLOCK_DUST.display(new BlockData(Material.SAND, (byte) 0), 0.5F, 0.5F, 0.5F, speed, amount, p.getLocation().add(0, 1, 0), 257D);
+		Methods.playColoredParticle(p.getLocation(), 5, 1, 1, 1, 251, 255, 186);
 	}
-
 }

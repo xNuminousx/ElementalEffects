@@ -39,8 +39,8 @@ public class WaterRings {
 			double x = size * Math.cos(angle);
 			double z = size * Math.sin(angle);
 			Location loc = p.getLocation().add(x, 1, z);
-			ParticleEffect.SPLASH.display(loc, 0f, 0f, 0f, 0, 2);
-			ParticleEffect.DRIP_WATER.display(loc, 0f, 0f, 0f, 0, 2);
+			ParticleEffect.WATER_SPLASH.display(loc, 2, 0f, 0f, 0f, 0);
+			ParticleEffect.DRIP_WATER.display(loc, 2, 0f, 0f, 0f, 0);
 		}
 	}
 }

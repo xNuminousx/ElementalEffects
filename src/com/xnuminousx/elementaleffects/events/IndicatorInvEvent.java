@@ -50,11 +50,10 @@ public class IndicatorInvEvent implements Listener {
 			prefix = "";
 		}
 		
-		if (event.getInventory().getName() != indGuiName) {
+		if (!event.getClickedInventory().getName().equalsIgnoreCase("Elemental Indicators")) {
 			return;
-		}
 		
-		if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().equals(null)) {
+		} else if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
 			event.setCancelled(true);
 			return;
 			

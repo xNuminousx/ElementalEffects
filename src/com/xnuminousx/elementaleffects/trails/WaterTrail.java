@@ -15,7 +15,7 @@ public class WaterTrail {
 	}
 	
 	public void progress(Player p) {
-		ParticleEffect.SPLASH.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0.5F, 2);
-		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), (float) 0.3, (float) 0.3, (float) 0.3, (float) speed, amount);
+		ParticleEffect.WATER_SPLASH.display(p.getLocation().add(0, 1, 0), 2, 0.5F, 0.5F, 0.5F, 0.5F);
+		ParticleEffect.DRIP_WATER.display(p.getLocation().add(0, 1, 0), amount, (float) 0.3, (float) 0.3, (float) 0.3, (float) speed);
 	}
 }

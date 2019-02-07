@@ -1,14 +1,11 @@
 package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.util.ParticleEffect;
-import com.projectkorra.projectkorra.util.ParticleEffect.BlockData;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.utils.Methods;
 
@@ -32,7 +29,7 @@ public class ElementalRings {
 					double x = 2 * Math.cos(angle);
 					double z = 2 * Math.sin(angle);
 					Location loc = player.getLocation().add(x, 1, z);
-					ParticleEffect.FLAME.display(loc, 0f, 0f, 0f, 0, 2);
+					ParticleEffect.FLAME.display(loc, 2, 0f, 0f, 0f, 0);
 				}
 				
 				anglee+=12;
@@ -46,10 +43,8 @@ public class ElementalRings {
 				Methods.rotateAroundAxisX(negV, -xRotation);
 				Methods.rotateAroundAxisY(negV, -((location.getYaw() * Math.PI / 180) - 1.575));
 
-				ParticleEffect.BLOCK_CRACK.display(new BlockData(Material.WATER, (byte) 0), 0F, 0F, 0F, 0F, 5, location.clone().add(v), 257D);
-				GeneralMethods.displayColoredParticle(location.clone().add(v), "06C1FF", 0.0F, 0.0F, 0.0F);
-				ParticleEffect.BLOCK_CRACK.display(new BlockData(Material.DIRT, (byte) 0), 0F, 0F, 0F, 0F, 5, location.clone().add(negV), 257D);
-				GeneralMethods.displayColoredParticle(location.clone().add(negV), "754719", 0.0F, 0.0F, 0.0F);
+				Methods.playColoredParticle(location.clone().add(v), 5, 0.1, 0.1, 0.1, 6, 193, 255);
+				Methods.playColoredParticle(location.clone().add(negV), 5, 0.1, 0.1, 0.1, 117, 71, 25);
 				if (anglee == 360) {
 					anglee = 0;
 				}

@@ -32,8 +32,8 @@ public class Cloud {
 		Material getBlock = p.getLocation().add(0, -1, 0).getBlock().getType();
 		
 		if (getBlock.equals(Material.AIR)) {
-			ParticleEffect.SPELL.display(p.getLocation(), (float) 0.5, 0, (float) 0.5, (float) speed, 10);
-			ParticleEffect.CLOUD.display(p.getLocation(), 0.5F, 0.3F, 0.5F, 0, 5);
+			ParticleEffect.SPELL.display(p.getLocation(), 10, 0.5, 0, 0.5, speed);
+			ParticleEffect.CLOUD.display(p.getLocation(), 5, 0.5F, 0.3F, 0.5F, 0);
 		}
 	}
 }

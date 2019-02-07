@@ -17,7 +17,6 @@ import com.xnuminousx.elementaleffects.trails.AeroSphere;
 import com.xnuminousx.elementaleffects.trails.Cloud;
 import com.xnuminousx.elementaleffects.trails.ElementalRings;
 import com.xnuminousx.elementaleffects.trails.FlameArms;
-import com.xnuminousx.elementaleffects.trails.IceBoots;
 import com.xnuminousx.elementaleffects.trails.LavaTrail;
 import com.xnuminousx.elementaleffects.trails.SandCloak;
 import com.xnuminousx.elementaleffects.trails.StaticField;
@@ -63,10 +62,10 @@ public class TrailInvEvent implements Listener {
 			prefix = "";
 		}
 		
-		if (event.getInventory().getName() != trailGuiName) {
+		if (!event.getClickedInventory().getName().equalsIgnoreCase("Elemental Trails")) {
 			return;
 		
-		} else if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().equals(null)) {
+		} else if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
 			event.setCancelled(true);
 			return;
 			
@@ -127,7 +126,6 @@ public class TrailInvEvent implements Listener {
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.iceBoots())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.ice, player, ChatColor.DARK_AQUA, Names.iceBoots(), Element.WATER, Element.ICE);
-			new IceBoots(player);
 			return;
 			
 		// Enable/Disable Chi Trail	
@@ -186,9 +184,13 @@ public class TrailInvEvent implements Listener {
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("Disable Trail")) {
 			event.setCancelled(true);
 			ArrayList<Player> activeTrail = TrailUtils.getActiveTrail(player);
-			TrailUtils.removeActiveTrail(activeTrail, player);
-			player.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active trail" + ChatColor.RESET + ChatColor.RED + " disabled!");
-			closeInv(player);
+			if (activeTrail.equals(Main.plugin.noTrail)) {
+				return;
+			} else {
+				TrailUtils.removeActiveTrail(activeTrail, player);
+				player.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active trail" + ChatColor.RESET + ChatColor.RED + " disabled!");
+				closeInv(player);
+			}
 			return;
 		
 		//Security	

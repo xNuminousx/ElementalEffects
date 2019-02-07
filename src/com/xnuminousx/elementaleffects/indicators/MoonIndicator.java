@@ -6,10 +6,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.WaterAbility;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class MoonIndicator {
 
@@ -82,7 +82,7 @@ public class MoonIndicator {
 				currPoint = 0;
 			}
 			if (currPoint == 0) {
-				ParticleEffect.SNOWBALL_POOF.display(player.getLocation().add(0, 0.5, 0), 0.2F, 0.2F, 0.2F, 0.3F, 10);
+				ParticleEffect.SNOWBALL.display(player.getLocation().add(0, 0.5, 0), 10, 1, 1, 1, 0.3F);
 			}
 			double angle = currPoint * Math.PI / 270 * Math.cos(Math.PI);
 			double x = 1 * Math.cos(angle + i);
@@ -93,10 +93,10 @@ public class MoonIndicator {
 			location2.add(x, y2, z);
 			location3.add(z, y, x);
 			location4.add(z, y2, x);
-			ParticleEffect.WATER_WAKE.display(location, 0, 0, 0, 0, 1);
-			ParticleEffect.WATER_WAKE.display(location2, 0, 0, 0, 0, 1);
-			ParticleEffect.WATER_WAKE.display(location3, 0, 0, 0, 0, 1);
-			ParticleEffect.WATER_WAKE.display(location4, 0, 0, 0, 0, 1);
+			ParticleEffect.WATER_WAKE.display(location, 1, 0, 0, 0, 0);
+			ParticleEffect.WATER_WAKE.display(location2, 1, 0, 0, 0, 0);
+			ParticleEffect.WATER_WAKE.display(location3, 1, 0, 0, 0, 0);
+			ParticleEffect.WATER_WAKE.display(location4, 1, 0, 0, 0, 0);
 			location.subtract(x, y, z);
 			location2.subtract(x, y2, z);
 			location3.subtract(z, y, x);
@@ -111,7 +111,7 @@ public class MoonIndicator {
 				currPoint = 0;
 			}
 			if (currPoint == 0) {
-				ParticleEffect.SNOWBALL_POOF.display(player.getLocation().add(0, 1, 0), 0.6F, 0.6F, 0.6F, 0.3F, 20);
+				ParticleEffect.SNOWBALL.display(player.getLocation().add(0, 1, 0), 20, 1, 1, 1, 0.3F);
 			}
 			double angle = currPoint * Math.PI / 270 * Math.cos(Math.PI);
 			double x = 1 * Math.cos(angle + i);
@@ -126,10 +126,10 @@ public class MoonIndicator {
 			ParticleEffect.WATER_DROP.display(location2, 0, 0, 0, 0, 1);
 			ParticleEffect.WATER_DROP.display(location3, 0, 0, 0, 0, 1);
 			ParticleEffect.WATER_DROP.display(location4, 0, 0, 0, 0, 1);
-			GeneralMethods.displayColoredParticle(location, "0000D1");
-			GeneralMethods.displayColoredParticle(location2, "0000D1");
-			GeneralMethods.displayColoredParticle(location3, "0000D1");
-			GeneralMethods.displayColoredParticle(location4, "0000D1");
+			Methods.playColoredParticle(location, 1, 0, 0, 0, 0, 0, 255);
+			Methods.playColoredParticle(location2, 1, 0, 0, 0, 0, 0, 255);
+			Methods.playColoredParticle(location3, 1, 0, 0, 0, 0, 0, 255);
+			Methods.playColoredParticle(location4, 1, 0, 0, 0, 0, 0, 255);
 			location.subtract(x, y, z);
 			location2.subtract(x, y2, z);
 			location3.subtract(z, y, x);

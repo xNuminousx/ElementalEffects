@@ -23,25 +23,25 @@ public class FireTrail {
 		Material getBlock = p.getLocation().add(0, 1, 0).getBlock().getType();
 		
 		if (vanishInWater) {
-			if (getBlock.equals(Material.STATIONARY_WATER)) {
+			if (getBlock.equals(Material.WATER)) {
 				if (boilEffect) {
-					ParticleEffect.BUBBLE.display(p.getLocation().add(0, 1, 0), 0.5F, 1, 0.5F, 0.5F, 2);
+					ParticleEffect.WATER_BUBBLE.display(p.getLocation().add(0, 1, 0), 2, 0.5F, 1, 0.5F, 0.5);
 				}
 				return;
 			} else {
-				ParticleEffect.SMOKE.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
-				ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
+				ParticleEffect.SMOKE_NORMAL.display(p.getLocation().add(0, 1, 0), 2, 0.5F, 0.5F, 0.5F, 0);
+				ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), amount, 0.5, 0.5, 0.5, speed);
 				return;
 			}
 		} else {
 			if (boilEffect) {
-				if (getBlock.equals(Material.STATIONARY_WATER)) {
-					ParticleEffect.BUBBLE.display(p.getLocation().add(0, 1, 0), 0.5F, 1, 0.5F, 0.5F, 2);
+				if (getBlock.equals(Material.WATER)) {
+					ParticleEffect.WATER_BUBBLE.display(p.getLocation().add(0, 1, 0), 2, 0.5F, 1, 0.5F, 0.5F);
 					return;
 				}
 			}
-			ParticleEffect.SMOKE.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 2);
-			ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), (float) 0.5, (float) 0.5, (float) 0.5, (float) speed, amount);
+			ParticleEffect.SMOKE_NORMAL.display(p.getLocation().add(0, 1, 0), 2, 0.5F, 0.5F, 0.5F, 0);
+			ParticleEffect.FLAME.display(p.getLocation().add(0, 1, 0), amount, 0.5, 0.5, 0.5, speed);
 		}
 		
 	}

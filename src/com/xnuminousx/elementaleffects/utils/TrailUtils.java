@@ -49,7 +49,8 @@ public class TrailUtils {
 		} else if (plugin.elementrings.contains(player)) {
 			return plugin.elementrings;
 		} else {
-			return null;
+			plugin.noTrail.add(player);
+			return plugin.noTrail;
 		}
 	}
 	
@@ -59,6 +60,8 @@ public class TrailUtils {
 	public static void removeActiveTrail(ArrayList<Player> object, Player player) {
 		if (object.contains(player)) {
 			object.remove(player);
+		} else {
+			return;
 		}
 	}
 	
@@ -91,6 +94,7 @@ public class TrailUtils {
 	 */
 	public static void setActiveTrail(String trailName, Player p) {
 		Main plugin = Main.getInstance();
+		plugin.noTrail.remove(p);
 		
 		if (trailName == Names.earthTrail()) {
 			plugin.earth.add(p);

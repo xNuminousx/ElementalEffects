@@ -29,15 +29,15 @@ public class Float {
 	
 	public void progress(Player p) {
 		if (p.isSprinting()) {
-			ParticleEffect.SWEEP.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0, 1);
+			ParticleEffect.SWEEP_ATTACK.display(p.getLocation().add(0, 1, 0), 1, 0.5F, 0.5F, 0.5F, 0);
 			if (enablesparks) {
-				ParticleEffect.FIREWORKS_SPARK.display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, 0.05F, 3);
+				ParticleEffect.FIREWORKS_SPARK.display(p.getLocation().add(0, 1, 0), 3, 0.5F, 0.5F, 0.5F, 0.05F);
 			}
 		}
-		ParticleEffect.CLOUD.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), 0F, 0F, 0F, speed, amount);
-		ParticleEffect.CLOUD.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), 0F, 0F, 0F, speed, amount);
-		ParticleEffect.CLOUD.display(GeneralMethods.getRightSide(p.getLocation(), -.55).add(0, 0, 0), 0F, 0F, 0F, speed, amount);
-		ParticleEffect.CLOUD.display(GeneralMethods.getLeftSide(p.getLocation(), -.55).add(0, 0, 0), 0F, 0F, 0F, speed, amount);
+		ParticleEffect.CLOUD.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0F, 0F, 0F, speed);
+		ParticleEffect.CLOUD.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0F, 0F, 0F, speed);
+		ParticleEffect.CLOUD.display(GeneralMethods.getRightSide(p.getLocation(), -.55).add(0, 0, 0), amount, 0F, 0F, 0F, speed);
+		ParticleEffect.CLOUD.display(GeneralMethods.getLeftSide(p.getLocation(), -.55).add(0, 0, 0), amount, 0F, 0F, 0F, speed);
 	}
 
 }
