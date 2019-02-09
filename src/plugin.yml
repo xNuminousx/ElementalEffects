@@ -1,7 +1,7 @@
 name: ElementalEffects
 author: xNuminousx
 version: 2.1
-api-version: 1.13.2
+api-version: 1.13
 depend: [ProjectKorra]
 main: com.xnuminousx.elementaleffects.Main
 description: A plug-in full of different cosmetic effects for the different elements.
