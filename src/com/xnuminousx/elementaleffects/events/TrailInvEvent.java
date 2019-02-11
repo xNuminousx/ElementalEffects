@@ -3,10 +3,12 @@ package com.xnuminousx.elementaleffects.events;
 import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
@@ -62,14 +64,16 @@ public class TrailInvEvent implements Listener {
 			prefix = "";
 		}
 		
-		if (!event.getClickedInventory().getName().equalsIgnoreCase("Elemental Trails")) {
+		if (!event.getInventory().getTitle().contains("Elemental Trails")) {
 			return;
-		
-		} else if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
+		} else if ((event.getCurrentItem() == null) || 
+				(event.getCurrentItem() == new ItemStack(Material.AIR)) || 
+				event.getCurrentItem().getItemMeta() == null || 
+				event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
 			event.setCancelled(true);
 			return;
 			
-		// Enable/Disable Earth Trail
+		// Enable/Disable Earth Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.earthTrail())) {
 			event.setCancelled(true);
 			this.setTrail(plugin.earth, player, ChatColor.GREEN, Names.earthTrail(), Element.EARTH, null);

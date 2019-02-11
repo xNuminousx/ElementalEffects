@@ -3,10 +3,12 @@ package com.xnuminousx.elementaleffects.events;
 import java.util.ArrayList;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
@@ -50,14 +52,16 @@ public class IndicatorInvEvent implements Listener {
 			prefix = "";
 		}
 		
-		if (!event.getClickedInventory().getName().equalsIgnoreCase("Elemental Indicators")) {
+		if (!event.getInventory().getTitle().contains("Elemental Indicators")) {
 			return;
-		
-		} else if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
+		} else if ((event.getCurrentItem() == null) || 
+				(event.getCurrentItem() == new ItemStack(Material.AIR)) || 
+				event.getCurrentItem().getItemMeta() == null || 
+				event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
 			event.setCancelled(true);
 			return;
 			
-		//Enable/Disable HitIndicator	
+		// Enable/Disable Earth Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.hitIndicator())) {
 			event.setCancelled(true);
 			this.setIndicator(plugin.hit, p, ChatColor.DARK_RED, Names.hitIndicator());
