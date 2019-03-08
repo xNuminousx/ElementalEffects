@@ -52,7 +52,7 @@ public class IndicatorInvEvent implements Listener {
 			prefix = "";
 		}
 		
-		if (!event.getInventory().getTitle().contains("Elemental Indicators")) {
+		if (!event.getInventory().getTitle().contains(indGuiName)) {
 			return;
 		} else if ((event.getCurrentItem() == null) || 
 				(event.getCurrentItem() == new ItemStack(Material.AIR)) || 

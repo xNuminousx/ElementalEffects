@@ -64,7 +64,7 @@ public class TrailInvEvent implements Listener {
 			prefix = "";
 		}
 		
-		if (!event.getInventory().getTitle().contains("Elemental Trails")) {
+		if (!event.getInventory().getTitle().contains(trailGuiName)) {
 			return;
 		} else if ((event.getCurrentItem() == null) || 
 				(event.getCurrentItem() == new ItemStack(Material.AIR)) || 
