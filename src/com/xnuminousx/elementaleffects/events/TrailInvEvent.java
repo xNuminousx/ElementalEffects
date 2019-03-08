@@ -76,7 +76,7 @@ public class TrailInvEvent implements Listener {
 		// Enable/Disable Earth Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.earthTrail())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.earth, player, ChatColor.GREEN, Names.earthTrail(), Element.EARTH, null);
+			this.setTrail(plugin.earth, player, ChatColor.GREEN, Names.earthTrail(), Element.EARTH);
 			return;
 			
 		// Enable/Disable Earth Trail 2 (Eruption)	
@@ -96,13 +96,13 @@ public class TrailInvEvent implements Listener {
 		// Enable/Disable Fire Trail
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.fireTrail())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.fire, player, ChatColor.RED, Names.fireTrail(), Element.FIRE, null);
+			this.setTrail(plugin.fire, player, ChatColor.RED, Names.fireTrail(), Element.FIRE);
 			return;
 			
 		// Enable/Disable Fire Trail 2 (Flame Arms)	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.flameArms())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.flamearms, player, ChatColor.RED, Names.flameArms(), Element.FIRE, null);
+			this.setTrail(plugin.flamearms, player, ChatColor.RED, Names.flameArms(), Element.FIRE);
 			new FlameArms(player);
 			return;
 			
@@ -116,13 +116,13 @@ public class TrailInvEvent implements Listener {
 		// Enable/Disable Water Trail		
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.waterTrail())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.water, player, ChatColor.AQUA, Names.waterTrail(), Element.WATER, null);
+			this.setTrail(plugin.water, player, ChatColor.AQUA, Names.waterTrail(), Element.WATER);
 			return;
 			
 			// Enable/Disable Water Trail 2 (Hydro)
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.hydro())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.hydro, player, ChatColor.BLUE, Names.hydro(), Element.WATER, null);
+			this.setTrail(plugin.hydro, player, ChatColor.BLUE, Names.hydro(), Element.WATER);
 			new WaterRings(player);
 			return;
 			
@@ -135,39 +135,39 @@ public class TrailInvEvent implements Listener {
 		// Enable/Disable Chi Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.chiTrail())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.chi, player, ChatColor.GOLD, Names.chiTrail(), Element.CHI, null);
+			this.setTrail(plugin.chi, player, ChatColor.GOLD, Names.chiTrail(), Element.CHI);
 			return;
 			
 		//Enable/Disable Chi Trail 2 (Intensity)
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.intensity())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.intensity, player, ChatColor.YELLOW, Names.intensity(), Element.CHI, null);
+			this.setTrail(plugin.intensity, player, ChatColor.YELLOW, Names.intensity(), Element.CHI);
 			return;
 			
 		// Enable/Disable Avatar Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.avatarTrail())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.avatar, player, ChatColor.DARK_PURPLE, Names.avatarTrail(), Element.AVATAR, null);
+			this.setTrail(plugin.avatar, player, ChatColor.DARK_PURPLE, Names.avatarTrail(), Element.AVATAR);
 			return;
 		
 		// Enable/Disable Avatar Trail 2 (Elemental Rings)
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.elementalRings())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.elementrings, player, ChatColor.DARK_PURPLE, Names.elementalRings(), Element.AVATAR, null);
+			this.setTrail(plugin.elementrings, player, ChatColor.DARK_PURPLE, Names.elementalRings(), Element.AVATAR);
 			new ElementalRings(player);
 			return;
 			
 		// Enable/Disable Air Trail	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.airTrail())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.air, player, ChatColor.GRAY, Names.airTrail(), Element.AIR, null);
+			this.setTrail(plugin.air, player, ChatColor.GRAY, Names.airTrail(), Element.AIR);
 			new Cloud(player);
 			return;
 
 		// Enable/Disable Air Trail 2 (Aero)	
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains(Names.aeroSphere())) {
 			event.setCancelled(true);
-			this.setTrail(plugin.aero, player, ChatColor.GRAY, Names.aeroSphere(), Element.AIR, null);
+			this.setTrail(plugin.aero, player, ChatColor.GRAY, Names.aeroSphere(), Element.AIR);
 			new AeroSphere(player);
 			return;
 			
@@ -214,6 +214,38 @@ public class TrailInvEvent implements Listener {
 		} else if (hasPermissions(player, trailName)) {
 			if (reqEle) {
 				if (bPlayer.hasElement(element) && bPlayer.hasElement(sub)) {
+					// Give trail
+					TrailUtils.setActiveTrail(trailName, player);
+					closeInv(player);
+					player.sendMessage(enableMessage(chatColor, trailName));
+				} else {
+					// Doesn't have element
+					closeInv(player);
+					player.sendMessage(noElementMessage(chatColor));
+				}
+			} else {
+				// Give trail
+				TrailUtils.setActiveTrail(trailName, player);
+				closeInv(player);
+				player.sendMessage(enableMessage(chatColor, trailName));
+			}
+		} else {
+			// Doesn't have permission
+			closeInv(player);
+			player.sendMessage(noPermissionMessage(chatColor));
+		}
+	}
+	
+	public void setTrail(ArrayList<Player> object, Player player, ChatColor chatColor, String trailName, Element element) {
+		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+		
+		if (object.contains(player)) {
+			object.remove(player);
+			closeInv(player);
+			player.sendMessage(disableMessage(chatColor, trailName));
+		} else if (hasPermissions(player, trailName)) {
+			if (reqEle) {
+				if (bPlayer.hasElement(element)) {
 					// Give trail
 					TrailUtils.setActiveTrail(trailName, player);
 					closeInv(player);
