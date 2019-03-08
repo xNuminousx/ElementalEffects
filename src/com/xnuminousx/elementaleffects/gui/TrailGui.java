@@ -27,7 +27,7 @@ public class TrailGui {
 		
 		inv.setItem(13, Methods.miscItem(Material.END_CRYSTAL, "Open Indicator GUI", ChatColor.DARK_AQUA, openInd));
 		inv.setItem(31, Methods.miscItem(Material.BARRIER, "Disable Trail", ChatColor.DARK_RED, removeTrail));
-		inv.setItem(9, Methods.createItem(p, Material.GRASS, Names.earthTrail(), ChatColor.GREEN, "earth"));
+		inv.setItem(9, Methods.createItem(p, Material.GRASS_BLOCK, Names.earthTrail(), ChatColor.GREEN, "earth"));
 		inv.setItem(18, Methods.createItem(p, Material.SAND, Names.sandyCloak(), ChatColor.YELLOW, "sand"));
 		inv.setItem(27, Methods.createItem(p, Material.MAGMA_CREAM, Names.lavaTrail(), ChatColor.DARK_GREEN, "lava"));
 		inv.setItem(11, Methods.createItem(p, Material.WATER_BUCKET, Names.waterTrail(), ChatColor.AQUA, "water"));

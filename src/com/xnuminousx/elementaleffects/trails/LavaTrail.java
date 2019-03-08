@@ -1,6 +1,9 @@
 package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -37,8 +40,9 @@ public class LavaTrail {
 			double y = 0.2 * t;
 			double z = 0.3 * (4 * Math.PI - t) * Math.sin(t + phi);
 			loc.add(x, y, z);
+			BlockData block = Material.LAVA.createBlockData();
+			p.getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, amount, 0, 0, 0, 0, block);
 			Methods.playColoredParticle(loc, dustamount, 0.1, 0.1, 0.1, 244, 113, 66);
-			Methods.playColoredParticle(loc, dustamount, 0.1, 0.1, 0.1, 111, 63, 0);
 			loc.subtract(x, y, z);
 		
 			if (t >= 4 * Math.PI) {

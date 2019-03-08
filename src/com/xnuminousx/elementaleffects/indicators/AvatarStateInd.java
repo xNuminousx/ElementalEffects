@@ -3,7 +3,10 @@ package com.xnuminousx.elementaleffects.indicators;
 import java.util.Random;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.GeneralMethods;
@@ -17,6 +20,7 @@ public class AvatarStateInd {
 	
 	private Main plugin = Main.getInstance();
 	Location location;
+	ItemStack item = new ItemStack(Material.CHORUS_PLANT);
 	private boolean playSpark;
 	private boolean playEyeGlow = Main.plugin.getConfig().getBoolean("Indicators.AvatarState.PlayEyeGlow");
 	private boolean reqAS = Main.plugin.getConfig().getBoolean("Indicators.AvatarState.RequireAvatarState");
@@ -72,6 +76,9 @@ public class AvatarStateInd {
             double y = 0.8 * Math.cos(angle) + 1;
             double z = 0.05 * (Math.PI * 10 - angle) * Math.sin(angle + i);
 			location.add(x, y, z);
+			if (new Random().nextInt(4) == 0) {
+				p.getWorld().spawnParticle(Particle.ITEM_CRACK, location, 1, 0, 0, 0, 0, item);
+			}
 			ParticleEffect.PORTAL.display(location, 2, 0, 0, 0, 0);
 			location.subtract(x, y, z);
 		}

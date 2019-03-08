@@ -1,17 +1,21 @@
 package com.xnuminousx.elementaleffects.trails;
 
+import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 
 import com.projectkorra.projectkorra.ability.EarthAbility;
 import com.xnuminousx.elementaleffects.Main;
-import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class EarthTrail {
 	
 	float speed = Main.getInstance().getConfig().getInt("Trails.Earth.Particles.Speed");
 	int amount = Main.getInstance().getConfig().getInt("Trails.Earth.Particles.Amount");
 	boolean reqEarthBlock = Main.getInstance().getConfig().getBoolean("Trails.Earth.RequireEarthBlock");
+	
+	Material mat;
 	
 	public EarthTrail(Player player) {
 		progress(player);
@@ -20,19 +24,21 @@ public class EarthTrail {
 	public void progress(Player p) {
 		
 		Block getBlock = p.getLocation().add(0, -1, 0).getBlock();
+		mat = getBlock.getType();
 		
 		if (reqEarthBlock) {
 			if (!EarthAbility.isEarthbendable(p, getBlock)) {
 				return;
 			} else {
-				Methods.playColoredParticle(p.getLocation(), 5, 1, 1, 1, 111, 63, 0);
-				Methods.playColoredParticle(p.getLocation(), 5, 1, 1, 1, 128, 128, 128);
-				return;
+				playParticle(p, mat);
 			}
 		} else {
-			Methods.playColoredParticle(p.getLocation(), 5, 1, 1, 1, 111, 63, 0);
-			Methods.playColoredParticle(p.getLocation(), 5, 1, 1, 1, 128, 128, 128);
+			playParticle(p, Material.GRASS);
 		}
+	}
+	public void playParticle(Player player, Material mat) {
+		BlockData block = mat.createBlockData();
+		player.getWorld().spawnParticle(Particle.BLOCK_CRACK, player.getLocation().add(0, 1, 0), 5, 0.5, 0.5, 0.5, 0, block);
 	}
 
 }

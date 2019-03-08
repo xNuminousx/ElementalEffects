@@ -1,11 +1,13 @@
 package com.xnuminousx.elementaleffects.trails;
 
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
-import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class IceTrail {
 	
@@ -17,8 +19,8 @@ public class IceTrail {
 	}
 	
 	public void progress(Player p) {
-		Methods.playColoredParticle(GeneralMethods.getRightSide(p.getLocation(), -.55).add(0, 0, 0), 5, 0.3, 0.3, 0.3, 183, 237, 255);
-		Methods.playColoredParticle(GeneralMethods.getLeftSide(p.getLocation(), -.55).add(0, 0, 0), 5, 0.3, 0.3, 0.3, 183, 237, 255);
+		BlockData block = Material.PACKED_ICE.createBlockData();
+		p.getWorld().spawnParticle(Particle.BLOCK_CRACK, p.getLocation().add(0, 1, 0), amount, 0.5, 0.5, 0.5, 0, block);
 		ParticleEffect.CLOUD.display(GeneralMethods.getRightSide(p.getLocation(), -.55).add(0, 0, 0), amount, 0.2F, 0.2F, 0.2F, speed);
 		ParticleEffect.CLOUD.display(GeneralMethods.getLeftSide(p.getLocation(), -.55).add(0, 0, 0), amount, 0.2F, 0.2F, 0.2F, speed);
 	}
