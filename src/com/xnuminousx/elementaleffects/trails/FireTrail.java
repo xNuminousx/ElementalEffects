@@ -3,8 +3,11 @@ package com.xnuminousx.elementaleffects.trails;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.config.Manager;
 
 public class FireTrail {
 	
@@ -15,7 +18,14 @@ public class FireTrail {
 	boolean boilEffect = Main.getInstance().getConfig().getBoolean("Trails.Fire.BoilEffect");
 	
 	public FireTrail(Player player) {
-		progress(player);
+		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+		if (Manager.requireElement()) {
+			if (bPlayer.hasElement(Element.FIRE)) {
+				progress(player);
+			}
+		} else {
+			progress(player);
+		}
 	}
 	
 	public void progress(Player p) {

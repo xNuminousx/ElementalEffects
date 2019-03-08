@@ -4,8 +4,11 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class StaticField {
@@ -27,7 +30,14 @@ public class StaticField {
 				if (plugin.lightning.isEmpty()) {
 					this.cancel();
 				}
-				progress(player);
+				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+				if (Manager.requireElement()) {
+					if (bPlayer.hasElement(Element.FIRE)) {
+						progress(player);
+					}
+				} else {
+					progress(player);
+				}
 			}
 			
 		}.runTaskTimer(Main.getInstance(), 0, 1);

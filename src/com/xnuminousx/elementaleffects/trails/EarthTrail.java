@@ -6,8 +6,11 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.ability.EarthAbility;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.config.Manager;
 
 public class EarthTrail {
 	
@@ -18,7 +21,14 @@ public class EarthTrail {
 	Material mat;
 	
 	public EarthTrail(Player player) {
-		progress(player);
+		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+		if (Manager.requireElement()) {
+			if (bPlayer.hasElement(Element.EARTH)) {
+				progress(player);
+			}
+		} else {
+			progress(player);
+		}
 	}
 	
 	public void progress(Player p) {

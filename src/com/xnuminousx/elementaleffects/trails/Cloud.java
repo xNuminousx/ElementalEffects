@@ -4,8 +4,11 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.config.Manager;
 
 public class Cloud {
 	
@@ -22,7 +25,14 @@ public class Cloud {
 					this.cancel();
 				}
 				if (doCloud) {
-					progress(player);
+					BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+					if (Manager.requireElement()) {
+						if (bPlayer.hasElement(Element.AIR)) {
+							progress(player);
+						}
+					} else {
+						progress(player);
+					}
 				}
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 1);

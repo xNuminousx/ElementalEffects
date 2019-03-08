@@ -7,7 +7,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class SandCloak {
@@ -28,10 +31,14 @@ public class SandCloak {
 				} else {
 					if (reqSand) {
 						if (getBlock.getType().equals(Material.SAND)) {
-							progress(player);
+							if (hasElement(player)) {
+								progress(player);
+							}
 						}
 					} else {
-						progress(player);
+						if (hasElement(player)) {
+							progress(player);
+						}
 					}
 				}
 			}
@@ -52,6 +59,19 @@ public class SandCloak {
 				Methods.playColoredParticle(loc.add(x, 0.1, z), 1, 0, 0, 0, 251, 255, 186);
 				Methods.playColoredParticle(locDown.add(x, -0.3, z), 1, 0, 0, 0, 251, 255, 186);
 			}
+		}
+	}
+	
+	public boolean hasElement(Player player) {
+		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+		if (Manager.requireElement()) {
+			if (bPlayer.hasElement(Element.EARTH)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
 		}
 	}
 }

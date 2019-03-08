@@ -2,7 +2,10 @@ package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.entity.Player;
 
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
 import com.xnuminousx.elementaleffects.Main;
+import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
 
 public class SandTrail {
@@ -12,7 +15,14 @@ public class SandTrail {
 	Main plugin = Main.getInstance();
 	
 	public SandTrail(Player player) {
-		progress(player);
+		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+		if (Manager.requireElement()) {
+			if (bPlayer.hasElement(Element.EARTH)) {
+				progress(player);
+			}
+		} else {
+			progress(player);
+		}
 	}
 	
 	public void progress(Player p) {
