@@ -10,6 +10,7 @@ import com.projectkorra.projectkorra.ability.WaterAbility;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
 
 public class MoonIndicator {
 
@@ -29,7 +30,7 @@ public class MoonIndicator {
 			
 			@Override
 			public void run() {
-				if (plugin.moon.isEmpty()) {
+				if (!plugin.inds.containsKey(player) || !plugin.inds.get(player).getType().equals(Indicators.MOON)) {
 					this.cancel();
 				}
 				progress(player);

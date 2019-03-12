@@ -12,6 +12,7 @@ import com.projectkorra.projectkorra.Element;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class SandCloak {
 
@@ -26,8 +27,8 @@ public class SandCloak {
 			@Override
 			public void run() {
 				Block getBlock = player.getLocation().add(0, -1.5, 0).getBlock();
-				if (plugin.sand.isEmpty()) {
-					cancel();
+				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.SANDCLOAK)) {
+					this.cancel();
 				} else {
 					if (reqSand) {
 						if (getBlock.getType().equals(Material.SAND)) {

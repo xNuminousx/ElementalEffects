@@ -10,6 +10,7 @@ import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class StaticField {
 	
@@ -27,7 +28,7 @@ public class StaticField {
 
 			@Override
 			public void run() {
-				if (plugin.lightning.isEmpty()) {
+				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.STATICFIELD)) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);

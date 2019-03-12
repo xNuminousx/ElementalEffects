@@ -11,6 +11,7 @@ import com.projectkorra.projectkorra.ability.FireAbility;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
 
 public class SunIndicator {
 
@@ -25,7 +26,7 @@ public class SunIndicator {
 			
 			@Override
 			public void run() {
-				if (plugin.sun.isEmpty()) {
+				if (!plugin.inds.containsKey(player) || !plugin.inds.get(player).getType().equals(Indicators.SUN)) {
 					this.cancel();
 				}
 				progress(player);

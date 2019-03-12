@@ -9,6 +9,7 @@ import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class Float {
 	
@@ -22,7 +23,7 @@ public class Float {
 			
 			@Override
 			public void run() {
-				if (plugin.flight.isEmpty()) {
+				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.FLOAT)) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);

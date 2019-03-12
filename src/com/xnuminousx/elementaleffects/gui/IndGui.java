@@ -1,19 +1,53 @@
 package com.xnuminousx.elementaleffects.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
+import com.projectkorra.projectkorra.Element;
+import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.indicators.AvatarStateInd;
+import com.xnuminousx.elementaleffects.indicators.MoonIndicator;
+import com.xnuminousx.elementaleffects.indicators.SunIndicator;
 import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Names;
+import com.xnuminousx.elementaleffects.utils.Indicator;
+import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
 
-public class IndGui {
+public class IndGui implements Listener {
+	
+	HashMap<Player, Indicator> inds = Main.plugin.inds;
+	static ItemStack[] items;
+	String prefix;
+	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
+	Element missingEle;
+	boolean doPrefix = Main.getInstance().getConfig().getBoolean("Language.Prefix.Enabled");
+	boolean closeInv = Manager.closeInv();
+	boolean reqEle = Manager.requireElement();
+	String indGuiName = Manager.getIndicatorGuiName();
+	
+	public String enabled(ChatColor color, String indName) {
+		return prefix + color + "" + ChatColor.BOLD + indName + ChatColor.RESET + ChatColor.GREEN + " enabled!";
+	}
+	
+	public String disabled(ChatColor color, String indName) {
+		return prefix + color + "" + ChatColor.BOLD + indName + ChatColor.RESET + ChatColor.RED + " disabled!";
+	}
+	
+	public String noPerm(ChatColor color) {
+		return prefix + color + "You don't have the necessary permission!";
+	}
 	
 	public static void openGui(Player p) {
 		String guiName = Manager.getIndicatorGuiName();
@@ -28,11 +62,95 @@ public class IndGui {
 		
 		inv.setItem(13, Methods.miscItem(Material.END_CRYSTAL, "Open Trail GUI", ChatColor.DARK_AQUA, openTrail));
 		inv.setItem(31, Methods.miscItem(Material.BARRIER, "Disable Indicator", ChatColor.DARK_RED, removeInd));
-		inv.setItem(15, Methods.createItem(p, Material.GHAST_TEAR, Names.avatarIndicator(), ChatColor.DARK_PURPLE, "avatarstate"));
-		inv.setItem(11, Methods.createItem(p, Material.REDSTONE, Names.hitIndicator(), ChatColor.DARK_RED, "hit"));
-		inv.setItem(29, Methods.createItem(p, Material.ENDER_PEARL, Names.moonIndicator(), ChatColor.BLUE, "moon"));
-		inv.setItem(33, Methods.createItem(p, Material.CLOCK, Names.sunIndicator(), ChatColor.YELLOW, "sun"));
+		inv.setItem(15, Methods.createItem(p, Material.GHAST_TEAR, Names.avatarIndicator(), ChatColor.DARK_PURPLE, Indicators.AVATARSTATE));
+		inv.setItem(11, Methods.createItem(p, Material.REDSTONE, Names.hitIndicator(), ChatColor.DARK_RED, Indicators.HIT));
+		inv.setItem(29, Methods.createItem(p, Material.ENDER_PEARL, Names.moonIndicator(), ChatColor.BLUE, Indicators.MOON));
+		inv.setItem(33, Methods.createItem(p, Material.CLOCK, Names.sunIndicator(), ChatColor.YELLOW, Indicators.SUN));
+		
+		items = inv.getContents();
 		
 		p.openInventory(inv);
+	}
+	
+	@EventHandler
+	public void invClick(InventoryClickEvent event) {
+		Player player = (Player)event.getWhoClicked();
+		
+		if (!event.getInventory().getTitle().contains(indGuiName)) {
+			return;
+		} else if ((event.getCurrentItem() == null) || 
+				(event.getCurrentItem() == new ItemStack(Material.AIR)) || 
+				event.getCurrentItem().getItemMeta() == null || 
+				event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
+			event.setCancelled(true);
+			return;
+				
+		}
+		ItemStack clickedItem = event.getCurrentItem();
+		
+		if (doPrefix) {
+			prefix = prefixColor + "ElementalEffects: ";
+		} else {
+			prefix = "";
+		}
+		if (clickedItem.getItemMeta().getDisplayName().contains(Names.avatarIndicator())) {
+			event.setCancelled(true);
+			manageInds(player, Indicators.AVATARSTATE);
+			new AvatarStateInd(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.hitIndicator())) {
+			event.setCancelled(true);
+			manageInds(player, Indicators.HIT);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.moonIndicator())) {
+			event.setCancelled(true);
+			manageInds(player, Indicators.MOON);
+			new MoonIndicator(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.sunIndicator())) {
+			event.setCancelled(true);
+			manageInds(player, Indicators.SUN);
+			new SunIndicator(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains("Open Trail GUI")) {
+			event.setCancelled(true);
+			TrailGui.openGUI(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains("Disable Indicator")) {
+			event.setCancelled(true);
+			Indicator.removeIndicator(player);
+			player.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active indicators" + ChatColor.RESET + ChatColor.RED + " disabled!");
+			closeInv(player);
+			return;
+		} else {
+			event.setCancelled(true);
+			return;
+		}
+	}
+	
+	public void setIndicator(Player player, Indicators type) {
+		if (inds.containsKey(player)) {
+			inds.remove(player);
+			player.sendMessage(this.disabled(ChatColor.AQUA, type.toString()));
+		} else {
+			inds.put(player, new Indicator(type));
+			player.sendMessage(this.enabled(ChatColor.AQUA, type.toString()));
+		}
+	}
+	
+	public void manageInds(Player player, Indicators type) {
+		if (Methods.hasPermission(player, type.toString().toLowerCase())) {
+			closeInv(player);
+			setIndicator(player, type);
+		} else {
+			closeInv(player);
+			player.sendMessage(this.noPerm(ChatColor.RED));
+		}
+	}
+	
+	public void closeInv(Player p) {
+		if (closeInv) {
+			p.closeInventory();
+		}
 	}
 }

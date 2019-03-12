@@ -15,6 +15,7 @@ import com.projectkorra.projectkorra.avatar.AvatarState;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
 
 public class AvatarStateInd {
 	
@@ -31,7 +32,7 @@ public class AvatarStateInd {
 			
 			@Override
 			public void run() {
-				if (plugin.avatarstate.isEmpty()) {
+				if (!plugin.inds.containsKey(player) || !plugin.inds.get(player).getType().equals(Indicators.AVATARSTATE)) {
 					this.cancel();
 				}
 				progress(player);

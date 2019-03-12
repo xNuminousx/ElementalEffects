@@ -14,10 +14,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 
 import com.projectkorra.projectkorra.util.ParticleEffect;
+import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class Methods {
 	
-	public static ItemStack createItem(Player p, Material item, String name, ChatColor color, String permissionType) {
+	public static ItemStack createItem(Player p, Material item, String name, ChatColor color, Trails type) {
 		ItemStack itemType = new ItemStack(item);
 		ItemMeta itemMeta = itemType.getItemMeta();
 		
@@ -26,7 +28,7 @@ public class Methods {
 		hasPerm.add(ChatColor.GREEN + "Enable" + ChatColor.GRAY + " / " + ChatColor.DARK_RED + "Disable");
 		noPerm.add(ChatColor.DARK_RED + "" + ChatColor.BOLD + "No permission!");
 		itemMeta.setDisplayName(color + "" + ChatColor.BOLD + name);
-		if (p.hasPermission("elementaleffects." + permissionType) || p.hasPermission("elementaleffects.*")) {
+		if (p.hasPermission("elementaleffects." + type.toString()) || p.hasPermission("elementaleffects.*")) {
 			itemMeta.setLore(hasPerm);
 		} else {
 			itemMeta.setLore(noPerm);
@@ -35,6 +37,33 @@ public class Methods {
 		itemType.setItemMeta(itemMeta);
 		
 		return itemType;
+	}
+	public static ItemStack createItem(Player p, Material item, String name, ChatColor color, Indicators type) {
+		ItemStack itemType = new ItemStack(item);
+		ItemMeta itemMeta = itemType.getItemMeta();
+		
+		List<String> hasPerm = new ArrayList<String>();
+		List<String> noPerm = new ArrayList<String>();
+		hasPerm.add(ChatColor.GREEN + "Enable" + ChatColor.GRAY + " / " + ChatColor.DARK_RED + "Disable");
+		noPerm.add(ChatColor.DARK_RED + "" + ChatColor.BOLD + "No permission!");
+		itemMeta.setDisplayName(color + "" + ChatColor.BOLD + name);
+		if (p.hasPermission("elementaleffects." + type.toString()) || p.hasPermission("elementaleffects.*")) {
+			itemMeta.setLore(hasPerm);
+		} else {
+			itemMeta.setLore(noPerm);
+		}
+		
+		itemType.setItemMeta(itemMeta);
+		
+		return itemType;
+	}
+	
+	public static boolean hasPermission(Player player, String suffix) {
+		if (player.hasPermission("elementaleffects." + suffix) || player.isOp()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public static ItemStack miscItem(Material item, String name, ChatColor color, List<String> description) {

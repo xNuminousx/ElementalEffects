@@ -11,6 +11,7 @@ import org.bukkit.util.Vector;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class ElementalRings {
 	
@@ -53,7 +54,7 @@ public class ElementalRings {
 				if (anglee == 360) {
 					anglee = 0;
 				}
-				if (plugin.elementrings.isEmpty()) {
+				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.ELEMENTALRINGS)) {
 					this.cancel();
 				}
 			}

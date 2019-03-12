@@ -1,18 +1,16 @@
 package com.xnuminousx.elementaleffects.commands;
 
-import java.util.ArrayList;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.gui.IndGui;
 import com.xnuminousx.elementaleffects.gui.TrailGui;
-import com.xnuminousx.elementaleffects.utils.TrailUtils;
+import com.xnuminousx.elementaleffects.utils.Indicator;
+import com.xnuminousx.elementaleffects.utils.Trail;
 
 public class Commands implements CommandExecutor {
 
@@ -64,15 +62,10 @@ public class Commands implements CommandExecutor {
 						IndGui.openGui(p);
 						return true;
 					} else if (args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("remove")) {
-						ArrayList<Player> activeTrail = TrailUtils.getActiveTrail((Player)sender);
-						if (activeTrail.equals(Main.plugin.noTrail)) {
-							sender.sendMessage(prefix + ChatColor.RED + "No active trails!");
-							return true;
-						} else {
-							TrailUtils.removeActiveTrail(activeTrail, (Player)sender);
-							sender.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active trail" + ChatColor.RESET + ChatColor.RED + " disabled!");
-							return true;
-						}
+						Trail.removeTrail((Player)sender);
+						Indicator.removeIndicator((Player)sender);
+						sender.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active trail" + ChatColor.RESET + ChatColor.RED + " disabled!");
+						return true;
 					} else {
 						sender.sendMessage(ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/ee");
 						return true;

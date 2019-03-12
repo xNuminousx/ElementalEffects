@@ -1,19 +1,65 @@
 package com.xnuminousx.elementaleffects.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
+import com.projectkorra.projectkorra.Element.SubElement;
+import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.trails.AeroSphere;
+import com.xnuminousx.elementaleffects.trails.Cloud;
+import com.xnuminousx.elementaleffects.trails.ElementalRings;
+import com.xnuminousx.elementaleffects.trails.FlameArms;
+import com.xnuminousx.elementaleffects.trails.Float;
+import com.xnuminousx.elementaleffects.trails.LavaTrail;
+import com.xnuminousx.elementaleffects.trails.SandCloak;
+import com.xnuminousx.elementaleffects.trails.StaticField;
+import com.xnuminousx.elementaleffects.trails.WaterRings;
 import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Names;
+import com.xnuminousx.elementaleffects.utils.Trail;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
-public class TrailGui {
+public class TrailGui implements Listener {
+	
+	HashMap<Player, Trail> trails = Main.plugin.trails;
+	static ItemStack[] items;
+	String prefix;
+	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
+	Element missingEle;
+	boolean doPrefix = Main.getInstance().getConfig().getBoolean("Language.Prefix.Enabled");
+	boolean closeInv = Manager.closeInv();
+	boolean reqEle = Manager.requireElement();
+	String trailGuiName = Manager.getTrailGuiName();
+	
+	public String enabled(ChatColor color, String trailName) {
+		return prefix + color + "" + ChatColor.BOLD + trailName + ChatColor.RESET + ChatColor.GREEN + " enabled!";
+	}
+	
+	public String disabled(ChatColor color, String trailName) {
+		return prefix + color + "" + ChatColor.BOLD + trailName + ChatColor.RESET + ChatColor.RED + " disabled!";
+	}
+	
+	public String noElement(ChatColor color) {
+		return prefix + color + "You don't have the necessary element! Missing element: ";
+	}
+	
+	public String noPerm(ChatColor color) {
+		return prefix + color + "You don't have the necessary permission!";
+	}
 	
 	public static void openGUI(Player p) {
 		String guiName = Manager.getTrailGuiName();
@@ -27,23 +73,191 @@ public class TrailGui {
 		
 		inv.setItem(13, Methods.miscItem(Material.END_CRYSTAL, "Open Indicator GUI", ChatColor.DARK_AQUA, openInd));
 		inv.setItem(31, Methods.miscItem(Material.BARRIER, "Disable Trail", ChatColor.DARK_RED, removeTrail));
-		inv.setItem(9, Methods.createItem(p, Material.GRASS_BLOCK, Names.earthTrail(), ChatColor.GREEN, "earth"));
-		inv.setItem(18, Methods.createItem(p, Material.SAND, Names.sandyCloak(), ChatColor.YELLOW, "sand"));
-		inv.setItem(27, Methods.createItem(p, Material.MAGMA_CREAM, Names.lavaTrail(), ChatColor.DARK_GREEN, "lava"));
-		inv.setItem(11, Methods.createItem(p, Material.WATER_BUCKET, Names.waterTrail(), ChatColor.AQUA, "water"));
-		inv.setItem(20, Methods.createItem(p, Material.POTION, Names.hydro(), ChatColor.BLUE, "water2"));
-		inv.setItem(29, Methods.createItem(p, Material.ICE, Names.iceBoots(), ChatColor.DARK_AQUA, "ice"));
-		inv.setItem(15, Methods.createItem(p, Material.BLAZE_POWDER, Names.fireTrail(), ChatColor.RED, "fire"));
-		inv.setItem(24, Methods.createItem(p, Material.FIRE_CHARGE, Names.flameArms(), ChatColor.RED, "fire2"));
-		inv.setItem(33, Methods.createItem(p, Material.REDSTONE_TORCH, Names.staticField(), ChatColor.DARK_RED, "lightning"));
-		inv.setItem(17, Methods.createItem(p, Material.STRING, Names.airTrail(), ChatColor.GRAY, "air"));
-		inv.setItem(26, Methods.createItem(p, Material.COBWEB, Names.aeroSphere(), ChatColor.GRAY, "air2"));
-		inv.setItem(35, Methods.createItem(p, Material.FEATHER, Names.flight(), ChatColor.DARK_GRAY, "flight"));
-		inv.setItem(51, Methods.createItem(p, Material.LEAD, Names.chiTrail(), ChatColor.GOLD, "chi"));
-		inv.setItem(52, Methods.createItem(p, Material.WOODEN_SWORD, Names.intensity(), ChatColor.GOLD, "chi2"));
-		inv.setItem(46, Methods.createItem(p, Material.NETHER_STAR, Names.avatarTrail(), ChatColor.DARK_PURPLE, "avatar"));
-		inv.setItem(47, Methods.createItem(p, Material.BEACON, Names.elementalRings(), ChatColor.DARK_PURPLE, "avatar2"));
+		inv.setItem(9, Methods.createItem(p, Material.GRASS_BLOCK, Names.earthTrail(), ChatColor.GREEN, Trails.EARTH));
+		inv.setItem(18, Methods.createItem(p, Material.SAND, Names.sandyCloak(), ChatColor.YELLOW, Trails.SANDCLOAK));
+		inv.setItem(27, Methods.createItem(p, Material.MAGMA_CREAM, Names.lavaTrail(), ChatColor.DARK_GREEN, Trails.ERUPTION));
+		inv.setItem(11, Methods.createItem(p, Material.WATER_BUCKET, Names.waterTrail(), ChatColor.AQUA, Trails.WATER));
+		inv.setItem(20, Methods.createItem(p, Material.POTION, Names.hydro(), ChatColor.BLUE, Trails.HYDRO));
+		inv.setItem(29, Methods.createItem(p, Material.ICE, Names.iceBoots(), ChatColor.DARK_AQUA, Trails.ICE));
+		inv.setItem(15, Methods.createItem(p, Material.BLAZE_POWDER, Names.fireTrail(), ChatColor.RED, Trails.FIRE));
+		inv.setItem(24, Methods.createItem(p, Material.FIRE_CHARGE, Names.flameArms(), ChatColor.RED, Trails.FLAMEARMS));
+		inv.setItem(33, Methods.createItem(p, Material.REDSTONE_TORCH, Names.staticField(), ChatColor.DARK_RED, Trails.STATICFIELD));
+		inv.setItem(17, Methods.createItem(p, Material.STRING, Names.airTrail(), ChatColor.GRAY, Trails.AIR));
+		inv.setItem(26, Methods.createItem(p, Material.COBWEB, Names.aeroSphere(), ChatColor.GRAY, Trails.AEROSPHERE));
+		inv.setItem(35, Methods.createItem(p, Material.FEATHER, Names.flight(), ChatColor.DARK_GRAY, Trails.FLOAT));
+		inv.setItem(51, Methods.createItem(p, Material.LEAD, Names.chiTrail(), ChatColor.GOLD, Trails.CHI));
+		inv.setItem(52, Methods.createItem(p, Material.WOODEN_SWORD, Names.intensity(), ChatColor.GOLD, Trails.INTENSITY));
+		inv.setItem(46, Methods.createItem(p, Material.NETHER_STAR, Names.avatarTrail(), ChatColor.DARK_PURPLE, Trails.AVATAR));
+		inv.setItem(47, Methods.createItem(p, Material.BEACON, Names.elementalRings(), ChatColor.DARK_PURPLE, Trails.ELEMENTALRINGS));
+		
+		items = inv.getContents();
 		
 		p.openInventory(inv);
 	}
+	
+	@EventHandler
+	public void invClick(InventoryClickEvent event) {
+		Player player = (Player)event.getWhoClicked();
+		
+		if (!event.getInventory().getTitle().contains(trailGuiName)) {
+			return;
+		} else if ((event.getCurrentItem() == null) || 
+				(event.getCurrentItem() == new ItemStack(Material.AIR)) || 
+				event.getCurrentItem().getItemMeta() == null || 
+				event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
+			event.setCancelled(true);
+			return;
+		}
+		ItemStack clickedItem = event.getCurrentItem();
+		if (doPrefix) {
+			prefix = prefixColor + "ElementalEffects: ";
+		} else {
+			prefix = "";
+		}
+		//EARTH
+		if (clickedItem.getItemMeta().getDisplayName().contains(Names.earthTrail())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.EARTH, Element.EARTH, null);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.sandyCloak())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.SANDCLOAK, Element.EARTH, Element.SAND);
+			new SandCloak(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.lavaTrail())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.ERUPTION, Element.EARTH, Element.LAVA);
+			new LavaTrail(player);
+			return;
+		//FIRE	
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.fireTrail())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.FIRE, Element.FIRE, null);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.flameArms())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.FLAMEARMS, Element.FIRE, null);
+			new FlameArms(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.staticField())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.STATICFIELD, Element.FIRE, Element.LIGHTNING);
+			new StaticField(player);
+			return;
+		//WATER	
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.waterTrail())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.WATER, Element.WATER, null);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.hydro())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.HYDRO, Element.WATER, null);
+			new WaterRings(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.iceBoots())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.ICE, Element.WATER, Element.ICE);
+			return;
+		//AIR
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.airTrail())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.AIR, Element.AIR, null);
+			new Cloud(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.aeroSphere())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.AEROSPHERE, Element.AIR, null);
+			new AeroSphere(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.flight())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.FLOAT, Element.AIR, Element.FLIGHT);
+			new Float(player);
+			return;
+		//CHI
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.chiTrail())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.CHI, Element.CHI, null);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.intensity())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.INTENSITY, Element.CHI, null);
+			return;
+		//AVATAR	
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.avatarTrail())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.AVATAR, Element.AVATAR, null);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.elementalRings())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.ELEMENTALRINGS, Element.AVATAR, null);
+			new ElementalRings(player);
+			return;
+		//INDICATOR GUI	
+		} else if (clickedItem.getItemMeta().getDisplayName().contains("Open Indicator GUI")) {
+			event.setCancelled(true);
+			IndGui.openGui(player);
+			return;
+		//DISABLE TRAIL	
+		} else if (clickedItem.getItemMeta().getDisplayName().contains("Disable Trail")) {
+			event.setCancelled(true);
+			if (trails.containsKey(player)) {
+				trails.remove(player);
+				player.sendMessage(prefix + ChatColor.RED + "Trail disabled!");
+			}
+			return;
+		} else {
+			event.setCancelled(true);
+			return;
+		}
+	}
+	
+	public void setTrail(Player player, Trails type) {
+		if (trails.containsKey(player)) {
+			trails.remove(player);
+			player.sendMessage(this.disabled(ChatColor.AQUA, type.toString()));
+		} else {
+			trails.put(player, new Trail(type));
+			player.sendMessage(this.enabled(ChatColor.AQUA, type.toString()));
+		}
+	}
+	
+	public void manageTrails(Player player, Trails type, Element element, SubElement sub) {
+		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
+		
+		if (Methods.hasPermission(player, type.toString().toLowerCase())) {
+			if (reqEle) {
+				if (bPlayer.hasElement(element) || bPlayer.hasSubElement(sub)) {
+					closeInv(player);
+					setTrail(player, type);
+				} else {
+					closeInv(player);
+					player.sendMessage(this.noElement(ChatColor.RED) + missingElement(bPlayer, element, sub));
+				}
+			} else {
+				closeInv(player);
+				setTrail(player, type);
+			}
+		} else {
+			closeInv(player);
+			player.sendMessage(this.noPerm(ChatColor.RED));
+		}
+	}
+	
+	public String missingElement(BendingPlayer bPlayer, Element element, SubElement sub) {
+		if (!bPlayer.hasElement(element)) {
+			return element.getName();
+		} else if (!bPlayer.hasSubElement(sub)) {
+			return sub.getName();
+		}
+		return "";
+	}
+	
+	public void closeInv(Player p) {
+		if (closeInv) {
+			p.closeInventory();
+		}
+	}
+	
+	
 }

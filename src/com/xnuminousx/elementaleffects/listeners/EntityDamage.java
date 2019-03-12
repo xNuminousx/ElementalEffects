@@ -1,4 +1,6 @@
-package com.xnuminousx.elementaleffects.events;
+package com.xnuminousx.elementaleffects.listeners;
+
+import java.util.HashMap;
 
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -12,20 +14,21 @@ import org.bukkit.inventory.ItemStack;
 
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Indicator;
 import com.xnuminousx.elementaleffects.utils.Methods;
 
-public class EntityDamageEvent implements Listener {
+public class EntityDamage implements Listener {
 	
-	Main plugin = Main.getInstance();
+	HashMap<Player, Indicator> inds = Main.plugin.inds;
 	double maxHearts = Manager.maxDamage();
 
 	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent event) {
 		if (event.getDamager() instanceof Player) {
 			Entity target = event.getEntity();
-			Player p = (Player)event.getDamager();
+			Player player = (Player)event.getDamager();
 			double amount = event.getDamage();
-			if (plugin.hit.contains(p)) {
+			if (inds.containsKey(player)) {
 				if (event.getEntity() instanceof LivingEntity) {
 					bloodEffect(target, amount);
 					return;
@@ -34,7 +37,6 @@ public class EntityDamageEvent implements Listener {
 				return;
 			}
 		}
-
 	}
 	
 	public void bloodEffect(Entity target, double amount) {

@@ -1,6 +1,6 @@
 package com.xnuminousx.elementaleffects;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -10,42 +10,21 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.xnuminousx.elementaleffects.commands.Commands;
 import com.xnuminousx.elementaleffects.config.Manager;
-import com.xnuminousx.elementaleffects.events.EntityDamageEvent;
-import com.xnuminousx.elementaleffects.events.IndicatorInvEvent;
-import com.xnuminousx.elementaleffects.events.MoveEvent;
-import com.xnuminousx.elementaleffects.events.TrailInvEvent;
+import com.xnuminousx.elementaleffects.gui.IndGui;
+import com.xnuminousx.elementaleffects.gui.TrailGui;
+import com.xnuminousx.elementaleffects.listeners.EntityDamage;
+import com.xnuminousx.elementaleffects.listeners.Move;
+import com.xnuminousx.elementaleffects.utils.Indicator;
+import com.xnuminousx.elementaleffects.utils.Trail;
 
 public class Main extends JavaPlugin implements Listener {
-	
-	public ArrayList<Player> earth = new ArrayList<Player>();
-	public ArrayList<Player> lava = new ArrayList<Player>();
-	public ArrayList<Player> sand = new ArrayList<Player>();
-	public ArrayList<Player> fire = new ArrayList<Player>();
-	public ArrayList<Player> flamearms = new ArrayList<Player>();
-	public ArrayList<Player> lightning = new ArrayList<Player>();
-	public ArrayList<Player> water = new ArrayList<Player>();
-	public ArrayList<Player> hydro = new ArrayList<Player>();
-	public ArrayList<Player> ice = new ArrayList<Player>();
-	public ArrayList<Player> air = new ArrayList<Player>();
-	public ArrayList<Player> aero = new ArrayList<Player>();
-	public ArrayList<Player> flight = new ArrayList<Player>();
-	public ArrayList<Player> chi = new ArrayList<Player>();
-	public ArrayList<Player> intensity = new ArrayList<Player>();
-	public ArrayList<Player> avatar = new ArrayList<Player>();
-	public ArrayList<Player> elementrings = new ArrayList<Player>();
-	
-	public ArrayList<Player> avatarstate = new ArrayList<Player>();
-	public ArrayList<Player> hit = new ArrayList<Player>();
-	public ArrayList<Player> moon = new ArrayList<Player>();
-	public ArrayList<Player> sun = new ArrayList<Player>();
-	
-	public ArrayList<Player> noTrail = new ArrayList<Player>();
+	public HashMap<Player, Trail> trails = new HashMap<Player, Trail>();
+	public HashMap<Player, Indicator> inds = new HashMap<Player, Indicator>();
 	
 	public static Main plugin;
 	
 	public void onEnable() {
 		plugin = this;
-		
 		new Manager(this);
 		registerCommands();
 		registerListeners();
@@ -68,10 +47,10 @@ public class Main extends JavaPlugin implements Listener {
 	public void registerListeners() {
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		
-		pm.registerEvents(new TrailInvEvent(), this);
-		pm.registerEvents(new IndicatorInvEvent(), this);
-		pm.registerEvents(new MoveEvent(), this);
-		pm.registerEvents(new EntityDamageEvent(), this);
+		pm.registerEvents(new TrailGui(), this);
+		pm.registerEvents(new IndGui(), this);
+		pm.registerEvents(new Move(), this);
+		pm.registerEvents(new EntityDamage(), this);
 		pm.registerEvents(this, this);
 	}
 }
