@@ -20,6 +20,7 @@ import com.projectkorra.projectkorra.Element.SubElement;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.trails.AeroSphere;
+import com.xnuminousx.elementaleffects.trails.Blood;
 import com.xnuminousx.elementaleffects.trails.Cloud;
 import com.xnuminousx.elementaleffects.trails.ElementalRings;
 import com.xnuminousx.elementaleffects.trails.FlameArms;
@@ -77,8 +78,9 @@ public class TrailGui implements Listener {
 		inv.setItem(18, Methods.createItem(p, Material.SAND, Names.sandyCloak(), ChatColor.YELLOW, Trails.SANDCLOAK));
 		inv.setItem(27, Methods.createItem(p, Material.MAGMA_CREAM, Names.lavaTrail(), ChatColor.DARK_GREEN, Trails.ERUPTION));
 		inv.setItem(11, Methods.createItem(p, Material.WATER_BUCKET, Names.waterTrail(), ChatColor.AQUA, Trails.WATER));
-		inv.setItem(20, Methods.createItem(p, Material.POTION, Names.hydro(), ChatColor.BLUE, Trails.HYDRO));
-		inv.setItem(29, Methods.createItem(p, Material.ICE, Names.iceBoots(), ChatColor.DARK_AQUA, Trails.ICE));
+		inv.setItem(20, Methods.createItem(p, Material.ICE, Names.iceBoots(), ChatColor.DARK_AQUA, Trails.ICE));
+		inv.setItem(29, Methods.createItem(p, Material.BLACK_GLAZED_TERRACOTTA, Names.blood(), ChatColor.DARK_RED, Trails.BLOOD));
+		//inv.setItem(20, Methods.createItem(p, Material.POTION, Names.hydro(), ChatColor.BLUE, Trails.HYDRO));
 		inv.setItem(15, Methods.createItem(p, Material.BLAZE_POWDER, Names.fireTrail(), ChatColor.RED, Trails.FIRE));
 		inv.setItem(24, Methods.createItem(p, Material.FIRE_CHARGE, Names.flameArms(), ChatColor.RED, Trails.FLAMEARMS));
 		inv.setItem(33, Methods.createItem(p, Material.REDSTONE_TORCH, Names.staticField(), ChatColor.DARK_RED, Trails.STATICFIELD));
@@ -153,6 +155,11 @@ public class TrailGui implements Listener {
 			event.setCancelled(true);
 			manageTrails(player, Trails.HYDRO, Element.WATER, null);
 			new WaterRings(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.blood())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.BLOOD, Element.WATER, Element.BLOOD);
+			new Blood(player);
 			return;
 		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.iceBoots())) {
 			event.setCancelled(true);

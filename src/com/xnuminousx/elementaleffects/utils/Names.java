@@ -28,6 +28,9 @@ public class Names {
 	public static String avatarTrail() {
 		return "Avatar Trail";
 	}
+	public static String blood() {
+		return "Blood Trail";
+	}
 	public static String chiTrail() {
 		return "Chi Trail";
 	}

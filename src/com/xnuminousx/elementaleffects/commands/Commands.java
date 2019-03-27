@@ -54,12 +54,12 @@ public class Commands implements CommandExecutor {
 				return true;
 			} else if (args.length == 1) {
 				if (sender instanceof Player) {
-					Player p = (Player)sender;
+					Player player = (Player)sender;
 					if (args[0].equalsIgnoreCase("trails") || args[0].equalsIgnoreCase("trail") || args[0].equalsIgnoreCase("effects")) {
-						TrailGui.openGUI(p);
+						TrailGui.openGUI(player);
 						return true;
 					} else if (args[0].equalsIgnoreCase("ind") || args[0].equalsIgnoreCase("indicators") || args[0].equalsIgnoreCase("indicator")) {
-						IndGui.openGui(p);
+						IndGui.openGui(player);
 						return true;
 					} else if (args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("remove")) {
 						Trail.removeTrail((Player)sender);
@@ -74,10 +74,29 @@ public class Commands implements CommandExecutor {
 					sender.sendMessage("You're not a player!");
 					return false;
 				}
+			/*} else if (args.length == 2) {
+				if (sender instanceof Player) {
+					Player player = (Player) sender;
+					if (args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("enable")) {
+						for (Trails type : Main.plugin.types) {
+							if (type.toString().equalsIgnoreCase(args[1])) {
+								Main.plugin.trails.put(player, new Trail(type));
+								player.sendMessage(this.enabled(ChatColor.AQUA, type.toString()));
+							} else {
+								sender.sendMessage(ChatColor.RED + "Unknown trail name!");
+							}
+							return true;
+						}
+						return true;
+					}
+				}*/
 			}
 			return false;
 		}
 		return false;
+	}
+	public String enabled(ChatColor color, String trailName) {
+		return prefix + color + "" + ChatColor.BOLD + trailName + ChatColor.RESET + ChatColor.GREEN + " enabled!";
 	}
 
 }

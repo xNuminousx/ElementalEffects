@@ -46,6 +46,7 @@ public class Trail {
 		ERUPTION,
 		
 		WATER,
+		BLOOD,
 		HYDRO,
 		ICE,
 		
