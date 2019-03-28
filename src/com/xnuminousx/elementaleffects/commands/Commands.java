@@ -67,6 +67,18 @@ public class Commands implements CommandExecutor {
 
 				sender.sendMessage("");
 				
+				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee list");
+				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "none");
+				sender.sendMessage(" " + ChatColor.YELLOW + "- Shows a list of trails.");
+				
+				sender.sendMessage("");
+				
+				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee enable");
+				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee set");
+				sender.sendMessage(" " + ChatColor.YELLOW + "- Activates a trail without the GUI.");
+				
+				sender.sendMessage("");
+				
 				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee disable");
 				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee remove");
 				sender.sendMessage(" " + ChatColor.YELLOW + "- Removes your active trail.");
