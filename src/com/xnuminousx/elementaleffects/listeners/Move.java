@@ -18,7 +18,6 @@ import com.xnuminousx.elementaleffects.trails.AvatarTrail;
 import com.xnuminousx.elementaleffects.trails.ChiTrail;
 import com.xnuminousx.elementaleffects.trails.EarthTrail;
 import com.xnuminousx.elementaleffects.trails.FireTrail;
-import com.xnuminousx.elementaleffects.trails.Hydro;
 import com.xnuminousx.elementaleffects.trails.IceTrail;
 import com.xnuminousx.elementaleffects.trails.Intensity;
 import com.xnuminousx.elementaleffects.trails.SandTrail;
@@ -92,12 +91,6 @@ public class Move implements Listener {
 			} else if (type.equals(Trails.WATER)) {
 				if (this.hasEle(bPlayer, Element.WATER)) {
 					new WaterTrail(player);
-				} else {
-					return;
-				}
-			} else if (type.equals(Trails.HYDRO)) {
-				if (this.hasEle(bPlayer, Element.WATER)) {
-					new Hydro(player);
 				} else {
 					return;
 				}

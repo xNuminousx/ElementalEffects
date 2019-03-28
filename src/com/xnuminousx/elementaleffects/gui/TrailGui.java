@@ -150,12 +150,13 @@ public class TrailGui implements Listener {
 		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.waterTrail())) {
 			event.setCancelled(true);
 			manageTrails(player, Trails.WATER, Element.WATER, null);
+			new WaterRings(player);
 			return;
-		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.hydro())) {
+		/*} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.hydro())) {
 			event.setCancelled(true);
 			manageTrails(player, Trails.HYDRO, Element.WATER, null);
 			new WaterRings(player);
-			return;
+			return;*/
 		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.blood())) {
 			event.setCancelled(true);
 			manageTrails(player, Trails.BLOOD, Element.WATER, Element.BLOOD);

@@ -14,10 +14,9 @@ import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class StaticField {
 	
-	int amount = Main.getInstance().getConfig().getInt("Trails.Lightning.Particles.Amount");
-	int fieldamount = Main.getInstance().getConfig().getInt("Trails.Lightning.Field.Amount");
-	int speed = Main.getInstance().getConfig().getInt("Trails.Lightning.Field.Speed");
-	boolean field = Main.getInstance().getConfig().getBoolean("Trails.Lightning.Field.Enabled");
+	int amount = Main.getInstance().getConfig().getInt("Trails.StaticField.Amount");
+	int speed = Main.getInstance().getConfig().getInt("Trails.StaticField.Speed");
+	boolean field = Main.getInstance().getConfig().getBoolean("Trails.StaticField.Enabled");
 	float size = 2;
 	int points = 60;
 	int currPoint;
@@ -57,7 +56,7 @@ public class StaticField {
 				Location loc = p.getLocation().add(x, 1, z);
 				Location negloc = p.getLocation().add(-x, 1, -z);
 				Methods.playColoredParticle(loc, 1, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1, 255, 255);
-				ParticleEffect.CRIT_MAGIC.display(negloc, fieldamount, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.05F);
+				ParticleEffect.CRIT_MAGIC.display(negloc, amount, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.05F);
 			}
 		}
 		ParticleEffect.CRIT_MAGIC.display(p.getLocation(), amount, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.05F);

@@ -26,12 +26,14 @@ public class Manager {
 		config.addDefault("Language.IndicatorGUIName", "Elemental Indicators");
 		config.addDefault("Language.Prefix.Enabled", true);
 		
-		config.addDefault("Trails.RequireElement", false);
-		config.addDefault("Trails.CloseInventoryOnSelect", false);
+		config.addDefault("Properties.RequireElement", false);
+		config.addDefault("Properties.CloseInventoryOnSelect", false);
 		
 		config.addDefault("Trails.Earth.RequireEarthBlock", true);
 		config.addDefault("Trails.Earth.Particles.Speed", 0);
 		config.addDefault("Trails.Earth.Particles.Amount", 5);
+		
+		config.addDefault("Trails.Eruption.Particles.Amount", 2);
 		
 		config.addDefault("Trails.Sand.Cloak.RequireSand", false);
 		config.addDefault("Trails.Sand.Cloak.Radius", 0.5);
@@ -47,18 +49,14 @@ public class Manager {
 		config.addDefault("Trails.FlameArms.Particles.Amount", 2);
 		config.addDefault("Trails.FlameArms.Rings.Enabled", true);
 		
-		config.addDefault("Trails.Lightning.Particles.Amount", 5);
-		config.addDefault("Trails.Lightning.Field.Enabled", true);
-		config.addDefault("Trails.Lightning.Field.Amount", 2);
-		config.addDefault("Trails.Lightning.Field.Speed", 3);
+		config.addDefault("Trails.StaticField.Enabled", true);
+		config.addDefault("Trails.StaticField.Amount", 2);
+		config.addDefault("Trails.StaticField.Speed", 3);
 		
 		config.addDefault("Trails.Water.Particles.Speed", 0);
 		config.addDefault("Trails.Water.Particles.Amount", 2);
-		
-		config.addDefault("Trails.Hydro.Particles.Speed", 0);
-		config.addDefault("Trails.Hydro.Particles.Amount", 2);
-		config.addDefault("Trails.Hydro.Ring.Speed", 3);
-		config.addDefault("Trails.Hydro.Ring.Size", 1);
+		config.addDefault("Trails.Water.Particles.Ring.Speed", 2);
+		config.addDefault("Trails.Water.Particles.Ring.Size", 1);
 		
 		config.addDefault("Trails.Ice.Boots.Speed", 0);
 		config.addDefault("Trails.Ice.Boots.Amount", 4);
@@ -116,7 +114,7 @@ public class Manager {
 	}
 	
 	public static boolean requireElement() {
-		return Main.getInstance().getConfig().getBoolean("Trails.RequireElement");
+		return Main.getInstance().getConfig().getBoolean("Properties.RequireElement");
 	}
 	
 	public static String getTrailGuiName() {
@@ -128,7 +126,7 @@ public class Manager {
 	}
 	
 	public static boolean closeInv() {
-		return Main.getInstance().getConfig().getBoolean("Trails.CloseInventoryOnSelect");
+		return Main.getInstance().getConfig().getBoolean("Properties.CloseInventoryOnSelect");
 	}
 	
 	public static boolean doPrefix() {

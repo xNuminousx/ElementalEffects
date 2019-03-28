@@ -47,7 +47,6 @@ public class Trail {
 		
 		WATER,
 		BLOOD,
-		HYDRO,
 		ICE,
 		
 		AIR,
@@ -62,6 +61,6 @@ public class Trail {
 		INTENSITY,
 		
 		AVATAR,
-		ELEMENTALRINGS
+		ELEMENTALRINGS;
 	}
 }

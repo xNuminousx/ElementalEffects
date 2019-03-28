@@ -13,8 +13,8 @@ import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class WaterRings {
 	
-	int ringspeed = Main.getInstance().getConfig().getInt("Trails.Hydro.Ring.Speed");
-	float size = Main.getInstance().getConfig().getInt("Trails.Hydro.Ring.Size");
+	int ringspeed = Main.getInstance().getConfig().getInt("Trails.Water.Particles.Ring.Speed");
+	float size = Main.getInstance().getConfig().getInt("Trails.Water.Particles.Ring.Size");
 	int points = 60;
 	int currPoint;
 	Main plugin = Main.getInstance();
@@ -24,7 +24,7 @@ public class WaterRings {
 
 			@Override
 			public void run() {
-				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.HYDRO)) {
+				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.WATER)) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
@@ -46,7 +46,7 @@ public class WaterRings {
 			if (currPoint > 360) {
 				currPoint = 0;
 			}
-			double angle = currPoint * 3.141592653589793D / 180.0D;
+			double angle = currPoint * Math.PI / 180;
 			double x = size * Math.cos(angle);
 			double z = size * Math.sin(angle);
 			Location loc = p.getLocation().add(x, 1, z);
