@@ -7,6 +7,8 @@ import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class WaterTrail {
 	
@@ -22,6 +24,10 @@ public class WaterTrail {
 		} else {
 			progress(player);
 		}
+	}
+	
+	public static String getName() {
+		return Methods.normalizeString(Trails.WATER.toString());
 	}
 	
 	public void progress(Player p) {

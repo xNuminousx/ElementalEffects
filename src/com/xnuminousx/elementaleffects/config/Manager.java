@@ -44,10 +44,9 @@ public class Manager {
 		config.addDefault("Trails.Fire.BoilEffect", true);
 		config.addDefault("Trails.Fire.Particles.Speed", 0);
 		config.addDefault("Trails.Fire.Particles.Amount", 2);
-		
-		config.addDefault("Trails.FlameArms.Particles.Speed", 0);
-		config.addDefault("Trails.FlameArms.Particles.Amount", 2);
-		config.addDefault("Trails.FlameArms.Rings.Enabled", true);
+		config.addDefault("Trails.Fire.FlameArms.Enabled", true);
+		config.addDefault("Trails.Fire.FlameArms.Particles.Speed", 0);
+		config.addDefault("Trails.Fire.FlameArms.Particles.Amount", 2);
 		
 		config.addDefault("Trails.StaticField.Enabled", true);
 		config.addDefault("Trails.StaticField.Amount", 2);

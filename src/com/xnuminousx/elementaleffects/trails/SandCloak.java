@@ -14,6 +14,7 @@ import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
+//Plays with SandTrail
 public class SandCloak {
 
 	PlayerMoveEvent event;

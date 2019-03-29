@@ -43,6 +43,10 @@ public class StaticField {
 		}.runTaskTimer(Main.getInstance(), 0, 1);
 	}
 	
+	public static String getName() {
+		return Methods.normalizeString(Trails.STATICFIELD.toString());
+	}
+	
 	public void progress(Player p) {
 		if (field) {
 			for (int i = 0; i < speed; ++i) {

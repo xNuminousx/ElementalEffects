@@ -11,6 +11,7 @@ import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
+//Plays with WaterTrail
 public class WaterRings {
 	
 	int ringspeed = Main.getInstance().getConfig().getInt("Trails.Water.Particles.Ring.Speed");

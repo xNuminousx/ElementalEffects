@@ -38,6 +38,10 @@ public class MoonIndicator {
 		}.runTaskTimer(Main.getInstance(), 0, 1);
 	}
 	
+	public static String getName() {
+		return Methods.normalizeString(Indicators.MOON.toString());
+	}
+	
 	public void progress(Player player) {
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
 		location = player.getLocation();

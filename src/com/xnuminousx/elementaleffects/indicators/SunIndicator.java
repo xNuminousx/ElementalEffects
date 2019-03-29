@@ -34,6 +34,10 @@ public class SunIndicator {
 		}.runTaskTimer(Main.getInstance(), 0, 1);
 	}
 	
+	public static String getName() {
+		return Methods.normalizeString(Indicators.SUN.toString());
+	}
+	
 	public void progress(Player player) {
 		location = player.getLocation();
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);

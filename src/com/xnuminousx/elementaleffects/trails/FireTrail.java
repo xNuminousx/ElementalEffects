@@ -8,6 +8,8 @@ import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class FireTrail {
 	
@@ -26,6 +28,10 @@ public class FireTrail {
 		} else {
 			progress(player);
 		}
+	}
+	
+	public static String getName() {
+		return Methods.normalizeString(Trails.FIRE.toString());
 	}
 	
 	public void progress(Player p) {

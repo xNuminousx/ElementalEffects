@@ -7,12 +7,12 @@ import org.bukkit.entity.Player;
 import com.xnuminousx.elementaleffects.Main;
 
 public class Indicator {
-	private Indicators ind;
+	private Indicators type;
 	private String name;
 	
-	public Indicator(Indicators ind) {
-		this.ind = ind;
-		this.name = ind.toString();
+	public Indicator(Indicators type) {
+		this.type = type;
+		this.name = type.toString();
 	}
 	
 	public String getName() {
@@ -20,10 +20,10 @@ public class Indicator {
 	}
 	
 	public Indicators getType() {
-		return ind;
+		return type;
 	}
 	
-	public static Indicators getActiveIndicator(Player player) {
+	public static Indicators getIndicator(Player player) {
 		HashMap<Player, Indicator> inds = Main.plugin.inds;
 		return inds.get(player).getType();
 	}

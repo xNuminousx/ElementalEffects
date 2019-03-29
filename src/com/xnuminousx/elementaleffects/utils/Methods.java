@@ -78,6 +78,10 @@ public class Methods {
 		return itemType;
 	}
 	
+	public static String normalizeString(String input) {
+		return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+	}
+	
 	public static void playColoredParticle(Location location, int amount, double x, double y, double z, int r, int g, int b) {
 		Color color = Color.fromRGB(r, g, b);
 		DustOptions dustOptions = new DustOptions(color, 1);

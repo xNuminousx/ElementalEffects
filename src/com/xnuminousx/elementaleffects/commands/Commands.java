@@ -102,17 +102,17 @@ public class Commands implements CommandExecutor {
 						sender.sendMessage(ChatColor.DARK_AQUA + "--= " + header + ChatColor.DARK_AQUA + " =--");
 						for (Trails trail : types) {
 							int bullet = types.indexOf(trail) + 1;
-							String list = trail.toString().substring(0, 1).toUpperCase() + trail.toString().substring(1).toLowerCase();
+							String name = Methods.normalizeString(trail.toString());
 							if (Methods.hasPermission(player, trail.toString().toLowerCase())) {
-								sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + list);
+								sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + name);
 							} else {
-								sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + list + " " + 
+								sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + name + " " + 
 										ChatColor.DARK_GRAY + "(" + ChatColor.DARK_RED + "No permission" + ChatColor.DARK_GRAY + ")");
 							}
 						}
 						return true;
 					} else {
-						sender.sendMessage(ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/ee");
+						sender.sendMessage(prefix + ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/ee");
 						return true;
 					}
 				} else {
@@ -134,7 +134,7 @@ public class Commands implements CommandExecutor {
 										Trail.setTrail(player, trail);
 										activateAnimation(player, trail);
 									} else {
-										sender.sendMessage(ChatColor.RED + "You do not have the necessary permissions for that!");
+										sender.sendMessage(prefix + ChatColor.RED + "You do not have the necessary permissions for that!");
 									}
 								}
 							}
@@ -163,7 +163,7 @@ public class Commands implements CommandExecutor {
 		} else if (trail.equals(Trails.FLOAT)) {
 			new Float(player);
 			
-		} else if (trail.equals(Trails.FLAMEARMS)) {
+		} else if (trail.equals(Trails.FIRE)) {
 			new FlameArms(player);
 		} else if (trail.equals(Trails.STATICFIELD)) {
 			new StaticField(player);

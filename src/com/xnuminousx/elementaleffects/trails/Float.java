@@ -9,6 +9,7 @@ import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class Float {
@@ -36,6 +37,10 @@ public class Float {
 				}
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 1);
+	}
+	
+	public static String getName() {
+		return Methods.normalizeString(Trails.FLOAT.toString());
 	}
 	
 	public void progress(Player p) {

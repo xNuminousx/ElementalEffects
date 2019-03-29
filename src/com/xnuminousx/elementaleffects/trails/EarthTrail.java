@@ -11,6 +11,8 @@ import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.ability.EarthAbility;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class EarthTrail {
 	
@@ -29,6 +31,10 @@ public class EarthTrail {
 		} else {
 			progress(player);
 		}
+	}
+	
+	public static String getName() {
+		return Methods.normalizeString(Trails.EARTH.toString());
 	}
 	
 	public void progress(Player p) {

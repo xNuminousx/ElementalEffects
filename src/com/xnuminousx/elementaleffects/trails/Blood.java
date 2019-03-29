@@ -43,6 +43,10 @@ public class Blood {
 		}.runTaskTimer(Main.plugin, 0, 0);
 	}
 	
+	public static String getName() {
+		return Methods.normalizeString(Trails.BLOOD.toString());
+	}
+	
 	public void progress(Player player) {
 		Location location = player.getLocation();
 		for (int i = 0; i < 1; i++) {

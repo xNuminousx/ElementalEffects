@@ -21,14 +21,12 @@ import com.xnuminousx.elementaleffects.indicators.AvatarStateInd;
 import com.xnuminousx.elementaleffects.indicators.MoonIndicator;
 import com.xnuminousx.elementaleffects.indicators.SunIndicator;
 import com.xnuminousx.elementaleffects.utils.Methods;
-import com.xnuminousx.elementaleffects.utils.Names;
 import com.xnuminousx.elementaleffects.utils.Indicator;
 import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
 
 public class IndGui implements Listener {
 	
 	HashMap<Player, Indicator> inds = Main.plugin.inds;
-	static ItemStack[] items;
 	String prefix;
 	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
 	Element missingEle;
@@ -62,12 +60,10 @@ public class IndGui implements Listener {
 		
 		inv.setItem(13, Methods.miscItem(Material.END_CRYSTAL, "Open Trail GUI", ChatColor.DARK_AQUA, openTrail));
 		inv.setItem(31, Methods.miscItem(Material.BARRIER, "Disable Indicator", ChatColor.DARK_RED, removeInd));
-		inv.setItem(15, Methods.createItem(p, Material.GHAST_TEAR, Names.avatarIndicator(), ChatColor.DARK_PURPLE, Indicators.AVATARSTATE));
-		inv.setItem(11, Methods.createItem(p, Material.REDSTONE, Names.hitIndicator(), ChatColor.DARK_RED, Indicators.HIT));
-		inv.setItem(29, Methods.createItem(p, Material.ENDER_PEARL, Names.moonIndicator(), ChatColor.BLUE, Indicators.MOON));
-		inv.setItem(33, Methods.createItem(p, Material.CLOCK, Names.sunIndicator(), ChatColor.YELLOW, Indicators.SUN));
-		
-		items = inv.getContents();
+		inv.setItem(15, Methods.createItem(p, Material.GHAST_TEAR, AvatarStateInd.getName(), ChatColor.DARK_PURPLE, Indicators.AVATARSTATE));
+		inv.setItem(11, Methods.createItem(p, Material.REDSTONE, Methods.normalizeString(Indicators.HIT.toString()), ChatColor.DARK_RED, Indicators.HIT));
+		inv.setItem(29, Methods.createItem(p, Material.ENDER_PEARL, MoonIndicator.getName(), ChatColor.BLUE, Indicators.MOON));
+		inv.setItem(33, Methods.createItem(p, Material.CLOCK, SunIndicator.getName(), ChatColor.YELLOW, Indicators.SUN));
 		
 		p.openInventory(inv);
 	}
@@ -93,21 +89,21 @@ public class IndGui implements Listener {
 		} else {
 			prefix = "";
 		}
-		if (clickedItem.getItemMeta().getDisplayName().contains(Names.avatarIndicator())) {
+		if (clickedItem.getItemMeta().getDisplayName().contains(AvatarStateInd.getName())) {
 			event.setCancelled(true);
 			manageInds(player, Indicators.AVATARSTATE);
 			new AvatarStateInd(player);
 			return;
-		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.hitIndicator())) {
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Methods.normalizeString(Indicators.HIT.toString()))) {
 			event.setCancelled(true);
 			manageInds(player, Indicators.HIT);
 			return;
-		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.moonIndicator())) {
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(MoonIndicator.getName())) {
 			event.setCancelled(true);
 			manageInds(player, Indicators.MOON);
 			new MoonIndicator(player);
 			return;
-		} else if (clickedItem.getItemMeta().getDisplayName().contains(Names.sunIndicator())) {
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(SunIndicator.getName())) {
 			event.setCancelled(true);
 			manageInds(player, Indicators.SUN);
 			new SunIndicator(player);

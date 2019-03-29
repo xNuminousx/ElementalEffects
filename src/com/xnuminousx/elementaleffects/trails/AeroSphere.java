@@ -12,6 +12,7 @@ import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class AeroSphere {
@@ -39,6 +40,10 @@ public class AeroSphere {
 				
 			}
 		}.runTaskTimer(Main.getInstance(), 0, 1);
+	}
+	
+	public static String getName() {
+		return Methods.normalizeString(Trails.AEROSPHERE.toString());
 	}
 	
 	public void progress(Player p) {

@@ -11,6 +11,8 @@ import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class IceTrail {
 	
@@ -26,6 +28,10 @@ public class IceTrail {
 		} else {
 			progress(player);
 		}
+	}
+	
+	public static String getName() {
+		return Methods.normalizeString(Trails.ICE.toString());
 	}
 	
 	public void progress(Player p) {

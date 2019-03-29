@@ -11,6 +11,7 @@ import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
+//Plays with AirTrail
 public class Cloud {
 	
 	Main plugin = Main.getInstance();

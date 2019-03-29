@@ -20,7 +20,6 @@ import com.xnuminousx.elementaleffects.utils.Trail;
 public class Main extends JavaPlugin implements Listener {
 	public HashMap<Player, Trail> trails = new HashMap<Player, Trail>();
 	public HashMap<Player, Indicator> inds = new HashMap<Player, Indicator>();
-	
 	public static Main plugin;
 	
 	public void onEnable() {
@@ -28,7 +27,6 @@ public class Main extends JavaPlugin implements Listener {
 		new Manager(this);
 		registerCommands();
 		registerListeners();
-		
 		plugin.getLogger().info("Successfully enabled ElementalEffects v" + plugin.getDescription().getVersion());
 	}
 	public void onDisable() {
@@ -46,7 +44,6 @@ public class Main extends JavaPlugin implements Listener {
 	
 	public void registerListeners() {
 		PluginManager pm = Bukkit.getServer().getPluginManager();
-		
 		pm.registerEvents(new TrailGui(), this);
 		pm.registerEvents(new IndGui(), this);
 		pm.registerEvents(new Move(), this);

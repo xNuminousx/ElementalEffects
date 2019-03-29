@@ -8,6 +8,8 @@ import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.ability.AirAbility;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Methods;
+import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 public class AirTrail {
 	
@@ -24,6 +26,10 @@ public class AirTrail {
 		} else {
 			progress(player);
 		}
+	}
+	
+	public static String getName() {
+		return Methods.normalizeString(Trails.AIR.toString());
 	}
 	
 	public void progress(Player p) {

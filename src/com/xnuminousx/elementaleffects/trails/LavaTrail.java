@@ -42,6 +42,10 @@ public class LavaTrail {
 		}.runTaskTimer(Main.getInstance(), 0, 1);
 	}
 	
+	public static String getName() {
+		return Methods.normalizeString(Trails.ERUPTION.toString());
+	}
+	
 	public void progress(Player p) {
 		t += Math.PI / 16;
 		Location loc = p.getLocation();

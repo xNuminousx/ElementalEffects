@@ -53,6 +53,10 @@ public class AvatarStateInd {
 		}
 	}
 	
+	public static String getName() {
+		return Methods.normalizeString(Indicators.AVATARSTATE.toString());
+	}
+	
 	public void playAnimations(Player p, Location location) {
 		Location rightEye = GeneralMethods.getRightSide(p.getEyeLocation().add(p.getEyeLocation().getDirection().multiply(0.36)), 0.18);
 		Location leftEye = GeneralMethods.getLeftSide(p.getEyeLocation().add(p.getEyeLocation().getDirection().multiply(0.36)), 0.18);
