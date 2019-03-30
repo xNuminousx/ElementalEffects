@@ -25,7 +25,7 @@ public class Indicator {
 	
 	public static Indicators getIndicator(Player player) {
 		HashMap<Player, Indicator> inds = Main.plugin.inds;
-		return inds.get(player).getType();
+		return !inds.containsKey(player) ? null : inds.get(player).getType();
 	}
 	
 	public static void removeIndicator(Player player) {

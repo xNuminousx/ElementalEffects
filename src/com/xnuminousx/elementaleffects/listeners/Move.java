@@ -22,6 +22,7 @@ import com.xnuminousx.elementaleffects.trails.IceTrail;
 import com.xnuminousx.elementaleffects.trails.Intensity;
 import com.xnuminousx.elementaleffects.trails.SandTrail;
 import com.xnuminousx.elementaleffects.trails.WaterTrail;
+import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Trail;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
@@ -52,66 +53,66 @@ public class Move implements Listener {
 		} else if (trails.containsKey(player)) {
 			Trails type = trails.get(player).getType();
 			
-			if (type.equals(Trails.EARTH)) {
-				if (this.hasEle(bPlayer, Element.EARTH)) {
+			if (type.equals(Trails.EARTH) && Methods.hasPermission(player, EarthTrail.getName())) {
+				if (this.hasEle(Element.EARTH)) {
 					new EarthTrail(player);
 				} else {
 					return;
 				}
-			} else if (type.equals(Trails.SANDCLOAK)) {
-				if (this.hasEle(bPlayer, Element.EARTH) && this.hasSub(Element.SAND)) {
+			} else if (type.equals(Trails.SANDCLOAK) && Methods.hasPermission(player, SandTrail.getName())) {
+				if (this.hasEle(Element.EARTH) && this.hasSub(SubElement.SAND)) {
 					new SandTrail(player);
 				} else {
 					return;
 				}
 				
 				
-			} else if (type.equals(Trails.AIR)) {
-				if (this.hasEle(bPlayer, Element.AIR)) {
+			} else if (type.equals(Trails.AIR) && Methods.hasPermission(player, AirTrail.getName())) {
+				if (this.hasEle(Element.AIR)) {
 					new AirTrail(player);
 				} else {
 					return;
 				}
 				
 				
-			} else if (type.equals(Trails.FIRE)) {
-				if (this.hasEle(bPlayer, Element.FIRE)) {
+			} else if (type.equals(Trails.FIRE) && Methods.hasPermission(player, FireTrail.getName())) {
+				if (this.hasEle(Element.FIRE)) {
 					new FireTrail(player);
 				} else {
 					return;
 				}
 				
 				
-			} else if (type.equals(Trails.WATER)) {
-				if (this.hasEle(bPlayer, Element.WATER)) {
+			} else if (type.equals(Trails.WATER) && Methods.hasPermission(player, WaterTrail.getName())) {
+				if (this.hasEle(Element.WATER)) {
 					new WaterTrail(player);
 				} else {
 					return;
 				}
-			} else if (type.equals(Trails.ICE)) {
-				if (this.hasEle(bPlayer, Element.WATER) && this.hasEle(bPlayer, Element.ICE)) {
+			} else if (type.equals(Trails.ICE) && Methods.hasPermission(player, IceTrail.getName())) {
+				if (this.hasEle(Element.WATER) && this.hasSub(SubElement.ICE)) {
 					new IceTrail(player);
 				} else {
 					return;
 				}
 				
 				
-			} else if (type.equals(Trails.CHI)) {
-				if (this.hasEle(bPlayer, Element.CHI)) {
+			} else if (type.equals(Trails.CHI) && Methods.hasPermission(player, ChiTrail.getName())) {
+				if (this.hasEle(Element.CHI)) {
 					new ChiTrail(player);
 				} else {
 					return;
 				}
-			} else if (type.equals(Trails.INTENSITY)) {
-				if (this.hasEle(bPlayer, Element.CHI)) {
+			} else if (type.equals(Trails.INTENSITY) && Methods.hasPermission(player, Intensity.getName())) {
+				if (this.hasEle(Element.CHI)) {
 					new Intensity(player);
 				} else {
 					return;
 				}
 				
 				
-			} else if (type.equals(Trails.AVATAR)) {
-				if (this.hasEle(bPlayer, Element.AVATAR)) {
+			} else if (type.equals(Trails.AVATAR) && Methods.hasPermission(player, AvatarTrail.getName())) {
+				if (this.hasEle(Element.AVATAR)) {
 					new AvatarTrail(player);
 				} else {
 					return;
@@ -121,7 +122,7 @@ public class Move implements Listener {
 			return;
 		}
 	}
-	public boolean hasEle(BendingPlayer bPlayer, Element element) {
+	public boolean hasEle(Element element) {
 		boolean reqEle = Manager.requireElement();
 		if (reqEle) {
 			if (bPlayer.hasElement(element)) {

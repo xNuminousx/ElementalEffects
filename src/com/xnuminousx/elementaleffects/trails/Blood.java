@@ -27,7 +27,7 @@ public class Blood {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.BLOOD)) {
+				if (!Methods.hasPermission(player, getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.BLOOD)) {
 					this.cancel();
 				}
 				if (Manager.requireElement()) {

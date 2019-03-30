@@ -26,7 +26,7 @@ public class LavaTrail {
 
 			@Override
 			public void run() {
-				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.ERUPTION)) {
+				if (!Methods.hasPermission(player, getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.ERUPTION)) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);

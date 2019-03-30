@@ -59,7 +59,7 @@ public class Methods {
 	}
 	
 	public static boolean hasPermission(Player player, String suffix) {
-		if (player.hasPermission("elementaleffects." + suffix) || player.isOp()) {
+		if (player.hasPermission("elementaleffects." + suffix.toLowerCase()) || player.isOp()) {
 			return true;
 		} else {
 			return false;

@@ -9,6 +9,7 @@ import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 //Plays with AirTrail
@@ -23,7 +24,7 @@ public class Cloud {
 			
 			@Override
 			public void run() {
-				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.AIR)) {
+				if (!Methods.hasPermission(player, AirTrail.getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.AIR)) {
 					this.cancel();
 				}
 				if (doCloud) {

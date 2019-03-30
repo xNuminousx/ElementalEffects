@@ -23,9 +23,9 @@ public class Trail {
 		return type;
 	}
 	
-	public static Trails getActiveTrail(Player player) {
+	public static Trails getTrail(Player player) {
 		HashMap<Player, Trail> trails = Main.plugin.trails;
-		return trails.get(player).getType();
+		return !trails.containsKey(player) ? null : trails.get(player).getType();
 	}
 	
 	public static void removeTrail(Player player) {

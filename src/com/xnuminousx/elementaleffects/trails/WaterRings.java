@@ -9,6 +9,7 @@ import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
+import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
 //Plays with WaterTrail
@@ -25,7 +26,7 @@ public class WaterRings {
 
 			@Override
 			public void run() {
-				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.WATER)) {
+				if (!Methods.hasPermission(player, WaterTrail.getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.WATER)) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);

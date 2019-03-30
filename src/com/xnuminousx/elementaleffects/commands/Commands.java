@@ -3,12 +3,14 @@ package com.xnuminousx.elementaleffects.commands;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.gui.IndGui;
 import com.xnuminousx.elementaleffects.gui.TrailGui;
@@ -101,6 +103,22 @@ public class Commands implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("ind") || args[0].equalsIgnoreCase("indicators") || args[0].equalsIgnoreCase("indicator")) {
 						IndGui.openGui(player);
 						return true;
+					} else if (args[0].equalsIgnoreCase("get")) {
+						String header = ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + player.getName();
+						sender.sendMessage(headerLeft + header + headerRight);
+						if (!Main.plugin.trails.containsKey(player)) {
+							sender.sendMessage(ChatColor.GREEN + "Active trail: " + ChatColor.YELLOW + "None");
+						} else {
+							Trails trail = Trail.getTrail(player);
+							sender.sendMessage(ChatColor.GREEN + "Active trail: " + ChatColor.YELLOW + Methods.normalizeString(trail.toString()));
+						}
+						if (!Main.plugin.inds.containsKey(player)) {
+							sender.sendMessage(ChatColor.GREEN + "Active indicator: " + ChatColor.YELLOW + "None");
+						} else {
+							Indicators ind = Indicator.getIndicator(player);
+							sender.sendMessage(ChatColor.GREEN + "Active indicator: " + ChatColor.YELLOW + Methods.normalizeString(ind.toString()));
+						}
+						return true;
 					} else if (args[0].equalsIgnoreCase("enable") || args[0].equalsIgnoreCase("set")) {
 						sender.sendMessage(prefix + ChatColor.RED + "Please specify an effect name.");
 						return true;
@@ -116,7 +134,7 @@ public class Commands implements CommandExecutor {
 					}
 				} else {
 					sender.sendMessage("You're not a player!");
-					return false;
+					return true;
 				}
 			} else if (args.length == 2) {
 				if (sender instanceof Player) {
@@ -128,7 +146,7 @@ public class Commands implements CommandExecutor {
 						} else {
 							for (Trails trail : trails) {
 								if (trail.toString().equalsIgnoreCase(args[1])) {
-									if (Methods.hasPermission(player, trail.toString().toLowerCase())) {
+									if (Methods.hasPermission(player, trail.toString())) {
 										sender.sendMessage(this.enabled(ChatColor.AQUA, trail.toString()));
 										Trail.setTrail(player, trail);
 										activateAnimation(player, trail);
@@ -139,7 +157,7 @@ public class Commands implements CommandExecutor {
 							}
 							for (Indicators indicator: inds) {
 								if (indicator.toString().equalsIgnoreCase(args[1])) {
-									if (Methods.hasPermission(player, indicator.toString().toLowerCase())) {
+									if (Methods.hasPermission(player, indicator.toString())) {
 										sender.sendMessage(this.enabled(ChatColor.AQUA, indicator.toString()));
 										Indicator.setIndicator(player, indicator);
 									} else {
@@ -175,7 +193,7 @@ public class Commands implements CommandExecutor {
 								for (Trails trail : trails) {
 									int bullet = trails.indexOf(trail) + 1;
 									String name = Methods.normalizeString(trail.toString());
-									if (Methods.hasPermission(player, trail.toString().toLowerCase())) {
+									if (Methods.hasPermission(player, trail.toString())) {
 										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + name);
 									} else {
 										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + name + " " + 
@@ -189,7 +207,7 @@ public class Commands implements CommandExecutor {
 								for (Indicators indicator: inds) {
 									int bullet = inds.indexOf(indicator) + 1;
 									String name = Methods.normalizeString(indicator.toString());
-									if (Methods.hasPermission(player, indicator.toString().toLowerCase())) {
+									if (Methods.hasPermission(player, indicator.toString())) {
 										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + name);
 									} else {
 										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + name + " " + 
@@ -199,6 +217,29 @@ public class Commands implements CommandExecutor {
 								return true;
 							}
 						}
+					} else if (args[0].equalsIgnoreCase("get")) {
+						for (Player target : Bukkit.getOnlinePlayers()) {
+							if (args[1].equalsIgnoreCase(target.getName())) {
+								String header = ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + target.getName();
+								sender.sendMessage(headerLeft + header + headerRight);
+								if (!Main.plugin.trails.containsKey(target)) {
+									sender.sendMessage(ChatColor.GREEN + "Active trail: " + ChatColor.YELLOW + "None");
+								} else {
+									Trails trail = Trail.getTrail(target);
+									sender.sendMessage(ChatColor.GREEN + "Active trail: " + ChatColor.YELLOW + Methods.normalizeString(trail.toString()));
+								}
+								if (!Main.plugin.inds.containsKey(target)) {
+									sender.sendMessage(ChatColor.GREEN + "Active indicator: " + ChatColor.YELLOW + "None");
+								} else {
+									Indicators ind = Indicator.getIndicator(target);
+									sender.sendMessage(ChatColor.GREEN + "Active indicator: " + ChatColor.YELLOW + Methods.normalizeString(ind.toString()));
+								}
+							} else {
+								sender.sendMessage(prefix + ChatColor.RED + "Invalid player name; player may be offline.");
+							}
+							return true;
+						}
+						
 					}
 				}
 			}
