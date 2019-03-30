@@ -1,6 +1,7 @@
 package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -20,6 +21,8 @@ public class FlameArms {
 	boolean enabled = Main.getInstance().getConfig().getBoolean("Trails.Fire.FlameArms.Enabled");
 	int amount = Main.getInstance().getConfig().getInt("Trails.Fire.FlameArms.Particles.Amount");
 	float speed = Main.getInstance().getConfig().getInt("Trails.Fire.FlameArms.Particles.Speed");
+	boolean vanishInWater = Main.getInstance().getConfig().getBoolean("Trails.Fire.DisappearInWater");
+	boolean boilEffect = Main.getInstance().getConfig().getBoolean("Trails.Fire.BoilEffect");
 	int anglee;
 	int anglee2;
 	int point;
@@ -30,7 +33,7 @@ public class FlameArms {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.FLAMEARMS)) {
+				if (!plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.FIRE)) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
@@ -46,6 +49,21 @@ public class FlameArms {
 	}
 	
 	public void progress(Player p) {
+		Material getBlock = p.getLocation().add(0, 1, 0).getBlock().getType();
+		if (vanishInWater) {
+			if (getBlock.equals(Material.WATER)) {
+				if (boilEffect) {
+					ParticleEffect.WATER_BUBBLE.display(p.getLocation().add(0, 1, 0), 2, 0.5F, 1, 0.5F, 0.5);
+				}
+			} else {
+				animate(p);
+			}
+		} else {
+			animate(p);
+		}
+	}
+	
+	public void animate(Player p) {
 		ParticleEffect.FLAME.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0.15F, 0.15F, 0.15F, speed);
 		ParticleEffect.FLAME.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0.15F, 0.15F, 0.15F, speed);
 		

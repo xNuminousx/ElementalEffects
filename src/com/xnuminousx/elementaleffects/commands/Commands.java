@@ -15,6 +15,7 @@ import com.xnuminousx.elementaleffects.gui.TrailGui;
 import com.xnuminousx.elementaleffects.trails.AeroSphere;
 import com.xnuminousx.elementaleffects.trails.Blood;
 import com.xnuminousx.elementaleffects.trails.Cloud;
+import com.xnuminousx.elementaleffects.trails.Combust;
 import com.xnuminousx.elementaleffects.trails.ElementalRings;
 import com.xnuminousx.elementaleffects.trails.FlameArms;
 import com.xnuminousx.elementaleffects.trails.Float;
@@ -23,6 +24,7 @@ import com.xnuminousx.elementaleffects.trails.SandCloak;
 import com.xnuminousx.elementaleffects.trails.StaticField;
 import com.xnuminousx.elementaleffects.trails.WaterRings;
 import com.xnuminousx.elementaleffects.utils.Indicator;
+import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
 import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Trail;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
@@ -32,26 +34,33 @@ public class Commands implements CommandExecutor {
 	boolean doPrefix = Manager.doPrefix();
 	String prefix;
 	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
+	String headerLeft = ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "   " + ChatColor.RESET + " ";
+	String headerRight = " " + ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "   ";
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String lable, String[] args) {
-		String title = ChatColor.DARK_PURPLE + "" + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "ElementalEffects";
+		String title = ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "ElementalEffects" + ChatColor.RESET;
 		if (doPrefix) {
 			prefix = prefixColor + "ElementalEffects: ";
 		} else {
 			prefix = "";
 		}
-		List<Trails> types = new ArrayList<Trails>();
+		List<Trails> trails = new ArrayList<Trails>();
 		for (Trails trail : Trails.values()) {
-			types.add(trail);
+			trails.add(trail);
+		}
+		
+		List<Indicators> inds = new ArrayList<Indicators>();
+		for (Indicators indicator : Indicators.values()) {
+			inds.add(indicator);
 		}
 		
 		if (lable.equalsIgnoreCase("elementaleffects") || lable.equalsIgnoreCase("ee")) {
 			if (args.length == 0) {
-				sender.sendMessage(ChatColor.DARK_AQUA + "--= " + title + ChatColor.DARK_AQUA + " =--");
+				sender.sendMessage(headerLeft + title + headerRight);
 				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee");
 				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/elementaleffects");
-				sender.sendMessage(" " + ChatColor.YELLOW + "- Shows list of commands");
+				sender.sendMessage(" " + ChatColor.YELLOW + "- Shows a list of commands");
 				
 				sender.sendMessage("");
 				
@@ -67,21 +76,21 @@ public class Commands implements CommandExecutor {
 
 				sender.sendMessage("");
 				
-				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee list");
+				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee list [trail/indicator]");
 				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "none");
-				sender.sendMessage(" " + ChatColor.YELLOW + "- Shows a list of trails.");
+				sender.sendMessage(" " + ChatColor.YELLOW + "- Shows a list of trails or indicators.");
 				
 				sender.sendMessage("");
 				
-				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee enable");
-				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee set");
-				sender.sendMessage(" " + ChatColor.YELLOW + "- Activates a trail without the GUI.");
+				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee enable [name]");
+				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee set [name]");
+				sender.sendMessage(" " + ChatColor.YELLOW + "- Activates a trail or indicator without the GUI.");
 				
 				sender.sendMessage("");
 				
-				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee disable");
-				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee remove");
-				sender.sendMessage(" " + ChatColor.YELLOW + "- Removes your active trail.");
+				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee disable [trail/indicator]");
+				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee remove [trail/indicator]");
+				sender.sendMessage(" " + ChatColor.YELLOW + "- Removes your active trail or indicator.");
 				return true;
 			} else if (args.length == 1) {
 				if (sender instanceof Player) {
@@ -92,24 +101,14 @@ public class Commands implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("ind") || args[0].equalsIgnoreCase("indicators") || args[0].equalsIgnoreCase("indicator")) {
 						IndGui.openGui(player);
 						return true;
+					} else if (args[0].equalsIgnoreCase("enable") || args[0].equalsIgnoreCase("set")) {
+						sender.sendMessage(prefix + ChatColor.RED + "Please specify an effect name.");
+						return true;
 					} else if (args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("remove")) {
-						Trail.removeTrail((Player)sender);
-						Indicator.removeIndicator((Player)sender);
-						sender.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active trail" + ChatColor.RESET + ChatColor.RED + " disabled!");
+						sender.sendMessage(prefix + ChatColor.RED + "Please specify whether to disable a trail or indicator.");
 						return true;
 					} else if (args[0].equalsIgnoreCase("list")) {
-						String header = ChatColor.DARK_PURPLE + "" + "" + ChatColor.BOLD + types.size() + " Active Trails";
-						sender.sendMessage(ChatColor.DARK_AQUA + "--= " + header + ChatColor.DARK_AQUA + " =--");
-						for (Trails trail : types) {
-							int bullet = types.indexOf(trail) + 1;
-							String name = Methods.normalizeString(trail.toString());
-							if (Methods.hasPermission(player, trail.toString().toLowerCase())) {
-								sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + name);
-							} else {
-								sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + name + " " + 
-										ChatColor.DARK_GRAY + "(" + ChatColor.DARK_RED + "No permission" + ChatColor.DARK_GRAY + ")");
-							}
-						}
+						sender.sendMessage(prefix + ChatColor.RED + "Please specify whether to list trails or indicators.");
 						return true;
 					} else {
 						sender.sendMessage(prefix + ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/ee");
@@ -122,12 +121,12 @@ public class Commands implements CommandExecutor {
 			} else if (args.length == 2) {
 				if (sender instanceof Player) {
 					Player player = (Player) sender;
-					if (args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("enable")) {
-						if (args[1].isEmpty()) {
-							sender.sendMessage("Please specify an effect name.");
+					if (args[0].equalsIgnoreCase("enable") || args[0].equalsIgnoreCase("set")) {
+						if (args[1].isEmpty() || args[1].equals(null)) {
+							sender.sendMessage(prefix + ChatColor.RED + "Please specify an effect name.");
 							return true;
 						} else {
-							for (Trails trail : types) {
+							for (Trails trail : trails) {
 								if (trail.toString().equalsIgnoreCase(args[1])) {
 									if (Methods.hasPermission(player, trail.toString().toLowerCase())) {
 										sender.sendMessage(this.enabled(ChatColor.AQUA, trail.toString()));
@@ -138,7 +137,67 @@ public class Commands implements CommandExecutor {
 									}
 								}
 							}
+							for (Indicators indicator: inds) {
+								if (indicator.toString().equalsIgnoreCase(args[1])) {
+									if (Methods.hasPermission(player, indicator.toString().toLowerCase())) {
+										sender.sendMessage(this.enabled(ChatColor.AQUA, indicator.toString()));
+										Indicator.setIndicator(player, indicator);
+									} else {
+										sender.sendMessage(prefix + ChatColor.RED + "You do not have the necessary permissions for that!");
+									}
+								}
+							}
 							return true;
+						}
+					} else if (args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("remove")) {
+						if (args[1].isEmpty() || args[1].equals(null)) {
+							sender.sendMessage(prefix + ChatColor.RED + "Please specify whether to disable a trail or indicator.");
+							return true;
+						} else {
+							if (args[1].equalsIgnoreCase("trails") || args[1].equalsIgnoreCase("trail")) {
+								Trail.removeTrail((Player)sender);
+								sender.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active trail" + ChatColor.RESET + ChatColor.RED + " disabled!");
+								return true;
+							} else if (args[1].equalsIgnoreCase("indicators") || args[1].equalsIgnoreCase("indicator")) {
+								Indicator.removeIndicator((Player)sender);
+								sender.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active indicator" + ChatColor.RESET + ChatColor.RED + " disabled!");
+								return true;
+							}
+						}
+					} else if (args[0].equalsIgnoreCase("list")) {
+						if (args[1].isEmpty() || args[1].equals(null)) {
+							sender.sendMessage(prefix + ChatColor.RED + "Please specify whether to list trails or indicators.");
+							return true;
+						} else {
+							if (args[1].equalsIgnoreCase("trails") || args[1].equalsIgnoreCase("trail")) {
+								String header = ChatColor.DARK_PURPLE + "" + "" + ChatColor.BOLD + trails.size() + " Active Trails";
+								sender.sendMessage(headerLeft + header + headerRight);
+								for (Trails trail : trails) {
+									int bullet = trails.indexOf(trail) + 1;
+									String name = Methods.normalizeString(trail.toString());
+									if (Methods.hasPermission(player, trail.toString().toLowerCase())) {
+										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + name);
+									} else {
+										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + name + " " + 
+												ChatColor.DARK_GRAY + "(" + ChatColor.DARK_RED + "No permission" + ChatColor.DARK_GRAY + ")");
+									}
+								}
+								return true;
+							} else if (args[1].equalsIgnoreCase("indicators") || args[1].equalsIgnoreCase("indicator")) {
+								String header = ChatColor.DARK_PURPLE + "" + "" + ChatColor.BOLD + inds.size() + " Active Indicators";
+								sender.sendMessage(headerLeft + header + headerRight);
+								for (Indicators indicator: inds) {
+									int bullet = inds.indexOf(indicator) + 1;
+									String name = Methods.normalizeString(indicator.toString());
+									if (Methods.hasPermission(player, indicator.toString().toLowerCase())) {
+										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + name);
+									} else {
+										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + name + " " + 
+												ChatColor.DARK_GRAY + "(" + ChatColor.DARK_RED + "No permission" + ChatColor.DARK_GRAY + ")");
+									}
+								}
+								return true;
+							}
 						}
 					}
 				}
@@ -167,6 +226,8 @@ public class Commands implements CommandExecutor {
 			new FlameArms(player);
 		} else if (trail.equals(Trails.STATICFIELD)) {
 			new StaticField(player);
+		} else if (trail.equals(Trails.COMBUST)) {
+			new Combust(player);
 			
 		} else if (trail.equals(Trails.WATER)) {
 			new WaterRings(player);

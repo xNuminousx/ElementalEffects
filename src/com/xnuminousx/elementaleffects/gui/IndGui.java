@@ -115,7 +115,7 @@ public class IndGui implements Listener {
 		} else if (clickedItem.getItemMeta().getDisplayName().contains("Disable Indicator")) {
 			event.setCancelled(true);
 			Indicator.removeIndicator(player);
-			player.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active indicators" + ChatColor.RESET + ChatColor.RED + " disabled!");
+			player.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active indicator" + ChatColor.RESET + ChatColor.RED + " disabled!");
 			closeInv(player);
 			return;
 		} else {

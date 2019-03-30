@@ -80,12 +80,6 @@ public class Move implements Listener {
 				} else {
 					return;
 				}
-			} else if (type.equals(Trails.FLAMEARMS)) {
-				if (this.hasEle(bPlayer, Element.FIRE)) {
-					new FireTrail(player);
-				} else {
-					return;
-				}
 				
 				
 			} else if (type.equals(Trails.WATER)) {

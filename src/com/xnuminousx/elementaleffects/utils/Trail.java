@@ -54,8 +54,8 @@ public class Trail {
 		FLOAT,
 		
 		FIRE,
-		FLAMEARMS,
 		STATICFIELD,
+		COMBUST,
 		
 		CHI,
 		INTENSITY,

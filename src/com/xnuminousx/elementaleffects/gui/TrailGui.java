@@ -25,6 +25,7 @@ import com.xnuminousx.elementaleffects.trails.AvatarTrail;
 import com.xnuminousx.elementaleffects.trails.Blood;
 import com.xnuminousx.elementaleffects.trails.ChiTrail;
 import com.xnuminousx.elementaleffects.trails.Cloud;
+import com.xnuminousx.elementaleffects.trails.Combust;
 import com.xnuminousx.elementaleffects.trails.EarthTrail;
 import com.xnuminousx.elementaleffects.trails.ElementalRings;
 import com.xnuminousx.elementaleffects.trails.FireTrail;
@@ -90,7 +91,8 @@ public class TrailGui implements Listener {
 		//inv.setItem(20, Methods.createItem(p, Material.POTION, Methods.normalizeString(Trails.HYDRO.toString()), ChatColor.BLUE, Trails.HYDRO));
 		inv.setItem(15, Methods.createItem(p, Material.BLAZE_POWDER, FireTrail.getName(), ChatColor.RED, Trails.FIRE));
 		//inv.setItem(24, Methods.createItem(p, Material.FIRE_CHARGE, Methods.normalizeString(Trails.FLAMEARMS.toString()), ChatColor.RED, Trails.FLAMEARMS));
-		inv.setItem(33, Methods.createItem(p, Material.REDSTONE_TORCH, StaticField.getName(), ChatColor.DARK_RED, Trails.STATICFIELD));
+		inv.setItem(24, Methods.createItem(p, Material.REDSTONE_TORCH, StaticField.getName(), ChatColor.BLUE, Trails.STATICFIELD));
+		inv.setItem(33, Methods.createItem(p, Material.NETHER_STAR, Combust.getName(), ChatColor.DARK_RED, Trails.COMBUST));
 		inv.setItem(17, Methods.createItem(p, Material.STRING, AirTrail.getName(), ChatColor.GRAY, Trails.AIR));
 		inv.setItem(26, Methods.createItem(p, Material.COBWEB, AeroSphere.getName(), ChatColor.GRAY, Trails.AEROSPHERE));
 		inv.setItem(35, Methods.createItem(p, Material.FEATHER, Float.getName(), ChatColor.DARK_GRAY, Trails.FLOAT));
@@ -151,6 +153,11 @@ public class TrailGui implements Listener {
 			event.setCancelled(true);
 			manageTrails(player, Trails.STATICFIELD, Element.FIRE, Element.LIGHTNING);
 			new StaticField(player);
+			return;
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Combust.getName())) {
+			event.setCancelled(true);
+			manageTrails(player, Trails.COMBUST, Element.FIRE, Element.COMBUSTION);
+			new Combust(player);
 			return;
 		//WATER	
 		} else if (clickedItem.getItemMeta().getDisplayName().contains(WaterTrail.getName())) {
@@ -215,10 +222,8 @@ public class TrailGui implements Listener {
 		//DISABLE TRAIL	
 		} else if (clickedItem.getItemMeta().getDisplayName().contains("Disable Trail")) {
 			event.setCancelled(true);
-			if (trails.containsKey(player)) {
-				trails.remove(player);
-				player.sendMessage(prefix + ChatColor.RED + "Trail disabled!");
-			}
+			Trail.removeTrail(player);
+			player.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active trail" + ChatColor.RESET + ChatColor.RED + " disabled!");
 			return;
 		} else {
 			event.setCancelled(true);
