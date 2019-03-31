@@ -22,9 +22,14 @@ public class Manager {
 	private void loadConfig() {
 		FileConfiguration config = Main.plugin.getConfig();
 		
+		config.addDefault("Language.Prefix.Enabled", true);
+		config.addDefault("Language.ExpandedHelpList.Enabled", true);
 		config.addDefault("Language.TrailGUIName", "Elemental Trails");
 		config.addDefault("Language.IndicatorGUIName", "Elemental Indicators");
-		config.addDefault("Language.Prefix.Enabled", true);
+		config.addDefault("Language.InvalidEffectName", "Please specify an effect name.");
+		config.addDefault("Language.InvalidPlayerName", "Invalid player name; that player may be offline.");
+		config.addDefault("Language.NoPermissionMessage", "You do not have the necessary permissions for that!");
+		config.addDefault("Language.SpecifyTarget", "Please specify either trail or indicator.");
 		
 		config.addDefault("Properties.RequireElement", false);
 		config.addDefault("Properties.CloseInventoryOnSelect", false);
@@ -130,5 +135,9 @@ public class Manager {
 	
 	public static boolean doPrefix() {
 		return Main.getInstance().getConfig().getBoolean("Language.Prefix.Enabled");
+	}
+	
+	public static boolean doExpand() {
+		return Main.getInstance().getConfig().getBoolean("Language.ExpandedHelpList.Enabled");
 	}
 }

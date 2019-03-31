@@ -34,16 +34,28 @@ import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 public class Commands implements CommandExecutor {
 
 	boolean doPrefix = Manager.doPrefix();
+	boolean showExpanded = Manager.doExpand();
+	
+	List<String> expanded = new ArrayList<String>();
+	List<String> condensed = new ArrayList<String>();
+	
+	//Formatting
 	String prefix;
-	String prefixColor = ChatColor.DARK_AQUA + "" + ChatColor.BOLD;
 	String headerLeft = ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "   " + ChatColor.RESET + " ";
 	String headerRight = " " + ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "   ";
+	String noPermission = ChatColor.DARK_GRAY + "(" + ChatColor.DARK_RED + "No permission" + ChatColor.DARK_GRAY + ")";
+	String title = ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "ElementalEffects" + ChatColor.RESET;
+	
+	//Config statements
+	String invalidEffect = Main.getInstance().getConfig().getString("Language.InvalidEffectName");
+	String invalidPlayer = Main.getInstance().getConfig().getString("Language.InvalidPlayerName");
+	String noPerm = Main.getInstance().getConfig().getString("Language.NoPermissionMessage");
+	String specifyTarget = Main.getInstance().getConfig().getString("Language.SpecifyTarget");
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String lable, String[] args) {
-		String title = ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "ElementalEffects" + ChatColor.RESET;
 		if (doPrefix) {
-			prefix = prefixColor + "ElementalEffects: ";
+			prefix = ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "ElementalEffects: ";
 		} else {
 			prefix = "";
 		}
@@ -59,40 +71,15 @@ public class Commands implements CommandExecutor {
 		
 		if (lable.equalsIgnoreCase("elementaleffects") || lable.equalsIgnoreCase("ee")) {
 			if (args.length == 0) {
-				sender.sendMessage(headerLeft + title + headerRight);
-				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee");
-				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/elementaleffects");
-				sender.sendMessage(" " + ChatColor.YELLOW + "- Shows a list of commands");
-				
-				sender.sendMessage("");
-				
-				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee trails");
-				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee trail, /ee effects");
-				sender.sendMessage(" " + ChatColor.YELLOW + "- Opens the trail GUI.");
-
-				sender.sendMessage("");
-				
-				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee indicators");
-				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee indicator, /ee ind");
-				sender.sendMessage(" " + ChatColor.YELLOW + "- Opens the indicators GUI.");
-
-				sender.sendMessage("");
-				
-				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee list [trail/indicator]");
-				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "none");
-				sender.sendMessage(" " + ChatColor.YELLOW + "- Shows a list of trails or indicators.");
-				
-				sender.sendMessage("");
-				
-				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee enable [name]");
-				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee set [name]");
-				sender.sendMessage(" " + ChatColor.YELLOW + "- Activates a trail or indicator without the GUI.");
-				
-				sender.sendMessage("");
-				
-				sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee disable [trail/indicator]");
-				sender.sendMessage(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee remove [trail/indicator]");
-				sender.sendMessage(" " + ChatColor.YELLOW + "- Removes your active trail or indicator.");
+				if (showExpanded) {
+					for (String line : expandedList()) {
+						sender.sendMessage(line);
+					}
+				} else {
+					for (String line : condensedList()) {
+						sender.sendMessage(line);
+					}
+				}
 				return true;
 			} else if (args.length == 1) {
 				if (sender instanceof Player) {
@@ -120,13 +107,13 @@ public class Commands implements CommandExecutor {
 						}
 						return true;
 					} else if (args[0].equalsIgnoreCase("enable") || args[0].equalsIgnoreCase("set")) {
-						sender.sendMessage(prefix + ChatColor.RED + "Please specify an effect name.");
+						sender.sendMessage(prefix + ChatColor.RED + invalidEffect);
 						return true;
 					} else if (args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("remove")) {
-						sender.sendMessage(prefix + ChatColor.RED + "Please specify whether to disable a trail or indicator.");
+						sender.sendMessage(prefix + ChatColor.RED + specifyTarget);
 						return true;
 					} else if (args[0].equalsIgnoreCase("list")) {
-						sender.sendMessage(prefix + ChatColor.RED + "Please specify whether to list trails or indicators.");
+						sender.sendMessage(prefix + ChatColor.RED + specifyTarget);
 						return true;
 					} else {
 						sender.sendMessage(prefix + ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/ee");
@@ -140,82 +127,65 @@ public class Commands implements CommandExecutor {
 				if (sender instanceof Player) {
 					Player player = (Player) sender;
 					if (args[0].equalsIgnoreCase("enable") || args[0].equalsIgnoreCase("set")) {
-						if (args[1].isEmpty() || args[1].equals(null)) {
-							sender.sendMessage(prefix + ChatColor.RED + "Please specify an effect name.");
-							return true;
-						} else {
-							for (Trails trail : trails) {
-								if (trail.toString().equalsIgnoreCase(args[1])) {
-									if (Methods.hasPermission(player, trail.toString())) {
-										sender.sendMessage(this.enabled(ChatColor.AQUA, trail.toString()));
-										Trail.setTrail(player, trail);
-										activateAnimation(player, trail);
-									} else {
-										sender.sendMessage(prefix + ChatColor.RED + "You do not have the necessary permissions for that!");
-									}
+						for (Trails trail : Trails.values()) {
+							if (trail.toString().equalsIgnoreCase(args[1])) {
+								if (Methods.hasPermission(player, trail.toString())) {
+									sender.sendMessage(this.enabled(ChatColor.AQUA, trail.toString()));
+									Trail.setTrail(player, trail);
+									activateAnimation(player, trail);
+								} else {
+									sender.sendMessage(prefix + ChatColor.RED + noPerm);
 								}
 							}
-							for (Indicators indicator: inds) {
-								if (indicator.toString().equalsIgnoreCase(args[1])) {
-									if (Methods.hasPermission(player, indicator.toString())) {
-										sender.sendMessage(this.enabled(ChatColor.AQUA, indicator.toString()));
-										Indicator.setIndicator(player, indicator);
-									} else {
-										sender.sendMessage(prefix + ChatColor.RED + "You do not have the necessary permissions for that!");
-									}
-								}
-							}
-							return true;
 						}
-					} else if (args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("remove")) {
-						if (args[1].isEmpty() || args[1].equals(null)) {
-							sender.sendMessage(prefix + ChatColor.RED + "Please specify whether to disable a trail or indicator.");
-							return true;
-						} else {
-							if (args[1].equalsIgnoreCase("trails") || args[1].equalsIgnoreCase("trail")) {
-								Trail.removeTrail((Player)sender);
-								sender.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active trail" + ChatColor.RESET + ChatColor.RED + " disabled!");
-								return true;
-							} else if (args[1].equalsIgnoreCase("indicators") || args[1].equalsIgnoreCase("indicator")) {
-								Indicator.removeIndicator((Player)sender);
-								sender.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active indicator" + ChatColor.RESET + ChatColor.RED + " disabled!");
-								return true;
+						for (Indicators indicator: Indicators.values()) {
+							if (indicator.toString().equalsIgnoreCase(args[1])) {
+								if (Methods.hasPermission(player, indicator.toString())) {
+									sender.sendMessage(this.enabled(ChatColor.AQUA, indicator.toString()));
+									Indicator.setIndicator(player, indicator);
+								} else {
+									sender.sendMessage(prefix + ChatColor.RED + noPerm);
+								}
 							}
+						}
+						return true;
+					} else if (args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("remove")) {
+						if (args[1].equalsIgnoreCase("trails") || args[1].equalsIgnoreCase("trail")) {
+							Trail.removeTrail((Player)sender);
+							sender.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active trail" + ChatColor.RESET + ChatColor.RED + " disabled!");
+							return true;
+						} else if (args[1].equalsIgnoreCase("indicators") || args[1].equalsIgnoreCase("indicator")) {
+							Indicator.removeIndicator((Player)sender);
+							sender.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "Active indicator" + ChatColor.RESET + ChatColor.RED + " disabled!");
+							return true;
 						}
 					} else if (args[0].equalsIgnoreCase("list")) {
-						if (args[1].isEmpty() || args[1].equals(null)) {
-							sender.sendMessage(prefix + ChatColor.RED + "Please specify whether to list trails or indicators.");
-							return true;
-						} else {
-							if (args[1].equalsIgnoreCase("trails") || args[1].equalsIgnoreCase("trail")) {
-								String header = ChatColor.DARK_PURPLE + "" + "" + ChatColor.BOLD + trails.size() + " Active Trails";
-								sender.sendMessage(headerLeft + header + headerRight);
-								for (Trails trail : trails) {
-									int bullet = trails.indexOf(trail) + 1;
-									String name = Methods.normalizeString(trail.toString());
-									if (Methods.hasPermission(player, trail.toString())) {
-										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + name);
-									} else {
-										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + name + " " + 
-												ChatColor.DARK_GRAY + "(" + ChatColor.DARK_RED + "No permission" + ChatColor.DARK_GRAY + ")");
-									}
+						if (args[1].equalsIgnoreCase("trails") || args[1].equalsIgnoreCase("trail")) {
+							String header = ChatColor.DARK_PURPLE + "" + "" + ChatColor.BOLD + Trails.values().length + " Trails";
+							sender.sendMessage(headerLeft + header + headerRight);
+							for (Trails trail : Trails.values()) {
+								int bullet = trails.indexOf(trail) + 1;
+								String name = Methods.normalizeString(trail.toString());
+								if (Methods.hasPermission(player, trail.toString())) {
+									sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + name);
+								} else {
+									sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + name + " " + noPermission);
 								}
-								return true;
-							} else if (args[1].equalsIgnoreCase("indicators") || args[1].equalsIgnoreCase("indicator")) {
-								String header = ChatColor.DARK_PURPLE + "" + "" + ChatColor.BOLD + inds.size() + " Active Indicators";
-								sender.sendMessage(headerLeft + header + headerRight);
-								for (Indicators indicator: inds) {
-									int bullet = inds.indexOf(indicator) + 1;
-									String name = Methods.normalizeString(indicator.toString());
-									if (Methods.hasPermission(player, indicator.toString())) {
-										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + name);
-									} else {
-										sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + name + " " + 
-												ChatColor.DARK_GRAY + "(" + ChatColor.DARK_RED + "No permission" + ChatColor.DARK_GRAY + ")");
-									}
-								}
-								return true;
 							}
+							return true;
+						} else if (args[1].equalsIgnoreCase("indicators") || args[1].equalsIgnoreCase("indicator")) {
+							String header = ChatColor.DARK_PURPLE + "" + "" + ChatColor.BOLD + Indicators.values().length + " Indicators";
+							sender.sendMessage(headerLeft + header + headerRight);
+							for (Indicators indicator: Indicators.values()) {
+								int bullet = inds.indexOf(indicator) + 1;
+								String name = Methods.normalizeString(indicator.toString());
+								if (Methods.hasPermission(player, indicator.toString())) {
+									sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.YELLOW + name);
+								} else {
+									sender.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + bullet + ". " + ChatColor.RED + name + " " + noPermission);
+								}
+							}
+							return true;
 						}
 					} else if (args[0].equalsIgnoreCase("get")) {
 						for (Player target : Bukkit.getOnlinePlayers()) {
@@ -235,7 +205,7 @@ public class Commands implements CommandExecutor {
 									sender.sendMessage(ChatColor.GREEN + "Active indicator: " + ChatColor.YELLOW + Methods.normalizeString(ind.toString()));
 								}
 							} else {
-								sender.sendMessage(prefix + ChatColor.RED + "Invalid player name; player may be offline.");
+								sender.sendMessage(prefix + ChatColor.RED + invalidPlayer);
 							}
 							return true;
 						}
@@ -280,6 +250,49 @@ public class Commands implements CommandExecutor {
 		} else {
 			return;
 		}
+	}
+	
+	public List<String> expandedList() {
+		expanded.add(headerLeft + title + headerRight);
+		expanded.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee");
+		expanded.add(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/elementaleffects");
+		expanded.add(" " + ChatColor.YELLOW + "- Shows a list of commands.");
+		expanded.add("");
+		expanded.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee trails");
+		expanded.add(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee trail, /ee effects");
+		expanded.add(" " + ChatColor.YELLOW + "- Opens the trail GUI.");
+		expanded.add("");
+		expanded.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee indicators");
+		expanded.add(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee indicator, /ee ind");
+		expanded.add(" " + ChatColor.YELLOW + "- Opens the indicators GUI.");
+		expanded.add("");
+		expanded.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee get [name]");
+		expanded.add(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "none");
+		expanded.add(" " + ChatColor.YELLOW + "- Gets the effect information of a player.");
+		expanded.add("");
+		expanded.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee list [trail/indicator]");
+		expanded.add(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "none");
+		expanded.add(" " + ChatColor.YELLOW + "- Shows a list of trails or indicators.");
+		expanded.add("");
+		expanded.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee enable [name]");
+		expanded.add(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee set [name]");
+		expanded.add(" " + ChatColor.YELLOW + "- Activates a trail or indicator without the GUI.");
+		expanded.add("");
+		expanded.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee disable [trail/indicator]");
+		expanded.add(" " + ChatColor.GRAY + "Alias: " + ChatColor.ITALIC + "/ee remove [trail/indicator]");
+		expanded.add(" " + ChatColor.YELLOW + "- Removes your active trail or indicator.");
+		return expanded;
+	}
+	
+	public List<String> condensedList() {
+		condensed.add(headerLeft + title + headerRight);
+		condensed.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee " + ChatColor.YELLOW + "- Shows a list of commands");
+		condensed.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee [trail/indicator] " + ChatColor.YELLOW + "- Opens the trail/indicator GUI");
+		condensed.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee get [name] " + ChatColor.YELLOW + "- Gets the effect information of a player.");
+		condensed.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee list [trail/indicator] " + ChatColor.YELLOW + "- Shows a list of all trails or indicators.");
+		condensed.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee enable [effect name] " + ChatColor.YELLOW + "- Activates a trail or indicator without the GUI.");
+		condensed.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee disable [trail/indicator] " + ChatColor.YELLOW + "- Disables your active trail or indicator.");
+		return condensed;
 	}
 
 }
