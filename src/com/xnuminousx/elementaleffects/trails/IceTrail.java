@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
@@ -22,7 +23,7 @@ public class IceTrail {
 	public IceTrail(Player player) {
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
 		if (Manager.requireElement()) {
-			if (bPlayer.hasElement(Element.WATER)) {
+			if (bPlayer.hasElement(Element.WATER) && bPlayer.hasSubElement(SubElement.ICE)) {
 				progress(player);
 			}
 		} else {

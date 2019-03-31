@@ -9,6 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
@@ -31,7 +32,7 @@ public class LavaTrail {
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
 				if (Manager.requireElement()) {
-					if (bPlayer.hasElement(Element.EARTH)) {
+					if (bPlayer.hasElement(Element.EARTH) && bPlayer.hasSubElement(SubElement.LAVA)) {
 						progress(player);
 					}
 				} else {

@@ -6,6 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
@@ -29,7 +30,7 @@ public class Float {
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
 				if (Manager.requireElement()) {
-					if (bPlayer.hasElement(Element.AIR)) {
+					if (bPlayer.hasElement(Element.AIR) && bPlayer.hasSubElement(SubElement.FLIGHT)) {
 						progress(player);
 					}
 				} else {

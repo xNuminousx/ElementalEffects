@@ -38,6 +38,8 @@ public class Commands implements CommandExecutor {
 	
 	List<String> expanded = new ArrayList<String>();
 	List<String> condensed = new ArrayList<String>();
+	List<Trails> trails = new ArrayList<Trails>();
+	List<Indicators> inds = new ArrayList<Indicators>();
 	
 	//Formatting
 	String prefix;
@@ -59,12 +61,10 @@ public class Commands implements CommandExecutor {
 		} else {
 			prefix = "";
 		}
-		List<Trails> trails = new ArrayList<Trails>();
 		for (Trails trail : Trails.values()) {
 			trails.add(trail);
 		}
 		
-		List<Indicators> inds = new ArrayList<Indicators>();
 		for (Indicators indicator : Indicators.values()) {
 			inds.add(indicator);
 		}
@@ -130,7 +130,7 @@ public class Commands implements CommandExecutor {
 						for (Trails trail : Trails.values()) {
 							if (trail.toString().equalsIgnoreCase(args[1])) {
 								if (Methods.hasPermission(player, trail.toString())) {
-									sender.sendMessage(this.enabled(ChatColor.AQUA, trail.toString()));
+									sender.sendMessage(this.enabled(ChatColor.AQUA, Methods.normalizeString(trail.toString())));
 									Trail.setTrail(player, trail);
 									activateAnimation(player, trail);
 								} else {
@@ -141,7 +141,7 @@ public class Commands implements CommandExecutor {
 						for (Indicators indicator: Indicators.values()) {
 							if (indicator.toString().equalsIgnoreCase(args[1])) {
 								if (Methods.hasPermission(player, indicator.toString())) {
-									sender.sendMessage(this.enabled(ChatColor.AQUA, indicator.toString()));
+									sender.sendMessage(this.enabled(ChatColor.AQUA, Methods.normalizeString(indicator.toString())));
 									Indicator.setIndicator(player, indicator);
 								} else {
 									sender.sendMessage(prefix + ChatColor.RED + noPerm);
@@ -220,6 +220,7 @@ public class Commands implements CommandExecutor {
 	public String enabled(ChatColor color, String trailName) {
 		return prefix + color + "" + ChatColor.BOLD + trailName + ChatColor.RESET + ChatColor.GREEN + " enabled!";
 	}
+	
 	public void activateAnimation(Player player, Trails trail) {
 		if (trail.equals(Trails.SANDCLOAK)) {
 			new SandCloak(player);

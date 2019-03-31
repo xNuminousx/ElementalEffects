@@ -9,6 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
@@ -67,7 +68,7 @@ public class SandCloak {
 	public boolean hasElement(Player player) {
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
 		if (Manager.requireElement()) {
-			if (bPlayer.hasElement(Element.EARTH)) {
+			if (bPlayer.hasElement(Element.EARTH) && bPlayer.hasSubElement(SubElement.SAND)) {
 				return true;
 			} else {
 				return false;
