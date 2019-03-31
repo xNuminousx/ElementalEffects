@@ -46,7 +46,8 @@ public class Commands implements CommandExecutor {
 	String headerLeft = ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "   " + ChatColor.RESET + " ";
 	String headerRight = " " + ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "   ";
 	String noPermission = ChatColor.DARK_GRAY + "(" + ChatColor.DARK_RED + "No permission" + ChatColor.DARK_GRAY + ")";
-	String title = ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "ElementalEffects" + ChatColor.RESET;
+	String version = Main.plugin.getDescription().getVersion();
+	String title = ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "ElementalEffects v" + version;
 	
 	//Config statements
 	String invalidEffect = Main.getInstance().getConfig().getString("Language.InvalidEffectName");
@@ -105,6 +106,7 @@ public class Commands implements CommandExecutor {
 							Indicators ind = Indicator.getIndicator(player);
 							sender.sendMessage(ChatColor.GREEN + "Active indicator: " + ChatColor.YELLOW + Methods.normalizeString(ind.toString()));
 						}
+						sender.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Version: " + version);
 						return true;
 					} else if (args[0].equalsIgnoreCase("enable") || args[0].equalsIgnoreCase("set")) {
 						sender.sendMessage(prefix + ChatColor.RED + invalidEffect);
@@ -204,6 +206,7 @@ public class Commands implements CommandExecutor {
 									Indicators ind = Indicator.getIndicator(target);
 									sender.sendMessage(ChatColor.GREEN + "Active indicator: " + ChatColor.YELLOW + Methods.normalizeString(ind.toString()));
 								}
+								sender.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Version: " + version);
 							} else {
 								sender.sendMessage(prefix + ChatColor.RED + invalidPlayer);
 							}
