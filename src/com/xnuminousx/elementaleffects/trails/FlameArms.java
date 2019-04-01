@@ -33,7 +33,7 @@ public class FlameArms {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (!Methods.hasPermission(player, FireTrail.getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.FIRE)) {
+				if (!Methods.hasPermission(player, "trails", FireTrail.getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.FIRE)) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);

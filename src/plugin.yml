@@ -11,3 +11,136 @@ commands:
     usage: /<command>
     aliases: elementaleffects
     description: Shows a list of commands for ElementalEffects.
+    
+permissions:
+   elementaleffects.trails.aerosphere:
+      description: Access to the AeroSphere trail.
+      default: op
+   elementaleffects.trails.air:
+      description: Access to the Air trail.
+      default: op
+   elementaleffects.trails.avatar:
+      description: Access to the Avatar trail.
+      default: op
+   elementaleffects.trails.blood:
+      description: Access to the Blood trail.
+      default: op
+   elementaleffects.trails.chi:
+      description: Access to the Chi trail.
+      default: op
+   elementaleffects.trails.combust:
+      description: Access to the Combust trail.
+      default: op
+   elementaleffects.trails.earth:
+      description: Access to the Earth trail.
+      default: op
+   elementaleffects.trails.elementalrings:
+      description: Access to the ElementalRings trail.
+      default: op
+   elementaleffects.trails.fire:
+      description: Access to the Fire trail.
+      default: op
+   elementaleffects.trails.float:
+      description: Access to the Float trail.
+      default: op
+   elementaleffects.trails.ice:
+      description: Access to the Ice trail.
+      default: op
+   elementaleffects.trails.intensity:
+      description: Access to the Intensity trail.
+      default: op
+   elementaleffects.trails.eruption:
+      description: Access to the Eruption trail.
+      default: op
+   elementaleffects.trails.sandcloak:
+      description: Access to the SandCloak trail.
+      default: op
+   elementaleffects.trails.staticfield:
+      description: Access to the StaticField trail.
+      default: op
+   elementaleffects.trails.water:
+      description: Access to the Water trail.
+      default: op
+     
+   elementaleffects.indicators.avatarstate:
+      description: Access to the AvatarState indicator.
+      default: op
+   elementaleffects.indicators.hit:
+      description: Access to the Hit indicator.
+      default: op
+   elementaleffects.indicators.moon:
+      description: Access to the Moon indicator.
+      default: op
+   elementaleffects.indicators.sun:
+      description: Access to the Sun indicator.
+      default: op
+      
+   elementaleffects.commands.get:
+      description: Access to getting effect information of a player.
+      default: op
+   elementaleffects.commands.list:
+      description: Access to getting a list of trails.
+      default: true
+   elementaleffects.commands.trails:
+      description: Access to the trail GUI.
+      default: true
+   elementaleffects.commands.indicators:
+      description: Access to the indicator GUI.
+      default: true
+   elementaleffects.commands.remove:
+      description: Access to remove active trails.
+      default: true
+   elementaleffects.commands.set:
+      description: Access to setting a trail via command.
+      default: true
+      
+   elementaleffects.commands.*:
+      description: Allows access to all ElementalEffects commands.
+      default: op
+      children:
+               elementaleffects.commands.get: true
+               elementaleffects.commands.indicators: true
+               elementaleffects.commands.list: true
+               elementaleffects.commands.remove: true
+               elementaleffects.commands.set: true
+               elementaleffects.commands.trails: true
+               
+   elementaleffects.indicators.*:
+      description: Allows access to all ElementalEffects indicators.
+      default: op
+      children:
+               elementaleffects.indicators.avatarstate: true
+               elementaleffects.indicators.hit: true
+               elementaleffects.indicators.moon: true
+               elementaleffects.indicators.sun: true
+           
+   elementaleffects.trails.*:
+      description: Allows access to all ElementalEffects trails.
+      default: op
+      children:
+               elementaleffects.trails.aerosphere: true
+               elementaleffects.trails.air: true
+               elementaleffects.trails.avatar: true
+               elementaleffects.trails.blood: true
+               elementaleffects.trails.chi: true
+               elementaleffects.trails.combust: true
+               elementaleffects.trails.earth: true
+               elementaleffects.trails.elementalrings: true
+               elementaleffects.trails.fire: true
+               elementaleffects.trails.float: true
+               elementaleffects.trails.ice: true
+               elementaleffects.trails.intensity: true
+               elementaleffects.trails.eruption: true
+               elementaleffects.trails.sandcloak: true
+               elementaleffects.trails.staticfield: true
+               elementaleffects.trails.water: true               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               

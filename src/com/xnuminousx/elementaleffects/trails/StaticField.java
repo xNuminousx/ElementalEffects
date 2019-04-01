@@ -6,6 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
+import com.projectkorra.projectkorra.Element.SubElement;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
@@ -27,12 +28,12 @@ public class StaticField {
 
 			@Override
 			public void run() {
-				if (!Methods.hasPermission(player, getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.STATICFIELD)) {
+				if (!Methods.hasPermission(player, "trails", getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.STATICFIELD)) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
 				if (Manager.requireElement()) {
-					if (bPlayer.hasElement(Element.FIRE)) {
+					if (bPlayer.hasElement(Element.FIRE) && bPlayer.hasSubElement(SubElement.LIGHTNING)) {
 						progress(player);
 					}
 				} else {

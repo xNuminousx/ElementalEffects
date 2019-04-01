@@ -233,8 +233,13 @@ public class TrailGui implements Listener {
 	
 	public void setTrail(Player player, Trails type) {
 		if (trails.containsKey(player)) {
-			trails.remove(player);
-			player.sendMessage(this.disabled(ChatColor.AQUA, Methods.normalizeString(type.toString())));
+			if (type == trails.get(player).getType()) {
+				trails.remove(player);
+				player.sendMessage(this.disabled(ChatColor.AQUA, Methods.normalizeString(type.toString())));
+			} else {
+				trails.put(player, new Trail(type));
+				player.sendMessage(this.enabled(ChatColor.AQUA, Methods.normalizeString(type.toString())));
+			}
 		} else {
 			trails.put(player, new Trail(type));
 			player.sendMessage(this.enabled(ChatColor.AQUA, Methods.normalizeString(type.toString())));
@@ -244,9 +249,9 @@ public class TrailGui implements Listener {
 	public void manageTrails(Player player, Trails type, Element element, SubElement sub) {
 		BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
 		
-		if (Methods.hasPermission(player, type.toString().toLowerCase())) {
+		if (Methods.hasPermission(player, "trails", type.toString().toLowerCase())) {
 			if (reqEle) {
-				if (bPlayer.hasElement(element) || bPlayer.hasSubElement(sub)) {
+				if (bPlayer.hasElement(element) && bPlayer.hasSubElement(sub)) {
 					closeInv(player);
 					setTrail(player, type);
 				} else {

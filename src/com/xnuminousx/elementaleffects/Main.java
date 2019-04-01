@@ -40,7 +40,7 @@ public class Main extends JavaPlugin implements Listener {
 						return;
 					} else {
 						Trails trail = Trail.getTrail(player);
-						if (!Methods.hasPermission(player, trail.toString())) {
+						if (!Methods.hasPermission(player, "trails", trail.toString())) {
 							trails.remove(player);
 						}
 					}
@@ -48,7 +48,7 @@ public class Main extends JavaPlugin implements Listener {
 						return;
 					} else {
 						Indicators ind = Indicator.getIndicator(player);
-						if (!Methods.hasPermission(player, ind.toString())) {
+						if (!Methods.hasPermission(player, "indicators", ind.toString())) {
 							inds.remove(player);
 						}
 					}

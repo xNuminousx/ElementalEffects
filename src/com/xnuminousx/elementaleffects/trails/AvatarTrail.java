@@ -8,7 +8,7 @@ import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 public class AvatarTrail {
 
 	public AvatarTrail(Player player) {
-		if (Methods.hasPermission(player, getName())) {
+		if (Methods.hasPermission(player, "trails", getName())) {
 			progress(player);
 		}
 	}

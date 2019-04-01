@@ -27,14 +27,12 @@ public class Blood {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (!Methods.hasPermission(player, getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.BLOOD)) {
+				if (!Methods.hasPermission(player, "trails", getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.BLOOD)) {
 					this.cancel();
 				}
 				if (Manager.requireElement()) {
-					if (bPlayer.hasElement(Element.WATER) || bPlayer.hasElement(Element.BLOOD)) {
+					if (bPlayer.hasElement(Element.WATER) && bPlayer.hasElement(Element.BLOOD)) {
 						progress(player);
-					} else {
-						this.cancel();
 					}
 				} else {
 					progress(player);

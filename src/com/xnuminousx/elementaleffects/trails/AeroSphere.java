@@ -27,7 +27,7 @@ public class AeroSphere {
 			
 			@Override
 			public void run() {
-				if (!Methods.hasPermission(player, getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.AEROSPHERE)) {
+				if (!Methods.hasPermission(player, "trails", getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.AEROSPHERE)) {
 					this.cancel();
 				}
 				if (Manager.requireElement()) {

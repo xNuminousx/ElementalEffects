@@ -28,7 +28,7 @@ public class Methods {
 		hasPerm.add(ChatColor.GREEN + "Enable" + ChatColor.GRAY + " / " + ChatColor.DARK_RED + "Disable");
 		noPerm.add(ChatColor.DARK_RED + "" + ChatColor.BOLD + "No permission!");
 		itemMeta.setDisplayName(color + "" + ChatColor.BOLD + name);
-		if (p.hasPermission("elementaleffects." + type.toString()) || p.hasPermission("elementaleffects.*")) {
+		if (hasPermission(p, "trails", type.toString())) {
 			itemMeta.setLore(hasPerm);
 		} else {
 			itemMeta.setLore(noPerm);
@@ -47,7 +47,7 @@ public class Methods {
 		hasPerm.add(ChatColor.GREEN + "Enable" + ChatColor.GRAY + " / " + ChatColor.DARK_RED + "Disable");
 		noPerm.add(ChatColor.DARK_RED + "" + ChatColor.BOLD + "No permission!");
 		itemMeta.setDisplayName(color + "" + ChatColor.BOLD + name);
-		if (p.hasPermission("elementaleffects." + type.toString()) || p.hasPermission("elementaleffects.*")) {
+		if (hasPermission(p, "indicators", type.toString())) {
 			itemMeta.setLore(hasPerm);
 		} else {
 			itemMeta.setLore(noPerm);
@@ -58,8 +58,10 @@ public class Methods {
 		return itemType;
 	}
 	
-	public static boolean hasPermission(Player player, String suffix) {
-		if (player.hasPermission("elementaleffects." + suffix.toLowerCase()) || player.isOp()) {
+	public static boolean hasPermission(Player player, String type, String suffix) {
+		if (player.hasPermission("elementaleffects." + type.toLowerCase() + "." + suffix.toLowerCase()) || 
+				player.hasPermission("elementaleffects." + type.toLowerCase() + ".*") ||
+				player.isOp()) {
 			return true;
 		} else {
 			return false;

@@ -135,7 +135,7 @@ public class IndGui implements Listener {
 	}
 	
 	public void manageInds(Player player, Indicators type) {
-		if (Methods.hasPermission(player, type.toString().toLowerCase())) {
+		if (Methods.hasPermission(player, "indicators", type.toString().toLowerCase())) {
 			closeInv(player);
 			setIndicator(player, type);
 		} else {

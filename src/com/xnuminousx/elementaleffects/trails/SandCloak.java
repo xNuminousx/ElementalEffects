@@ -29,7 +29,7 @@ public class SandCloak {
 			@Override
 			public void run() {
 				Block getBlock = player.getLocation().add(0, -1.5, 0).getBlock();
-				if (!Methods.hasPermission(player, SandTrail.getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.SANDCLOAK)) {
+				if (!Methods.hasPermission(player, "trails", SandTrail.getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.SANDCLOAK)) {
 					this.cancel();
 				} else {
 					if (reqSand) {

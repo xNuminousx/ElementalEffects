@@ -25,7 +25,7 @@ public class Float {
 			
 			@Override
 			public void run() {
-				if (!Methods.hasPermission(player, getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.FLOAT)) {
+				if (!Methods.hasPermission(player, "trails", getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.FLOAT)) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
