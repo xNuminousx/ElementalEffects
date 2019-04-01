@@ -133,14 +133,4 @@ permissions:
                elementaleffects.trails.eruption: true
                elementaleffects.trails.sandcloak: true
                elementaleffects.trails.staticfield: true
-               elementaleffects.trails.water: true               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
+               elementaleffects.trails.water: true              
