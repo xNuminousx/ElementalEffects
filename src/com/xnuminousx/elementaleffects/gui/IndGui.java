@@ -35,15 +35,15 @@ public class IndGui implements Listener {
 	boolean reqEle = Manager.requireElement();
 	String indGuiName = Manager.getIndicatorGuiName();
 	
-	public String enabled(ChatColor color, String indName) {
+	String enabled(ChatColor color, String indName) {
 		return prefix + color + "" + ChatColor.BOLD + indName + ChatColor.RESET + ChatColor.GREEN + " enabled!";
 	}
 	
-	public String disabled(ChatColor color, String indName) {
+	String disabled(ChatColor color, String indName) {
 		return prefix + color + "" + ChatColor.BOLD + indName + ChatColor.RESET + ChatColor.RED + " disabled!";
 	}
 	
-	public String noPerm(ChatColor color) {
+	String noPerm(ChatColor color) {
 		return prefix + color + "You don't have the necessary permission!";
 	}
 	
@@ -58,8 +58,8 @@ public class IndGui implements Listener {
 		removeInd.add("Click here to remove your active indicator");
 		
 		
-		inv.setItem(13, Methods.miscItem(Material.END_CRYSTAL, "Open Trail GUI", ChatColor.DARK_AQUA, openTrail));
-		inv.setItem(31, Methods.miscItem(Material.BARRIER, "Disable Indicator", ChatColor.DARK_RED, removeInd));
+		inv.setItem(13, Methods.createItem(Material.END_CRYSTAL, "Open Trail GUI", ChatColor.DARK_AQUA, openTrail));
+		inv.setItem(31, Methods.createItem(Material.BARRIER, "Disable Indicator", ChatColor.DARK_RED, removeInd));
 		inv.setItem(15, Methods.createItem(p, Material.GHAST_TEAR, AvatarStateInd.getName(), ChatColor.DARK_PURPLE, Indicators.AVATARSTATE));
 		inv.setItem(11, Methods.createItem(p, Material.REDSTONE, Methods.normalizeString(Indicators.HIT.toString()), ChatColor.DARK_RED, Indicators.HIT));
 		inv.setItem(29, Methods.createItem(p, Material.ENDER_PEARL, MoonIndicator.getName(), ChatColor.BLUE, Indicators.MOON));

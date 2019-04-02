@@ -80,8 +80,8 @@ public class TrailGui implements Listener {
 		openInd.add("Use this to open the indicator GUI");
 		removeTrail.add("Click here to remove your active trail");
 		
-		inv.setItem(13, Methods.miscItem(Material.END_CRYSTAL, "Open Indicator GUI", ChatColor.DARK_AQUA, openInd));
-		inv.setItem(31, Methods.miscItem(Material.BARRIER, "Disable Trail", ChatColor.DARK_RED, removeTrail));
+		inv.setItem(13, Methods.createItem(Material.END_CRYSTAL, "Open Indicator GUI", ChatColor.DARK_AQUA, openInd));
+		inv.setItem(31, Methods.createItem(Material.BARRIER, "Disable Trail", ChatColor.DARK_RED, removeTrail));
 		inv.setItem(9, Methods.createItem(p, Material.GRASS_BLOCK, EarthTrail.getName(), ChatColor.GREEN, Trails.EARTH));
 		inv.setItem(18, Methods.createItem(p, Material.SAND, SandTrail.getName(), ChatColor.YELLOW, Trails.SANDCLOAK));
 		inv.setItem(27, Methods.createItem(p, Material.MAGMA_CREAM, LavaTrail.getName(), ChatColor.DARK_GREEN, Trails.ERUPTION));

@@ -10,6 +10,10 @@ public class Trail {
 	private Trails type;
 	private String name;
 	
+	/**
+	 * Used when giving a player a trail
+	 * @param type The type of trail
+	 */
 	public Trail(Trails type) {
 		this.type = type;
 		this.name = type.toString();

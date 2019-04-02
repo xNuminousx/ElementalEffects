@@ -38,12 +38,10 @@ public class Commands implements CommandExecutor {
 
 	boolean doPrefix = Manager.doPrefix();
 	boolean showExpanded = Manager.doExpand();
-	
 	List<String> expanded = new ArrayList<String>();
 	List<String> condensed = new ArrayList<String>();
 	List<Trails> trails = new ArrayList<Trails>();
 	List<Indicators> inds = new ArrayList<Indicators>();
-	
 	//Formatting
 	String prefix;
 	String headerLeft = ChatColor.DARK_AQUA + "" + ChatColor.STRIKETHROUGH + "   " + ChatColor.RESET + " ";
@@ -51,7 +49,6 @@ public class Commands implements CommandExecutor {
 	String noPermission = ChatColor.DARK_GRAY + "(" + ChatColor.DARK_RED + "No permission" + ChatColor.DARK_GRAY + ")";
 	String version = Main.plugin.getDescription().getVersion();
 	String title = ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "ElementalEffects v" + version;
-	
 	//Config statements
 	String invalidEffect = Main.getInstance().getConfig().getString("Language.InvalidEffectName");
 	String invalidPlayer = Main.getInstance().getConfig().getString("Language.InvalidPlayerName");
@@ -68,11 +65,9 @@ public class Commands implements CommandExecutor {
 		for (Trails trail : Trails.values()) {
 			trails.add(trail);
 		}
-		
 		for (Indicators indicator : Indicators.values()) {
 			inds.add(indicator);
 		}
-		
 		if (lable.equalsIgnoreCase("elementaleffects") || lable.equalsIgnoreCase("ee")) {
 			if (args.length == 0) {
 				if (showExpanded) {
@@ -266,7 +261,6 @@ public class Commands implements CommandExecutor {
 	public String enabled(ChatColor color, String trailName) {
 		return prefix + color + "" + ChatColor.BOLD + trailName + ChatColor.RESET + ChatColor.GREEN + " enabled!";
 	}
-	
 	public void activateAnimation(Player player, Trails trail) {
 		if (trail.equals(Trails.SANDCLOAK)) {
 			new SandCloak(player);
@@ -298,7 +292,6 @@ public class Commands implements CommandExecutor {
 			return;
 		}
 	}
-	
 	public void activateAnimation(Player player, Indicators indicator) {
 		if (indicator.equals(Indicators.AVATARSTATE)) {
 			new AvatarStateInd(player);
@@ -308,7 +301,6 @@ public class Commands implements CommandExecutor {
 			new SunIndicator(player);
 		}
 	}
-	
 	public List<String> expandedList() {
 		expanded.add(headerLeft + title + headerRight);
 		expanded.add(ChatColor.GREEN + "" + ChatColor.BOLD + "/ee");
@@ -340,7 +332,6 @@ public class Commands implements CommandExecutor {
 		expanded.add(" " + ChatColor.YELLOW + "- Removes your active trail or indicator.");
 		return expanded;
 	}
-	
 	public List<String> condensedList() {
 		condensed.add(headerLeft + title + headerRight);
 		condensed.add(ChatColor.GREEN + "/ee " + ChatColor.YELLOW + "- Shows a list of commands");
@@ -351,5 +342,4 @@ public class Commands implements CommandExecutor {
 		condensed.add(ChatColor.GREEN + "/ee disable [trail/indicator] " + ChatColor.YELLOW + "- Disables your active trail or indicator.");
 		return condensed;
 	}
-
 }

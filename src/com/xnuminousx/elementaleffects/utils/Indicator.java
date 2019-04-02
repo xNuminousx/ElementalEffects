@@ -10,6 +10,10 @@ public class Indicator {
 	private Indicators type;
 	private String name;
 	
+	/**
+	 * Used when giving a player an indicator
+	 * @param type The type of indicator
+	 */
 	public Indicator(Indicators type) {
 		this.type = type;
 		this.name = type.toString();
