@@ -61,7 +61,7 @@ public class Combust {
 			location.add(x, y + 1.3, z);
 			player.getWorld().spawnParticle(Particle.SMOKE_NORMAL, location, 3, 0.05, 0.05, 0.05, 0);
 			if (rand.nextInt(sparkInterval) == 1) {
-				player.getWorld().spawnParticle(Particle.FLAME, location, sparkAmount, 0, 0, 0, 0.05);
+				player.getWorld().spawnParticle(Particle.FLAME, location, sparkAmount, 0, 0, 0, 0.03);
 			}
 			location.subtract(x, y + 1.3, z);
 			

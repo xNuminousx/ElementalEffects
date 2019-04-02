@@ -11,6 +11,26 @@ commands:
     usage: /<command>
     aliases: elementaleffects
     description: Shows a list of commands for ElementalEffects.
+  ee list [trail/indicator]:
+    usage: /<command>
+    description: Shows a list of trails or indicators.
+  ee set [name]:
+    usage: /<command>
+    aliases: ee enable
+    description: Sets a trail or indicator for yourself.
+  ee remove [trail/indicator]:
+    usage: /<command>
+    aliases: ee disable
+    description: Removes a trail/indicator.    
+  ee get [name]:
+    usage: /<command>
+    description: Gets the effect info for target.
+  ee trails:
+    usage: /<command>
+    description: Opens the trail GUI.
+  ee indicators:
+    usage: /<command>
+    description: Opens the indicator GUI.
     
 permissions:
    elementaleffects.trails.aerosphere:

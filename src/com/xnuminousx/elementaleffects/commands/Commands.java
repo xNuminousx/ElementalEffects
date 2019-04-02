@@ -14,6 +14,9 @@ import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.gui.IndGui;
 import com.xnuminousx.elementaleffects.gui.TrailGui;
+import com.xnuminousx.elementaleffects.indicators.AvatarStateInd;
+import com.xnuminousx.elementaleffects.indicators.MoonIndicator;
+import com.xnuminousx.elementaleffects.indicators.SunIndicator;
 import com.xnuminousx.elementaleffects.trails.AeroSphere;
 import com.xnuminousx.elementaleffects.trails.Blood;
 import com.xnuminousx.elementaleffects.trails.Cloud;
@@ -129,7 +132,9 @@ public class Commands implements CommandExecutor {
 						return true;
 					} else if (args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("remove")) {
 						if (Methods.hasPermission(player, "commands", "remove")) {
-							sender.sendMessage(prefix + ChatColor.RED + specifyTarget);
+							Trail.removeTrail((Player)sender);
+							Indicator.removeIndicator((Player)sender);
+							sender.sendMessage(prefix + ChatColor.RED + ChatColor.BOLD + "All effects" + ChatColor.RESET + ChatColor.RED + " disabled!");
 						} else {
 							sender.sendMessage(prefix + ChatColor.RED + noPerm);
 						}
@@ -170,6 +175,7 @@ public class Commands implements CommandExecutor {
 									if (Methods.hasPermission(player, "indicators", indicator.toString())) {
 										sender.sendMessage(this.enabled(ChatColor.AQUA, Methods.normalizeString(indicator.toString())));
 										Indicator.setIndicator(player, indicator);
+										activateAnimation(player, indicator);
 									} else {
 										sender.sendMessage(prefix + ChatColor.RED + noPerm);
 									}
@@ -290,6 +296,16 @@ public class Commands implements CommandExecutor {
 			new ElementalRings(player);
 		} else {
 			return;
+		}
+	}
+	
+	public void activateAnimation(Player player, Indicators indicator) {
+		if (indicator.equals(Indicators.AVATARSTATE)) {
+			new AvatarStateInd(player);
+		} else if (indicator.equals(Indicators.MOON)) {
+			new MoonIndicator(player);
+		} else if (indicator.equals(Indicators.SUN)) {
+			new SunIndicator(player);
 		}
 	}
 	

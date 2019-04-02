@@ -113,7 +113,7 @@ public class Manager {
 		plugin.saveConfig();
 	}
 	
-	public static double maxDamage() {
+	public static double critDamage() {
 		return Main.getInstance().getConfig().getDouble("Indicators.Hit.CriticalDamage");
 	}
 	

@@ -20,16 +20,16 @@ import com.xnuminousx.elementaleffects.utils.Methods;
 public class EntityDamage implements Listener {
 	
 	HashMap<Player, Indicator> inds = Main.plugin.inds;
-	double maxHearts = Manager.maxDamage();
+	double critDmg = Manager.critDamage();
 
 	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent event) {
 		if (event.getDamager() instanceof Player) {
-			Entity target = event.getEntity();
 			Player player = (Player)event.getDamager();
-			double amount = event.getDamage();
 			if (inds.containsKey(player)) {
-				if (event.getEntity() instanceof LivingEntity) {
+				Entity target = event.getEntity();
+				double amount = event.getDamage();
+				if (target instanceof LivingEntity) {
 					bloodEffect(target, amount);
 					return;
 				}
@@ -40,7 +40,7 @@ public class EntityDamage implements Listener {
 	}
 	
 	public void bloodEffect(Entity target, double amount) {
-		if (amount > maxHearts) {
+		if (amount > critDmg) {
 			ItemStack item = new ItemStack(Material.NETHER_WART_BLOCK);
 			target.getWorld().spawnParticle(Particle.ITEM_CRACK, target.getLocation().add(0, 1, 0), 20, 0.3, 0.5, 0.3, 0, item);
 		} else {

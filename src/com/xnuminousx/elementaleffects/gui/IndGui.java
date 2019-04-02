@@ -126,11 +126,16 @@ public class IndGui implements Listener {
 	
 	public void setIndicator(Player player, Indicators type) {
 		if (inds.containsKey(player)) {
-			inds.remove(player);
-			player.sendMessage(this.disabled(ChatColor.AQUA, type.toString()));
+			if (type == inds.get(player).getType()) {
+				inds.remove(player);
+				player.sendMessage(this.disabled(ChatColor.AQUA, Methods.normalizeString(type.toString())));
+			} else {
+				inds.put(player, new Indicator(type));
+				player.sendMessage(this.enabled(ChatColor.AQUA, Methods.normalizeString(type.toString())));
+			}
 		} else {
 			inds.put(player, new Indicator(type));
-			player.sendMessage(this.enabled(ChatColor.AQUA, type.toString()));
+			player.sendMessage(this.enabled(ChatColor.AQUA, Methods.normalizeString(type.toString())));
 		}
 	}
 	
