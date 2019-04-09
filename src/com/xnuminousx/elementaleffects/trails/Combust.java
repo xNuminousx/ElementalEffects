@@ -28,7 +28,10 @@ public class Combust {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (!Methods.hasPermission(player, "trails", getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.COMBUST)) {
+				if (!Methods.hasPermission(player, "trails", getName()) || 
+						!plugin.trails.containsKey(player) || 
+						!plugin.trails.get(player).getType().equals(Trails.COMBUST) ||
+						!player.isOnline()) {
 					this.cancel();
 				}
 				if (Manager.requireElement()) {

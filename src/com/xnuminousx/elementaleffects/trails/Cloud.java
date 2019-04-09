@@ -24,7 +24,10 @@ public class Cloud {
 			
 			@Override
 			public void run() {
-				if (!Methods.hasPermission(player, "trails", AirTrail.getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.AIR)) {
+				if (!Methods.hasPermission(player, "trails", AirTrail.getName()) || 
+						!plugin.trails.containsKey(player) || 
+						!plugin.trails.get(player).getType().equals(Trails.AIR) ||
+						!player.isOnline()) {
 					this.cancel();
 				}
 				if (doCloud) {

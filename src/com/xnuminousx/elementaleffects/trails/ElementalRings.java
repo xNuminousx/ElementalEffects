@@ -53,7 +53,10 @@ public class ElementalRings {
 				if (anglee == 360) {
 					anglee = 0;
 				}
-				if (!Methods.hasPermission(player, "trails", getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.ELEMENTALRINGS)) {
+				if (!Methods.hasPermission(player, "trails", getName()) || 
+						!plugin.trails.containsKey(player) || 
+						!plugin.trails.get(player).getType().equals(Trails.ELEMENTALRINGS) ||
+						!player.isOnline()) {
 					this.cancel();
 				}
 			}

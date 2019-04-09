@@ -26,7 +26,9 @@ public class SunIndicator {
 			
 			@Override
 			public void run() {
-				if (!plugin.inds.containsKey(player) || !plugin.inds.get(player).getType().equals(Indicators.SUN)) {
+				if (!plugin.inds.containsKey(player) || 
+						!plugin.inds.get(player).getType().equals(Indicators.SUN) ||
+						!player.isOnline()) {
 					this.cancel();
 				}
 				progress(player);

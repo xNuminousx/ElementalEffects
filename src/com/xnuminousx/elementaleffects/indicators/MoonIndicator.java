@@ -30,7 +30,9 @@ public class MoonIndicator {
 			
 			@Override
 			public void run() {
-				if (!plugin.inds.containsKey(player) || !plugin.inds.get(player).getType().equals(Indicators.MOON)) {
+				if (!plugin.inds.containsKey(player) || 
+						!plugin.inds.get(player).getType().equals(Indicators.MOON) ||
+						!player.isOnline()) {
 					this.cancel();
 				}
 				progress(player);

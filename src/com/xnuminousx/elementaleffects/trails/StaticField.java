@@ -28,7 +28,10 @@ public class StaticField {
 
 			@Override
 			public void run() {
-				if (!Methods.hasPermission(player, "trails", getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.STATICFIELD)) {
+				if (!Methods.hasPermission(player, "trails", getName()) || 
+						!plugin.trails.containsKey(player) || 
+						!plugin.trails.get(player).getType().equals(Trails.STATICFIELD) ||
+						!player.isOnline()) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);

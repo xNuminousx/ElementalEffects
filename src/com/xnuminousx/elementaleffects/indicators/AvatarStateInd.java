@@ -31,7 +31,9 @@ public class AvatarStateInd {
 			
 			@Override
 			public void run() {
-				if (!plugin.inds.containsKey(player) || !plugin.inds.get(player).getType().equals(Indicators.AVATARSTATE)) {
+				if (!plugin.inds.containsKey(player) || 
+						!plugin.inds.get(player).getType().equals(Indicators.AVATARSTATE) ||
+						!player.isOnline()) {
 					this.cancel();
 				}
 				progress(player);

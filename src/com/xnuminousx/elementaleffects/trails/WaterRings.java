@@ -26,7 +26,10 @@ public class WaterRings {
 
 			@Override
 			public void run() {
-				if (!Methods.hasPermission(player, "trails", WaterTrail.getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.WATER)) {
+				if (!Methods.hasPermission(player, "trails", WaterTrail.getName()) || 
+						!plugin.trails.containsKey(player) || 
+						!plugin.trails.get(player).getType().equals(Trails.WATER) ||
+						!player.isOnline()) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);

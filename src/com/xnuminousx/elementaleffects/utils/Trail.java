@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import com.xnuminousx.elementaleffects.Main;
 
 public class Trail {
+	
 	private Trails type;
 	private String name;
 	

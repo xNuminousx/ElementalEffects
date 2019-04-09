@@ -243,8 +243,6 @@ public class Commands implements CommandExecutor {
 										sender.sendMessage(ChatColor.GREEN + "Active indicator: " + ChatColor.YELLOW + Methods.normalizeString(ind.toString()));
 									}
 									sender.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Version: " + version);
-								} else {
-									sender.sendMessage(prefix + ChatColor.RED + invalidPlayer);
 								}
 							}
 						} else {
