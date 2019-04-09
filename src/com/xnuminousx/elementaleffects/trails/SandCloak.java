@@ -58,9 +58,9 @@ public class SandCloak {
 				double x = Math.cos(Math.toRadians(i)) * cloakRadius;
 				double z = Math.sin(Math.toRadians(i)) * cloakRadius;
 				
-				Methods.playColoredParticle(locUp.add(x, 0.5, z), 1, 0, 0, 0, 251, 255, 186);
-				Methods.playColoredParticle(loc.add(x, 0.1, z), 1, 0, 0, 0, 251, 255, 186);
-				Methods.playColoredParticle(locDown.add(x, -0.3, z), 1, 0, 0, 0, 251, 255, 186);
+				Methods.playColoredParticle(p, locUp.add(x, 0.5, z), 1, 0, 0, 0, 251, 255, 186);
+				Methods.playColoredParticle(p, loc.add(x, 0.1, z), 1, 0, 0, 0, 251, 255, 186);
+				Methods.playColoredParticle(p, locDown.add(x, -0.3, z), 1, 0, 0, 0, 251, 255, 186);
 			}
 		}
 	}

@@ -40,11 +40,11 @@ public class AirTrail {
 			if (getBlock.equals(Material.WATER)) {
 				return;
 			} else {
-				AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), amount, 0.5, 0.5, 0.5, speed);
+				AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, speed, amount);
 				return;
 			}
 		} else {
-			AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), amount, 0.5, 0.5, 0.5, speed);
+			AirAbility.getAirbendingParticles().display(p.getLocation().add(0, 1, 0), 0.5F, 0.5F, 0.5F, speed, amount);
 			return;
 		}
 		

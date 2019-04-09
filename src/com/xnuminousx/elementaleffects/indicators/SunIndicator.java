@@ -1,6 +1,7 @@
 package com.xnuminousx.elementaleffects.indicators;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -8,7 +9,6 @@ import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.FireAbility;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
@@ -73,7 +73,7 @@ public class SunIndicator {
 			double x = 0.4 * Math.cos(angle);
 			double z = 0.4 * Math.sin(angle);
 			location.add(x, 0, z);
-			ParticleEffect.FLAME.display(location, 1, 0, 0, 0, 0.01F);
+			player.getWorld().spawnParticle(Particle.FLAME, location, 1, 0, 0, 0, 0.01F);
 			location.subtract(x, 0, z);
 		}
 		for (int i = 0; i < 8; i++) {
@@ -82,11 +82,11 @@ public class SunIndicator {
 			double x = 0.5 * Math.cos(angle);
 			double z = 0.5 * Math.sin(angle);
 			location.add(x, 0, z);
-			Methods.playColoredParticle(location, 1, 0, 0, 0, 255, 115, 33);
+			Methods.playColoredParticle(player, location, 1, 0, 0, 0, 255, 115, 33);
 			location.subtract(x, 0, z);
 		}
-		ParticleEffect.FLAME.display(GeneralMethods.getRightSide(player.getLocation(), .4).add(0, 0.7, 0), 1, 0.08F, 0.08F, 0.08F, 0.01F);
-		ParticleEffect.FLAME.display(GeneralMethods.getLeftSide(player.getLocation(), .4).add(0, 0.7, 0), 1, 0.08F, 0.08F, 0.08F, 0.01F);
-		ParticleEffect.SMOKE_NORMAL.display(player.getLocation().add(0, 1.7, 0), 2, 0.2F, 0.2F, 0.2F, 0F);
+		player.getWorld().spawnParticle(Particle.FLAME, GeneralMethods.getRightSide(player.getLocation(), .4).add(0, 0.7, 0), 1, 0.08F, 0.08F, 0.08F, 0.01F);
+		player.getWorld().spawnParticle(Particle.FLAME, GeneralMethods.getLeftSide(player.getLocation(), .4).add(0, 0.7, 0), 1, 0.08F, 0.08F, 0.08F, 0.01F);
+		player.getWorld().spawnParticle(Particle.SMOKE_NORMAL, player.getLocation().add(0, 1.7, 0), 2, 0.2F, 0.2F, 0.2F, 0F);
 	}
 }

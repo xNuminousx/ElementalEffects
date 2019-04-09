@@ -13,7 +13,6 @@ import com.xnuminousx.elementaleffects.commands.Commands;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.gui.IndGui;
 import com.xnuminousx.elementaleffects.gui.TrailGui;
-import com.xnuminousx.elementaleffects.listeners.EntityDamage;
 import com.xnuminousx.elementaleffects.listeners.Move;
 import com.xnuminousx.elementaleffects.utils.Indicator;
 import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
@@ -76,7 +75,6 @@ public class Main extends JavaPlugin implements Listener {
 		pm.registerEvents(new TrailGui(), this);
 		pm.registerEvents(new IndGui(), this);
 		pm.registerEvents(new Move(), this);
-		pm.registerEvents(new EntityDamage(), this);
 		pm.registerEvents(this, this);
 	}
 }

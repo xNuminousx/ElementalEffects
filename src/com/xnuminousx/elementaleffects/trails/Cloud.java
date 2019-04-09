@@ -1,12 +1,12 @@
 package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
@@ -45,8 +45,8 @@ public class Cloud {
 		Material getBlock = p.getLocation().add(0, -1, 0).getBlock().getType();
 		
 		if (getBlock.equals(Material.AIR)) {
-			ParticleEffect.SPELL.display(p.getLocation(), 10, 0.5, 0, 0.5, speed);
-			ParticleEffect.CLOUD.display(p.getLocation(), 5, 0.5F, 0.3F, 0.5F, 0);
+			p.getWorld().spawnParticle(Particle.SPELL, p.getLocation(), 10, 0.5, 0, 0.5, speed);
+			p.getWorld().spawnParticle(Particle.CLOUD, p.getLocation(), 5, 0.5F, 0.3F, 0.5F, 0);
 		}
 	}
 }

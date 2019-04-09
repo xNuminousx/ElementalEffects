@@ -7,13 +7,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
@@ -134,10 +134,10 @@ public class Methods {
 	 * @param g The green value
 	 * @param b The blue value
 	 */
-	public static void playColoredParticle(Location location, int amount, double x, double y, double z, int r, int g, int b) {
+	public static void playColoredParticle(Player player, Location location, int amount, double x, double y, double z, int r, int g, int b) {
 		Color color = Color.fromRGB(r, g, b);
 		DustOptions dustOptions = new DustOptions(color, 1);
-		ParticleEffect.REDSTONE.display(location, amount, x, y, z, dustOptions);
+		player.getWorld().spawnParticle(Particle.REDSTONE, location, amount, x, y, z, dustOptions);
 	}
 	
 	/**

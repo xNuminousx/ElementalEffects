@@ -2,6 +2,7 @@ package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -9,7 +10,6 @@ import org.bukkit.util.Vector;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
@@ -53,7 +53,7 @@ public class FlameArms {
 		if (vanishInWater) {
 			if (getBlock.equals(Material.WATER)) {
 				if (boilEffect) {
-					ParticleEffect.WATER_BUBBLE.display(p.getLocation().add(0, 1, 0), 2, 0.5F, 1, 0.5F, 0.5);
+					p.getWorld().spawnParticle(Particle.WATER_BUBBLE, p.getLocation().add(0, 1, 0), 2, 0.5F, 1, 0.5F, 0.5);
 				}
 			} else {
 				animate(p);
@@ -64,8 +64,8 @@ public class FlameArms {
 	}
 	
 	public void animate(Player p) {
-		ParticleEffect.FLAME.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0.15F, 0.15F, 0.15F, speed);
-		ParticleEffect.FLAME.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0.15F, 0.15F, 0.15F, speed);
+		p.getWorld().spawnParticle(Particle.FLAME, GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0.15F, 0.15F, 0.15F, speed);
+		p.getWorld().spawnParticle(Particle.FLAME, GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0.15F, 0.15F, 0.15F, speed);
 		
 		anglee+=10;
 		Location location = GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0);
@@ -77,11 +77,10 @@ public class FlameArms {
 		Methods.rotateAroundAxisY(v, -((location.getYaw() * Math.PI / 180) - 1.575));
 		Methods.rotateAroundAxisX(v1, -xRotation);
 		Methods.rotateAroundAxisY(v1, -((location.getYaw() * Math.PI / 180) - 1.575));
-
-		ParticleEffect.CRIT.display(location.clone().add(v), 1, 0, 0, 0, 0);
-		ParticleEffect.CRIT.display(location.clone().add(v1), 1, 0, 0, 0, 0);
-		Methods.playColoredParticle(location.clone().add(v), 1, 0, 0, 0, 216, 104, 39);
-		Methods.playColoredParticle(location.clone().add(v1), 1, 0, 0, 0, 216, 104, 39);
+		p.getWorld().spawnParticle(Particle.CRIT, location.clone().add(v), 1, 0, 0, 0, 0);
+		p.getWorld().spawnParticle(Particle.CRIT, location.clone().add(v1), 1, 0, 0, 0, 0);
+		Methods.playColoredParticle(p, location.clone().add(v), 1, 0, 0, 0, 216, 104, 39);
+		Methods.playColoredParticle(p, location.clone().add(v1), 1, 0, 0, 0, 216, 104, 39);
 		if (anglee == 360) {
 			anglee = 0;
 		}
@@ -97,17 +96,17 @@ public class FlameArms {
 		Methods.rotateAroundAxisX(v1Right, -xRotationRight);
 		Methods.rotateAroundAxisY(v1Right, -((locationRight.getYaw() * Math.PI / 180) - 1.575));
 
-		ParticleEffect.CRIT.display(locationRight.clone().add(vRight), 1, 0, 0, 0, 0);
-		ParticleEffect.CRIT.display(locationRight.clone().add(v1Right), 1, 0, 0, 0, 0);
-		Methods.playColoredParticle(locationRight.clone().add(vRight), 1, 0, 0, 0, 216, 104, 39);
-		Methods.playColoredParticle(locationRight.clone().add(v1Right), 1, 0, 0, 0, 216, 104, 39);
+		p.getWorld().spawnParticle(Particle.CRIT, location.clone().add(vRight), 1, 0, 0, 0, 0);
+		p.getWorld().spawnParticle(Particle.CRIT, location.clone().add(v1Right), 1, 0, 0, 0, 0);
+		Methods.playColoredParticle(p, locationRight.clone().add(vRight), 1, 0, 0, 0, 216, 104, 39);
+		Methods.playColoredParticle(p, locationRight.clone().add(v1Right), 1, 0, 0, 0, 216, 104, 39);
 		if (anglee2 == 360) {
 			anglee2 = 0;
 		}
 		
 		if (!p.isOnGround()) {
-			ParticleEffect.FLAME.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), 4, 0F, 0F, 0F, 0.1F);
-			ParticleEffect.FLAME.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), 4, 0F, 0F, 0F, 0.1F);
+			p.getWorld().spawnParticle(Particle.FLAME, GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), 4, 0F, 0F, 0F, 0.1F);
+			p.getWorld().spawnParticle(Particle.FLAME, GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), 4, 0F, 0F, 0F, 0.1F);
 		}
 	}
 

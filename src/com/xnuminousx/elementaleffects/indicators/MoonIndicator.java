@@ -1,13 +1,13 @@
 package com.xnuminousx.elementaleffects.indicators;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.ability.WaterAbility;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
@@ -87,7 +87,7 @@ public class MoonIndicator {
 				currPoint = 0;
 			}
 			if (currPoint == 0) {
-				ParticleEffect.SNOWBALL.display(player.getLocation().add(0, 0.5, 0), 10, 1, 1, 1, 0.3F);
+				player.getWorld().spawnParticle(Particle.SNOWBALL, player.getLocation().add(0, 0.5, 0), 10, 1, 1, 1, 0.3F);
 			}
 			double angle = currPoint * Math.PI / 270 * Math.cos(Math.PI);
 			double x = 1 * Math.cos(angle + i);
@@ -98,10 +98,10 @@ public class MoonIndicator {
 			location2.add(x, y2, z);
 			location3.add(z, y, x);
 			location4.add(z, y2, x);
-			ParticleEffect.WATER_WAKE.display(location, 1, 0, 0, 0, 0);
-			ParticleEffect.WATER_WAKE.display(location2, 1, 0, 0, 0, 0);
-			ParticleEffect.WATER_WAKE.display(location3, 1, 0, 0, 0, 0);
-			ParticleEffect.WATER_WAKE.display(location4, 1, 0, 0, 0, 0);
+			player.getWorld().spawnParticle(Particle.WATER_WAKE, location, 1, 0, 0, 0, 0);
+			player.getWorld().spawnParticle(Particle.WATER_WAKE, location2, 1, 0, 0, 0, 0);
+			player.getWorld().spawnParticle(Particle.WATER_WAKE, location3, 1, 0, 0, 0, 0);
+			player.getWorld().spawnParticle(Particle.WATER_WAKE, location4, 1, 0, 0, 0, 0);
 			location.subtract(x, y, z);
 			location2.subtract(x, y2, z);
 			location3.subtract(z, y, x);
@@ -116,7 +116,7 @@ public class MoonIndicator {
 				currPoint = 0;
 			}
 			if (currPoint == 0) {
-				ParticleEffect.SNOWBALL.display(player.getLocation().add(0, 1, 0), 20, 1, 1, 1, 0.3F);
+				player.getWorld().spawnParticle(Particle.SNOWBALL, player.getLocation().add(0, 0.5, 0), 20, 1, 1, 1, 0.3F);
 			}
 			double angle = currPoint * Math.PI / 270 * Math.cos(Math.PI);
 			double x = 1 * Math.cos(angle + i);
@@ -127,14 +127,14 @@ public class MoonIndicator {
 			location2.add(x, y2, z);
 			location3.add(z, y, x);
 			location4.add(z, y2, x);
-			ParticleEffect.WATER_DROP.display(location, 0, 0, 0, 0, 1);
-			ParticleEffect.WATER_DROP.display(location2, 0, 0, 0, 0, 1);
-			ParticleEffect.WATER_DROP.display(location3, 0, 0, 0, 0, 1);
-			ParticleEffect.WATER_DROP.display(location4, 0, 0, 0, 0, 1);
-			Methods.playColoredParticle(location, 1, 0, 0, 0, 0, 0, 255);
-			Methods.playColoredParticle(location2, 1, 0, 0, 0, 0, 0, 255);
-			Methods.playColoredParticle(location3, 1, 0, 0, 0, 0, 0, 255);
-			Methods.playColoredParticle(location4, 1, 0, 0, 0, 0, 0, 255);
+			player.getWorld().spawnParticle(Particle.WATER_WAKE, location, 1, 0, 0, 0, 0);
+			player.getWorld().spawnParticle(Particle.WATER_WAKE, location2, 1, 0, 0, 0, 0);
+			player.getWorld().spawnParticle(Particle.WATER_WAKE, location3, 1, 0, 0, 0, 0);
+			player.getWorld().spawnParticle(Particle.WATER_WAKE, location4, 1, 0, 0, 0, 0);
+			Methods.playColoredParticle(player, location, 1, 0, 0, 0, 0, 0, 255);
+			Methods.playColoredParticle(player, location2, 1, 0, 0, 0, 0, 0, 255);
+			Methods.playColoredParticle(player, location3, 1, 0, 0, 0, 0, 0, 255);
+			Methods.playColoredParticle(player, location4, 1, 0, 0, 0, 0, 0, 255);
 			location.subtract(x, y, z);
 			location2.subtract(x, y2, z);
 			location3.subtract(z, y, x);

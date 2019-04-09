@@ -12,7 +12,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.avatar.AvatarState;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Indicator.Indicators;
@@ -63,12 +62,12 @@ public class AvatarStateInd {
 		
 		if (playEyeGlow) {
 			//White
-			Methods.playColoredParticle(rightEye, 1, 0, 0, 0, 255, 255, 255);
-			Methods.playColoredParticle(leftEye, 1, 0, 0, 0, 255, 255, 255);
+			Methods.playColoredParticle(p, rightEye, 1, 0, 0, 0, 255, 255, 255);
+			Methods.playColoredParticle(p, leftEye, 1, 0, 0, 0, 255, 255, 255);
 			
 			//Blue
-			Methods.playColoredParticle(rightEye, 1, 0, 0, 0, 0, 255, 247);
-			Methods.playColoredParticle(rightEye, 1, 0, 0, 0, 0, 255, 247);
+			Methods.playColoredParticle(p, rightEye, 1, 0, 0, 0, 0, 255, 247);
+			Methods.playColoredParticle(p, rightEye, 1, 0, 0, 0, 0, 255, 247);
 		}
 	
 		for (int i = 0; i < 6; i++) {
@@ -84,16 +83,16 @@ public class AvatarStateInd {
 			if (new Random().nextInt(4) == 0) {
 				p.getWorld().spawnParticle(Particle.ITEM_CRACK, location, 1, 0, 0, 0, 0, item);
 			}
-			ParticleEffect.PORTAL.display(location, 2, 0, 0, 0, 0);
+			p.getWorld().spawnParticle(Particle.PORTAL, location, 2, 0, 0, 0, 0);
 			location.subtract(x, y, z);
 		}
 		
 		if (new Random().nextInt(7) == 0) {
-			ParticleEffect.FIREWORKS_SPARK.display(p.getLocation().add(0, 1, 0), 2, 1, 1, 1, 0.1F);
-			ParticleEffect.SPELL_MOB.display(p.getLocation(), 2, 1, 1, 1, 1);
+			p.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, p.getLocation().add(0, 1, 0), 2, 1, 1, 1, 0.1);
+			p.getWorld().spawnParticle(Particle.SPELL_MOB, p.getLocation(), 2, 1, 1, 1, 1);
 		}
 		if (playSpark) {
-			ParticleEffect.FIREWORKS_SPARK.display(p.getLocation().add(0, 1, 0), 20, 0, 0, 0, 0.2F);
+			p.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, p.getLocation().add(0, 1, 0), 20, 0, 0, 0, 0.2F);
 			playSpark = false;
 		}
 	}

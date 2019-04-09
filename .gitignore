@@ -4,3 +4,4 @@
 doc/package-list
 *.js
 *.css
+.classpath

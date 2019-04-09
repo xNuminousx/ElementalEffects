@@ -60,7 +60,7 @@ public class Blood {
 			double y = 1 + (Math.sin(angle)) * (Math.cos(angle));
 			double z = Math.sin(angle);
 			location.add(x, y, z);
-			Methods.playColoredParticle(location, 1, 0.05, 0.05, 0.05, 150, 0, 0);
+			Methods.playColoredParticle(player, location, 1, 0.05, 0.05, 0.05, 150, 0, 0);
 			location.subtract(x, y, z);
 		}
 		for (int i = 0; i < 1; i++) {
@@ -76,7 +76,7 @@ public class Blood {
 			double y = 1 + (Math.sin(angle)) * (Math.cos(angle));
 			double z = Math.sin(angle);
 			location.add(-x, y, -z);
-			Methods.playColoredParticle(location, 1, 0.05, 0.05, 0.05, 150, 0, 0);
+			Methods.playColoredParticle(player, location, 1, 0.05, 0.05, 0.05, 150, 0, 0);
 			location.subtract(-x, y, -z);
 		}
 	}

@@ -60,10 +60,10 @@ public class IndGui implements Listener {
 		
 		inv.setItem(13, Methods.createItem(Material.END_CRYSTAL, "Open Trail GUI", ChatColor.DARK_AQUA, openTrail));
 		inv.setItem(31, Methods.createItem(Material.BARRIER, "Disable Indicator", ChatColor.DARK_RED, removeInd));
-		inv.setItem(15, Methods.createItem(p, Material.GHAST_TEAR, AvatarStateInd.getName(), ChatColor.DARK_PURPLE, Indicators.AVATARSTATE));
-		inv.setItem(11, Methods.createItem(p, Material.REDSTONE, Methods.normalizeString(Indicators.HIT.toString()), ChatColor.DARK_RED, Indicators.HIT));
-		inv.setItem(29, Methods.createItem(p, Material.ENDER_PEARL, MoonIndicator.getName(), ChatColor.BLUE, Indicators.MOON));
-		inv.setItem(33, Methods.createItem(p, Material.CLOCK, SunIndicator.getName(), ChatColor.YELLOW, Indicators.SUN));
+		inv.setItem(29, Methods.createItem(p, Material.GHAST_TEAR, AvatarStateInd.getName(), ChatColor.DARK_PURPLE, Indicators.AVATARSTATE));
+		/*inv.setItem(11, Methods.createItem(p, Material.BARRIER, "DISABLED", ChatColor.DARK_RED, Indicators.HIT));*/
+		inv.setItem(11, Methods.createItem(p, Material.ENDER_PEARL, MoonIndicator.getName(), ChatColor.BLUE, Indicators.MOON));
+		inv.setItem(15, Methods.createItem(p, Material.CLOCK, SunIndicator.getName(), ChatColor.YELLOW, Indicators.SUN));
 		
 		p.openInventory(inv);
 	}
@@ -94,10 +94,10 @@ public class IndGui implements Listener {
 			manageInds(player, Indicators.AVATARSTATE);
 			new AvatarStateInd(player);
 			return;
-		} else if (clickedItem.getItemMeta().getDisplayName().contains(Methods.normalizeString(Indicators.HIT.toString()))) {
+		/*} else if (clickedItem.getItemMeta().getDisplayName().contains(Methods.normalizeString(Indicators.HIT.toString()))) {
 			event.setCancelled(true);
 			manageInds(player, Indicators.HIT);
-			return;
+			return;*/
 		} else if (clickedItem.getItemMeta().getDisplayName().contains(MoonIndicator.getName())) {
 			event.setCancelled(true);
 			manageInds(player, Indicators.MOON);

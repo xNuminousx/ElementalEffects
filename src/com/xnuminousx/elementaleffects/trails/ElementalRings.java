@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
@@ -35,7 +34,7 @@ public class ElementalRings {
 					double x = 1.7 * Math.cos(angle);
 					double z = 1.7 * Math.sin(angle);
 					Location loc = player.getLocation().add(x, 1, z);
-					ParticleEffect.FLAME.display(loc, 2, 0.1, 0.1, 0.1, 0.03);
+					player.getWorld().spawnParticle(Particle.FLAME, loc, 2, 0.1, 0.1, 0.1, 0.03);
 				}
 				
 				anglee+=12;

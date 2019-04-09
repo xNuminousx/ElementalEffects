@@ -10,7 +10,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.Element.SubElement;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
@@ -57,11 +56,11 @@ public class LavaTrail {
 			loc.add(x, y, z);
 			BlockData block = Material.LAVA.createBlockData();
 			p.getWorld().spawnParticle(Particle.BLOCK_CRACK, loc, amount, 0, 0, 0, 0, block);
-			Methods.playColoredParticle(loc, amount, 0.1, 0.1, 0.1, 244, 113, 66);
+			Methods.playColoredParticle(p, loc, amount, 0.1, 0.1, 0.1, 244, 113, 66);
 			loc.subtract(x, y, z);
 		
 			if (t >= 4 * Math.PI) {
-				ParticleEffect.LAVA.display(p.getLocation().add(0, 3, 0), 20, 0F, 0F, 0F, 0);
+				p.getWorld().spawnParticle(Particle.LAVA, p.getLocation().add(0, 3, 0), 20, 0F, 0F, 0F, 0);
 				t = 0;
 			} else if (t >= 3 * Math.PI) {
 				amount = 1;

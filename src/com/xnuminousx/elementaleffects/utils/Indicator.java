@@ -46,7 +46,6 @@ public class Indicator {
 	
 	public enum Indicators {
 		AVATARSTATE,
-		HIT,
 		MOON,
 		SUN,
 	}

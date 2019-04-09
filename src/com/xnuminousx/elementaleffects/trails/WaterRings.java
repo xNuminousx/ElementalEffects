@@ -1,12 +1,12 @@
 package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
@@ -52,8 +52,8 @@ public class WaterRings {
 			double x = size * Math.cos(angle);
 			double z = size * Math.sin(angle);
 			Location loc = p.getLocation().add(x, 1, z);
-			ParticleEffect.WATER_SPLASH.display(loc, 2, 0f, 0f, 0f, 0);
-			ParticleEffect.DRIP_WATER.display(loc, 2, 0f, 0f, 0f, 0);
+			p.getWorld().spawnParticle(Particle.WATER_SPLASH, loc, 2, 0f, 0f, 0f, 0);
+			p.getWorld().spawnParticle(Particle.DRIP_WATER, loc, 2, 0f, 0f, 0f, 0);
 		}
 	}
 }

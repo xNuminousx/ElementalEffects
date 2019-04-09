@@ -1,12 +1,12 @@
 package com.xnuminousx.elementaleffects.trails;
 
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
@@ -37,17 +37,17 @@ public class Intensity {
 	}
 	
 	public void progress(Player p) {
-		ParticleEffect.CRIT.display(p.getLocation(), amount, 0.2F, 0.2F, 0.2F, (float) speed);
-		ParticleEffect.CLOUD.display(p.getLocation(), amount, 0.3F, 0.3F, 0.3F, (float) speed);
-		Methods.playColoredParticle(p.getLocation().add(0, 1, 0), 1, (float) Math.random(), (float) Math.random(), (float) Math.random(), 244, 206, 66);
+		p.getWorld().spawnParticle(Particle.CRIT, p.getLocation(), amount, 0.2F, 0.2F, 0.2F, (float) speed);
+		p.getWorld().spawnParticle(Particle.CLOUD, p.getLocation(), amount, 0.3F, 0.3F, 0.3F, (float) speed);
+		Methods.playColoredParticle(p, p.getLocation().add(0, 1, 0), 1, (float) Math.random(), (float) Math.random(), (float) Math.random(), 244, 206, 66);
 		
 		if (dash) {
 			if (!p.isOnGround()) {
 				if (enablesound) {
 					p.getWorld().playSound(p.getLocation(), Sound.ENTITY_PLAYER_ATTACK_SWEEP, 0.25F, 1F);
 				}
-				ParticleEffect.SWEEP_ATTACK.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), dashamount, 0F, 0F, 0F, dashspeed);
-				ParticleEffect.SWEEP_ATTACK.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), dashamount, 0F, 0F, 0F, dashspeed);
+				p.getWorld().spawnParticle(Particle.SWEEP_ATTACK, GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), dashamount, 0F, 0F, 0F, dashspeed);
+				p.getWorld().spawnParticle(Particle.SWEEP_ATTACK, GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), dashamount, 0F, 0F, 0F, dashspeed);
 			}
 		}
 	}

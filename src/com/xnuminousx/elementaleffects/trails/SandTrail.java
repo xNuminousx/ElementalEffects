@@ -32,6 +32,6 @@ public class SandTrail {
 	}
 	
 	public void progress(Player p) {
-		Methods.playColoredParticle(p.getLocation(), 5, 1, 1, 1, 251, 255, 186);
+		Methods.playColoredParticle(p, p.getLocation(), 5, 1, 1, 1, 251, 255, 186);
 	}
 }

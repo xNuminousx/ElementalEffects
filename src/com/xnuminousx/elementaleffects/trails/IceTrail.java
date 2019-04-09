@@ -9,7 +9,6 @@ import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.Element.SubElement;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
@@ -38,8 +37,8 @@ public class IceTrail {
 	public void progress(Player p) {
 		BlockData block = Material.PACKED_ICE.createBlockData();
 		p.getWorld().spawnParticle(Particle.BLOCK_CRACK, p.getLocation().add(0, 1, 0), amount, 0.5, 0.5, 0.5, 0, block);
-		ParticleEffect.CLOUD.display(GeneralMethods.getRightSide(p.getLocation(), -.55).add(0, 0, 0), amount, 0.2F, 0.2F, 0.2F, speed);
-		ParticleEffect.CLOUD.display(GeneralMethods.getLeftSide(p.getLocation(), -.55).add(0, 0, 0), amount, 0.2F, 0.2F, 0.2F, speed);
+		p.getWorld().spawnParticle(Particle.CLOUD, GeneralMethods.getRightSide(p.getLocation(), -.55).add(0, 0, 0), amount, 0.2F, 0.2F, 0.2F, speed);
+		p.getWorld().spawnParticle(Particle.CLOUD, GeneralMethods.getLeftSide(p.getLocation(), -.55).add(0, 0, 0), amount, 0.2F, 0.2F, 0.2F, speed);
 	}
 
 }

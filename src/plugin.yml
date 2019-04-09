@@ -1,6 +1,6 @@
 name: ElementalEffects
 author: xNuminousx
-version: 3.0
+version: 3.0-MYSTIC
 api-version: 1.13
 depend: [ProjectKorra]
 main: com.xnuminousx.elementaleffects.Main

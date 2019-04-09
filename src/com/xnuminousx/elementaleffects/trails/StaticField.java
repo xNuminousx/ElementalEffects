@@ -1,13 +1,13 @@
 package com.xnuminousx.elementaleffects.trails;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.Element.SubElement;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
@@ -60,11 +60,11 @@ public class StaticField {
 				double z = size * Math.sin(angle);
 				Location loc = p.getLocation().add(x, 1, z);
 				Location negloc = p.getLocation().add(-x, 1, -z);
-				Methods.playColoredParticle(loc, 1, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1, 255, 255);
-				ParticleEffect.CRIT_MAGIC.display(negloc, amount, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.05F);
+				Methods.playColoredParticle(p, loc, 1, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1, 255, 255);
+				p.getWorld().spawnParticle(Particle.CRIT_MAGIC, negloc, amount, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.05F);
 			}
 		}
-		ParticleEffect.CRIT_MAGIC.display(p.getLocation(), amount, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.05F);
-		Methods.playColoredParticle(p.getLocation().add(0, 1, 0), 1, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1, 255, 255);
+		p.getWorld().spawnParticle(Particle.CRIT_MAGIC, p.getLocation(), amount, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.05F);
+		Methods.playColoredParticle(p, p.getLocation().add(0, 1, 0), 1, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1, 255, 255);
 	}
 }

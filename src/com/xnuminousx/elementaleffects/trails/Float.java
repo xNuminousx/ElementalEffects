@@ -1,5 +1,6 @@
 package com.xnuminousx.elementaleffects.trails;
 
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -7,7 +8,6 @@ import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.Element.SubElement;
-import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
@@ -46,15 +46,15 @@ public class Float {
 	
 	public void progress(Player p) {
 		if (p.isSprinting()) {
-			ParticleEffect.SWEEP_ATTACK.display(p.getLocation().add(0, 1, 0), 1, 0.5F, 0.5F, 0.5F, 0);
+			p.getWorld().spawnParticle(Particle.SWEEP_ATTACK, p.getLocation().add(0, 1, 0), 1, 0.5F, 0.5F, 0.5F, 0);
 			if (enablesparks) {
-				ParticleEffect.FIREWORKS_SPARK.display(p.getLocation().add(0, 1, 0), 3, 0.5F, 0.5F, 0.5F, 0.05F);
+				p.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, p.getLocation().add(0, 1, 0), 3, 0.5F, 0.5F, 0.5F, 0.05F);
 			}
 		}
-		ParticleEffect.CLOUD.display(GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0F, 0F, 0F, speed);
-		ParticleEffect.CLOUD.display(GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0F, 0F, 0F, speed);
-		ParticleEffect.CLOUD.display(GeneralMethods.getRightSide(p.getLocation(), -.55).add(0, 0, 0), amount, 0F, 0F, 0F, speed);
-		ParticleEffect.CLOUD.display(GeneralMethods.getLeftSide(p.getLocation(), -.55).add(0, 0, 0), amount, 0F, 0F, 0F, speed);
+		p.getWorld().spawnParticle(Particle.CLOUD, GeneralMethods.getRightSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0F, 0F, 0F, speed);
+		p.getWorld().spawnParticle(Particle.CLOUD, GeneralMethods.getLeftSide(p.getLocation(), .55).add(0, 1.2, 0), amount, 0F, 0F, 0F, speed);
+		p.getWorld().spawnParticle(Particle.CLOUD, GeneralMethods.getRightSide(p.getLocation(), -.55).add(0, 1.2, 0), amount, 0F, 0F, 0F, speed);
+		p.getWorld().spawnParticle(Particle.CLOUD, GeneralMethods.getLeftSide(p.getLocation(), -.55).add(0, 1.2, 0), amount, 0F, 0F, 0F, speed);
 	}
 
 }
