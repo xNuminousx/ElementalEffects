@@ -10,26 +10,24 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.Element.SubElement;
+import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.xnuminousx.elementaleffects.Main;
 import com.xnuminousx.elementaleffects.config.Manager;
 import com.xnuminousx.elementaleffects.utils.Methods;
 import com.xnuminousx.elementaleffects.utils.Trail.Trails;
 
-public class LavaTrail {
+public class Eruption {
 	
 	double t = 0;
 	Main plugin = Main.getInstance();
 	int amount = Main.getInstance().getConfig().getInt("Trails.Eruption.Particles.Amount");
 	
-	public LavaTrail(Player player) {
+	public Eruption(Player player) {
 		new BukkitRunnable() {
 
 			@Override
 			public void run() {
-				if (!Methods.hasPermission(player, "trails", getName()) || 
-						!plugin.trails.containsKey(player) || 
-						!plugin.trails.get(player).getType().equals(Trails.ERUPTION) ||
-						!player.isOnline()) {
+				if (!Methods.hasPermission(player, "trails", getName()) || !plugin.trails.containsKey(player) || !plugin.trails.get(player).getType().equals(Trails.ERUPTION)) {
 					this.cancel();
 				}
 				BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
@@ -42,7 +40,7 @@ public class LavaTrail {
 				}
 			}
 			
-		}.runTaskTimer(Main.getInstance(), 0, 1);
+		}.runTaskTimerAsynchronously(Main.getInstance(), 0, 1);
 	}
 	
 	public static String getName() {
@@ -63,7 +61,7 @@ public class LavaTrail {
 			loc.subtract(x, y, z);
 		
 			if (t >= 4 * Math.PI) {
-				p.getWorld().spawnParticle(Particle.LAVA, p.getLocation().add(0, 3, 0), 20, 0F, 0F, 0F, 0);
+				ParticleEffect.LAVA.display(p.getLocation().add(0, 3, 0), 20, 0F, 0F, 0F, 0);
 				t = 0;
 			} else if (t >= 3 * Math.PI) {
 				amount = 1;

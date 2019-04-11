@@ -28,12 +28,12 @@ import com.xnuminousx.elementaleffects.trails.Cloud;
 import com.xnuminousx.elementaleffects.trails.Combust;
 import com.xnuminousx.elementaleffects.trails.EarthTrail;
 import com.xnuminousx.elementaleffects.trails.ElementalRings;
+import com.xnuminousx.elementaleffects.trails.Eruption;
 import com.xnuminousx.elementaleffects.trails.FireTrail;
 import com.xnuminousx.elementaleffects.trails.FlameArms;
 import com.xnuminousx.elementaleffects.trails.Float;
 import com.xnuminousx.elementaleffects.trails.IceTrail;
 import com.xnuminousx.elementaleffects.trails.Intensity;
-import com.xnuminousx.elementaleffects.trails.LavaTrail;
 import com.xnuminousx.elementaleffects.trails.SandCloak;
 import com.xnuminousx.elementaleffects.trails.SandTrail;
 import com.xnuminousx.elementaleffects.trails.StaticField;
@@ -84,7 +84,7 @@ public class TrailGui implements Listener {
 		inv.setItem(31, Methods.createItem(Material.BARRIER, "Disable Trail", ChatColor.DARK_RED, removeTrail));
 		inv.setItem(9, Methods.createItem(p, Material.GRASS_BLOCK, EarthTrail.getName(), ChatColor.GREEN, Trails.EARTH));
 		inv.setItem(18, Methods.createItem(p, Material.SAND, SandTrail.getName(), ChatColor.YELLOW, Trails.SANDCLOAK));
-		inv.setItem(27, Methods.createItem(p, Material.MAGMA_CREAM, LavaTrail.getName(), ChatColor.DARK_GREEN, Trails.ERUPTION));
+		inv.setItem(27, Methods.createItem(p, Material.MAGMA_CREAM, Eruption.getName(), ChatColor.DARK_GREEN, Trails.ERUPTION));
 		inv.setItem(11, Methods.createItem(p, Material.WATER_BUCKET, WaterTrail.getName(), ChatColor.AQUA, Trails.WATER));
 		inv.setItem(20, Methods.createItem(p, Material.ICE, IceTrail.getName(), ChatColor.DARK_AQUA, Trails.ICE));
 		inv.setItem(29, Methods.createItem(p, Material.BLACK_GLAZED_TERRACOTTA, Blood.getName(), ChatColor.DARK_RED, Trails.BLOOD));
@@ -133,10 +133,10 @@ public class TrailGui implements Listener {
 			manageTrails(player, Trails.SANDCLOAK, Element.EARTH, Element.SAND);
 			new SandCloak(player);
 			return;
-		} else if (clickedItem.getItemMeta().getDisplayName().contains(LavaTrail.getName())) {
+		} else if (clickedItem.getItemMeta().getDisplayName().contains(Eruption.getName())) {
 			event.setCancelled(true);
 			manageTrails(player, Trails.ERUPTION, Element.EARTH, Element.LAVA);
-			new LavaTrail(player);
+			new Eruption(player);
 			return;
 		//FIRE	
 		} else if (clickedItem.getItemMeta().getDisplayName().contains(FireTrail.getName())) {

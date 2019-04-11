@@ -60,7 +60,7 @@ public class ElementalRings {
 					this.cancel();
 				}
 			}
-		}.runTaskTimer(Main.getInstance(), 0, 1);
+		}.runTaskTimerAsynchronously(Main.getInstance(), 0, 1);
 	}
 	
 	public static String getName() {

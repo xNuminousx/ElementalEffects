@@ -42,7 +42,7 @@ public class Combust {
 					progress(player);
 				}
 			}
-		}.runTaskTimer(plugin, 0, 0);
+		}.runTaskTimerAsynchronously(plugin, 0, 0);
 	}
 	
 	public static String getName() {

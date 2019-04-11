@@ -22,9 +22,9 @@ import com.xnuminousx.elementaleffects.trails.Blood;
 import com.xnuminousx.elementaleffects.trails.Cloud;
 import com.xnuminousx.elementaleffects.trails.Combust;
 import com.xnuminousx.elementaleffects.trails.ElementalRings;
+import com.xnuminousx.elementaleffects.trails.Eruption;
 import com.xnuminousx.elementaleffects.trails.FlameArms;
 import com.xnuminousx.elementaleffects.trails.Float;
-import com.xnuminousx.elementaleffects.trails.LavaTrail;
 import com.xnuminousx.elementaleffects.trails.SandCloak;
 import com.xnuminousx.elementaleffects.trails.StaticField;
 import com.xnuminousx.elementaleffects.trails.WaterRings;
@@ -263,7 +263,7 @@ public class Commands implements CommandExecutor {
 		if (trail.equals(Trails.SANDCLOAK)) {
 			new SandCloak(player);
 		} else if (trail.equals(Trails.ERUPTION)) {
-			new LavaTrail(player);
+			new Eruption(player);
 			
 		} else if (trail.equals(Trails.AIR)) {
 			new Cloud(player);

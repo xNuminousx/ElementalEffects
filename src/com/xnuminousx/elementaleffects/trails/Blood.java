@@ -41,7 +41,7 @@ public class Blood {
 					progress(player);
 				}
 			}
-		}.runTaskTimer(Main.plugin, 0, 0);
+		}.runTaskTimerAsynchronously(Main.plugin, 0, 0);
 	}
 	
 	public static String getName() {

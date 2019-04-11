@@ -49,7 +49,7 @@ public class SandCloak {
 				}
 			}
 			
-		}.runTaskTimer(Main.getInstance(), 0, 2);
+		}.runTaskTimerAsynchronously(Main.getInstance(), 0, 2);
 	}
 	
 	public void progress(Player p) {

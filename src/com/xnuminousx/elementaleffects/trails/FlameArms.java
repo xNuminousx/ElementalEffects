@@ -48,7 +48,7 @@ public class FlameArms {
 					progress(player);
 				}
 			}
-		}.runTaskTimer(Main.getInstance(), 0, 1);
+		}.runTaskTimerAsynchronously(Main.getInstance(), 0, 1);
 	}
 	
 	public void progress(Player p) {
